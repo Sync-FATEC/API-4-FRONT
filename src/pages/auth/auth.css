@@ -1,0 +1,193 @@
+section.formAuth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+section.formAuth form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100vh;
+  background-color: var(--white-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section.formAuth form h1 {
+  font-size: var(--title-font);
+  margin-bottom: 8px;
+}
+
+section.formAuth form p {
+  color: var(--gray-color);
+  margin-bottom: var(--margin);
+}
+
+section.formAuth form input {
+  width: 40%;
+  height: var(--border);
+  border-radius: 10px;
+  border: none;
+  background-color: var(--lightgray-color);
+  margin-bottom: var(--margin);
+}
+
+section.formAuth form button {
+  width: 20%;
+  height: var(--border);
+  border-radius: var(--padding-input);
+  border: none;
+  background: linear-gradient(99.78deg, var(--yellow-color) -5.85%, var(--blue-color) 59.93%);
+  color: var(--white-color);
+  font-weight: bold;
+}
+
+section.formAuth div.formAuthImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100vh;
+  background: url('./static/img/Fundo.png');
+  background-size: cover;
+  background-blend-mode: overlay;
+}
+
+section.formAuth div.formAuthImg .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  min-height: 524px;
+  gap: 64px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  background: rgba(255, 255, 255, 0.21);
+  border-radius: var(--border);
+}
+
+section.formAuth div.formAuthImg .card h2 {
+  font-size: var(--title-font);
+  color: var(--white-color);
+}
+
+section.formAuth div.formAuthImg .card p {
+  font-size: var(--text-font);
+  color: var(--white-color);
+  text-align: center;
+  padding: 16px;
+}
+
+.card a, .cardMobile a {
+  font-size: 1rem;
+  color: var(--blue-color);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid var(--blue-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.card a:hover, .cardMobile a:hover {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+}
+
+.cardMobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .cardMobile {
+    display: flex; /* Exibe o card */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    padding: 16px;
+    gap: 16px;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: 16px auto;
+  }
+
+  .cardMobile h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--gray-color);
+  }
+}
+
+
+
+#text {
+  background-image: url('./static/img/user.svg');
+  background-repeat: no-repeat;
+  background-position: var(--padding-input) center;
+  padding-left: var(--border);
+  padding-right: var(--padding-input);
+  box-sizing: border-box;
+  border-radius: var(--padding-input);
+}
+
+#password {
+  background-image: url('./static/img/password.svg');
+  background-repeat: no-repeat;
+  background-position: var(--padding-input) center;
+  padding-left: var(--border);
+  padding-right: var(--padding-input);
+  box-sizing: border-box;
+  border-radius: var(--padding-input);
+
+}
+
+input:focus,
+button:hover {
+  outline: none;
+}
+
+.logo-mobile{
+  display: none;
+}
+@media (max-width: 768px) {
+  section.formAuth {
+    flex-direction: column;
+  }
+
+  .formAuthImg {
+      display: none  !important;
+    }
+
+    section.formAuth form {
+      width: 100%;
+    }
+
+    .logo-mobile{
+      display: flex;
+      padding-bottom: 32px;
+    }
+
+    section.formAuth form input {
+      width: 80%;
+    }
+
+    section.formAuth form button {
+      width: 40%;
+
+    }
+  
+}
+@media (max-width: 568px) {
+  
+}
+@media (max-width: 320px) {
+  
+}
