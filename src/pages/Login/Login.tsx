@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import "./auth.css";
+import "./Login.css";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
-import logo from "./img/logo.svg";
+import logo from "./static/img/logo.svg";
 
 export default function LoginComponent() {
   const authContext = useContext(AuthContext);
