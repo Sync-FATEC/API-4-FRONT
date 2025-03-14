@@ -47,28 +47,25 @@ export default function RegisterComponent() {
     <div className='register-modal'>
       <div className='personal-data'>
         <div className='subtitle'>
-          <h2>Dados pessoais</h2>
+          <p>Dados pessoais</p>
         </div>
 
         <div className='input-container'>
-          <label>Nome</label>
-          <Input />
+          <Input label='Nome' placeholder='Digite seu nome'/>
         </div>
 
         <div className='input-container'>
-          <label>Email</label>
-          <Input />
+          <Input label='E-mail'placeholder='usuario@mail.com'/>
         </div>
       </div>
 
       <div className='identification-documents'>
         <div className='subtitle'>
-          <h2>Documentos de identificação</h2>
+          <p>Documentos de identificação</p>
         </div>
 
         <div className='input-container'>
-          <label>CPF</label>
-          <Input />
+          <Input label='CPF' placeholder='123.456.789-00'/>
         </div>
       </div>
       
