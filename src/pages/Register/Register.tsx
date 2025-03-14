@@ -9,7 +9,7 @@ import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 
-export default function RegisterComponent() {
+export default function RegisterClient() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
