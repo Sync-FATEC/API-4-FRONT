@@ -42,9 +42,22 @@ export default function RegisterComponent() {
     }
   };
 
+  const children = (
+    <div className='register-modal'>
+      <h2>Dados pessoais</h2>
+      <label>Nome</label>
+      <input type="text" />
+      <label>Email</label>
+      <input type="text" />
+    </div>
+  );
+
   return (
     <main>
-      <Modal/>
+      <Modal 
+      title='Cadastro de usuário'
+      children={children}
+      />
     </main>
   );
 }

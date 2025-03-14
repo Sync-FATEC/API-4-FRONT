@@ -5,18 +5,30 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Modal.css';
 
-export default function Modal({ }) {
+interface ModalProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+export default function Modal({ title, children }: ModalProps) {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
-    <div className="modal-overlay" >
+    <div className="modal-overlay">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className='header'>
-            <h2>Cadastrar usuário</h2>
-            <button className="modal-close" onClick={() => navigate('/')}><FontAwesomeIcon icon={faXmark} /></button>
+        
+        <div className="header">
+          <h2>{title}</h2>
+          <button className="modal-close" onClick={() => navigate('/')}>
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
         </div>
-        <div className="modal-body">childrenchildrenchildrenchildrenchildrenchildrenchildrenchildrenchildrenchildrenchildrenchildren</div>
+
+        <div className="modal-body">
+          {children}
+        </div>
+
       </div>
     </div>
   );

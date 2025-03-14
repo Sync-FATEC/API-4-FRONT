@@ -22,6 +22,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .modal-close {
@@ -30,6 +31,21 @@
     padding: 6px 12px;
     cursor: pointer;
     border-radius: 8px;
+}
+
+.modal-body {
+    background-color: var(--graybody-color);
+    border-radius: 12px;
+    padding: 12px 20px 12px 20px;
+}
+.modal-body h2 {
+    border-bottom: 1px solid var(--lightgray-color-font);
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+.modal-body h3 {
+    
 }
 
 .header {
