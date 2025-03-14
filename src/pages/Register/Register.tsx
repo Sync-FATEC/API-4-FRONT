@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import './auth.css';
+import './Register.css';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api, { links } from '../../api/api';
 import { RegisterForm } from '../../type/auth';
 import { errorSwal } from '../../components/swal/errorSwal';
+import Modal from '../../components/modal/Modal';
 
 export default function RegisterComponent() {
   const authContext = useContext(AuthContext);
@@ -43,28 +44,7 @@ export default function RegisterComponent() {
 
   return (
     <main>
-      <section className='formAuth Register'>
-        <form onSubmit={handleSubmitRegister}>
-          <img className='logo-mobile' src="/static/img/logo.svg" alt="" />
-          <h1>Nome generico</h1>
-          <p>Crie sua conta</p>
-          <input type='text' id='text' name='name' placeholder='Nome' required />
-          <input type='text' id='text' name='email' placeholder='Email' required />
-          <input type='text' id='text' name='cpf' placeholder='CPF' required />
-          <input type='password' id='password' name='password' required placeholder='Senha' />
-          <button type='submit'>Registrar</button>
-        </form>
-        <div className="cardMobile">
-          <h2>Já tem sua conta?</h2>
-          <a href="/login">Acesse sua conta</a>
-        </div>
-        <div className='formAuthImg'>
-          <div className="card">
-            <h2>Já tem sua conta?</h2>
-            <a href="/login">Acesse sua conta</a>
-          </div>
-        </div>
-      </section>
+      <Modal/>
     </main>
   );
 }

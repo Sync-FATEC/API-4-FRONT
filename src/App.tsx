@@ -4,7 +4,7 @@ import './global.css';
 import './colors.css'
 import { AuthProvider } from './contexts/auth/AuthContext';
 import LoginComponent from './pages/Login/Login';
-import RegisterComponent from './pages/auth/register';
+import RegisterComponent from './pages/Register/Register';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 
 function App() {
