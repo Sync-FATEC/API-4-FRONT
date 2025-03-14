@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Auth from './pages/auth/login';
+import Auth from './pages/Login/Login';
 import './global.css';
 import './colors.css'
 import { AuthProvider } from './contexts/auth/AuthContext';
-import LoginComponent from './pages/auth/login';
+import LoginComponent from './pages/Login/Login';
 import RegisterComponent from './pages/auth/register';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 

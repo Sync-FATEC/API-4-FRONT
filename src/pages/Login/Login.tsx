@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './auth.css';
+import './Login.css';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,6 @@ export default function LoginComponent() {
     const form = event.currentTarget;
     const email = form.text.value;
     const password = form.password.value;
-
 
     try {
       await authContext.login(email, password);
