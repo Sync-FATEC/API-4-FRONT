@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Auth from './pages/Login/Login';
 import './global.css';
 import './colors.css'
 import { AuthProvider } from './contexts/auth/AuthContext';
-import LoginComponent from './pages/Login/Login';
-import RegisterComponent from './pages/Register/Register';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
+import LoginComponent from './pages/Login/Login';
+import ForgetPasswordComponent from './pages/ForgetPassword/ForgetPassword';
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<LoginComponent />} />
-            <Route path="/register" element={<RegisterComponent />} />
+            <Route path='/esqueci-senha' element={<ForgetPasswordComponent />} />
             <Route path="*" element={<RequireAuthAdmin><div>padwawd</div></RequireAuthAdmin>} />
           </Routes>
         </AuthProvider>

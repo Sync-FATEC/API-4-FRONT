@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import './Login.css';
-import { AuthContext } from '../../contexts/auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import "./Login.css";
+import { AuthContext } from "../../contexts/auth/AuthContext";
+import { useNavigate } from "react-router-dom";
+import logo from "./static/img/logo.svg";
 
 export default function LoginComponent() {
   const authContext = useContext(AuthContext);
@@ -15,33 +16,39 @@ export default function LoginComponent() {
 
     try {
       await authContext.login(email, password);
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
-  }
-  
+  };
+
   return (
     <main>
-      <section className='formAuth Login'>
+      <div className="background"></div>
+      <section className="formAuth Login">
         <form onSubmit={handleSubmitLogin}>
-        <img className='logo-mobile' src="/static/img/logo.svg" alt="" />
-          <h1>Nome generico</h1>
-          <p>Acesse sua conta</p>
-          <input type='text' id='text' name='text' placeholder='Email' required />
-          <input type='password' id='password' name='password' required placeholder='Senha' />
-          <button type='submit'>Login</button>
+          <img src={logo} alt="" />
+          <label htmlFor="text">Endereço de e-mail</label>
+          <input type="text" id="text" name="text" placeholder="" required />
+          <label htmlFor="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder=""
+          />
+          <p>
+            Esqueceu sua senha? <a href="/esqueci-senha">Clique aqui</a>
+          </p>
+          <button type="submit">Entrar</button>
         </form>
-        <div className='cardMobile'>
-          <h2>Não tem uma conta?</h2>
-          <a href="/register">Registre-se para ter acesso ao site</a>
+        <div className="ou-line">
+          <div className="line"></div>
+          <p>ou</p>
+          <div className="line"></div>
         </div>
-        <div className='formAuthImg'>
-          <div className='card'>
-            <h2>Não tem uma conta?</h2>
-            <a href="/register">Registre-se para ter acesso ao site</a>
-          </div>
-        </div>
+        <button>Entrar apenas como leitor</button>
       </section>
     </main>
   );
