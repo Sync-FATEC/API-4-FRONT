@@ -7,10 +7,11 @@ import './Modal.css';
 
 interface ModalProps {
   title: string;
+  description?: string;
   children: React.ReactNode;
 }
 
-export default function Modal({ title, children }: ModalProps) {
+export default function Modal({ title, description,children }: ModalProps) {
   const navigate = useNavigate();
 
   return (
@@ -26,6 +27,12 @@ export default function Modal({ title, children }: ModalProps) {
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
+
+        {description && 
+          <div>
+            {description}
+          </div>
+        }
 
         <div className="modal-body">
           {children}

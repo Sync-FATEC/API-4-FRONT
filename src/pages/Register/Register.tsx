@@ -7,6 +7,7 @@ import { RegisterForm } from '../../type/auth';
 import { errorSwal } from '../../components/swal/errorSwal';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
+import Button from '../../components/button/Button';
 
 export default function RegisterComponent() {
   const authContext = useContext(AuthContext);
@@ -69,8 +70,11 @@ export default function RegisterComponent() {
         </div>
       </div>
       
-      <button>Cancelar</button>
-      <button>Cadastrar</button>
+      <div className='Buttons'>
+        <Button label='Cancelar' styleButton={2}/>
+        <Button label='Cadastrar' styleButton={1}/>
+      </div>
+
     </div>
   );
 

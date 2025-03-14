@@ -15,7 +15,7 @@
     color: var(--lightgray-color-font);
     border-radius: 12px;
     padding: 20px;
-    min-width: 442px;
+    min-width: 28vw;
     max-width: 90vw;
     min-height: 100px;
     max-height: 90vh;
