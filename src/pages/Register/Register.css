@@ -1,3 +1,23 @@
 .register-modal {
   display: block; 
 }
+
+.subtitle {
+  border-bottom: 1px solid var(--lightgray-color-font);
+  margin-bottom: 10px;
+  margin-top: 2px;
+}
+
+.input-container {
+  font-weight: bold;  
+  font-size: 2rem;
+  color: #7E6B8C;
+}
+
+.personal-data {
+  margin-bottom: 10px;
+}
+
+.identification-documents {
+  margin-bottom: 50px;
+}

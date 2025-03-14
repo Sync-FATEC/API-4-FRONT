@@ -6,6 +6,7 @@ import api, { links } from '../../api/api';
 import { RegisterForm } from '../../type/auth';
 import { errorSwal } from '../../components/swal/errorSwal';
 import Modal from '../../components/modal/Modal';
+import Input from '../../components/input/Input';
 
 export default function RegisterComponent() {
   const authContext = useContext(AuthContext);
@@ -44,11 +45,35 @@ export default function RegisterComponent() {
 
   const children = (
     <div className='register-modal'>
-      <h2>Dados pessoais</h2>
-      <label>Nome</label>
-      <input type="text" />
-      <label>Email</label>
-      <input type="text" />
+      <div className='personal-data'>
+        <div className='subtitle'>
+          <h2>Dados pessoais</h2>
+        </div>
+
+        <div className='input-container'>
+          <label>Nome</label>
+          <Input />
+        </div>
+
+        <div className='input-container'>
+          <label>Email</label>
+          <Input />
+        </div>
+      </div>
+
+      <div className='identification-documents'>
+        <div className='subtitle'>
+          <h2>Documentos de identificação</h2>
+        </div>
+
+        <div className='input-container'>
+          <label>CPF</label>
+          <Input />
+        </div>
+      </div>
+      
+      <button>Cancelar</button>
+      <button>Cadastrar</button>
     </div>
   );
 

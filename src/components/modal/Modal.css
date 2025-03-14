@@ -15,7 +15,7 @@
     color: var(--lightgray-color-font);
     border-radius: 12px;
     padding: 20px;
-    min-width: 200px;
+    min-width: 442px;
     max-width: 90vw;
     min-height: 100px;
     max-height: 90vh;
@@ -38,15 +38,6 @@
     border-radius: 12px;
     padding: 12px 20px 12px 20px;
 }
-.modal-body h2 {
-    border-bottom: 1px solid var(--lightgray-color-font);
-    padding-bottom: 5px;
-    width: 100%;
-}
-
-.modal-body h3 {
-    
-}
 
 .header {
     display: flex;
@@ -55,7 +46,7 @@
     gap: 10px;
 }
 
-.header h2 {
+.title {
     border-bottom: 1px solid var(--lightgray-color-font);
     padding-bottom: 5px;
     width: 100%;

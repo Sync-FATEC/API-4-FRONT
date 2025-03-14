@@ -11,7 +11,6 @@ interface ModalProps {
 }
 
 export default function Modal({ title, children }: ModalProps) {
-  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
@@ -19,7 +18,10 @@ export default function Modal({ title, children }: ModalProps) {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         
         <div className="header">
-          <h2>{title}</h2>
+          <div className="title">
+            <h2>{title}</h2>
+          </div>
+
           <button className="modal-close" onClick={() => navigate('/')}>
             <FontAwesomeIcon icon={faXmark} />
           </button>
