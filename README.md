@@ -40,7 +40,7 @@ Este é o frontend do sistema de monitoramento ambiental desenvolvido para a Tec
 <h2 id='execucao'> Como Executar </h2>
 <ol>
 <li>Instale as dependências com <code>npm install</code>.</li>
-<li>Execute <code>npm start</code> para iniciar o aplicativo em modo de desenvolvimento.</li>
+<li>Execute <code>npm run dev</code> para iniciar o aplicativo em modo de desenvolvimento.</li>
 </ol>
 
 <br>
