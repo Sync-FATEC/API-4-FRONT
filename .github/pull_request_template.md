@@ -1,7 +1,7 @@
 # [TItulo da Tarefa no Jira]
 
 ## Branch
-- Coloque sua branch
+- `{{ github.head_ref }}`
 
 ## Changelog:
 - Aqui você deve citar todas as alterações que você realizou nessa branch.
