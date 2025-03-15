@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./  # Caminho onde o Dockerfile do frontend está
+    container_name: api42025_front
+    ports:
+      - "3000:3000"  # Mapear a porta 3000 do container para a porta 3000 do host
+    environment:
+      - NODE_ENV=production
