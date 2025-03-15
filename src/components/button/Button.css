@@ -23,6 +23,16 @@
     color: #333;
 }
 
+.custom-button-type-3 {
+    background-color: #5751D4;
+    color: white;
+}
+
+.custom-button-type-3:hover {
+    background-color: #4a44b8;
+    color: #e0e0e0;
+}
+
 button {
     padding: 12px 21px 12px 21px;
     font-weight: 500;

@@ -3,6 +3,7 @@ import "./Login.css";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import logo from "./static/img/logo.svg";
+import Button from "../../components/button/Button";
 
 export default function LoginComponent() {
   const authContext = useContext(AuthContext);
@@ -41,14 +42,14 @@ export default function LoginComponent() {
           <p>
             Esqueceu sua senha? <a href="/esqueci-senha">Clique aqui</a>
           </p>
-          <button type="submit">Entrar</button>
+          <Button label="Entrar" styleButton={3}/>
         </form>
         <div className="ou-line">
           <div className="line"></div>
           <p>ou</p>
           <div className="line"></div>
         </div>
-        <button>Entrar apenas como leitor</button>
+        <Button label="Entrar apenas como leitor" styleButton={3}/>
       </section>
     </main>
   );
