@@ -21,6 +21,7 @@
     padding: 12px;
     outline: none;
     background: var(--lilac);
+    margin-top: 5px;
 }
 
 .style-input-2 {
@@ -36,4 +37,5 @@
     font-size: 1rem;
     outline: none;
     background: white;
+    margin-top: 5px;
 }

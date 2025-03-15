@@ -24,14 +24,14 @@
 /* Seção do formulário */
 .login-form-container {
   z-index: 1;
-  min-width: 23vw; 
+  width: 50vh;
   margin-top: 80px;
 }
 
 /* Formulário */
 .login-form-container {
   z-index: 1;
-  min-width: 23vw;
+  max-width: 70vw;
   margin: auto; /* Centraliza horizontalmente */
   display: flex;
   flex-direction: column;
@@ -42,7 +42,7 @@
 
 /* Logo */
 .login-logo {
-  width: 21vw;
+  width: 100%;
   margin-bottom: 30px;
 }
 

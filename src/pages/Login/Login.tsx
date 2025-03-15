@@ -48,7 +48,7 @@ export default function LoginComponent() {
           </div>
 
           <div className="login-buttons">
-            <Button label="Entrar apenas como leitor" styleButton={3} />
+            <Button label="Entrar apenas como leitor" onClick={() => navigate('/dashboard')} styleButton={3} />
           </div>
 
         </form>
