@@ -1,0 +1,42 @@
+.custom-button {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.custom-button-type-1 {
+    background-color: var(--indigo-transparent);
+    color: white;
+}
+
+.custom-button-type-1:hover {
+    background-color: var(--indigo-transparent-hover);
+    color: #e0e0e0;
+}
+
+.custom-button-type-2 {
+    background-color: var(--lavender-pale);
+    color: black;
+}
+
+.custom-button-type-2:hover {
+    background-color: var(--lavender-pale-hover);
+    color: #333;
+}
+
+.custom-button-type-3 {
+    background-color: var(--deep-indigo);
+    color: white;
+}
+
+.custom-button-type-3:hover {
+    background-color: var(--deep-indigo-hover);
+    color: #e0e0e0;
+}
+
+button {
+    padding: 12px 21px 12px 21px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
