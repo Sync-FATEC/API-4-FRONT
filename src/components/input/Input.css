@@ -1,6 +1,5 @@
 .input-container {
     gap: 5px;
-    background-color: #f2ecfc;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -8,12 +7,33 @@
     padding-bottom: 6px;
 }
 
-.input-container input {
+.style-input-1 {
+    color: #F8F6F9;
+    font-weight: bold;
+}
+
+.style-input-1 input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    padding: 12px;
+    outline: none;
+    background: var(--lilac);
+}
+
+.style-input-2 {
+    color: #7E6B8C;
+    font-weight: bold;
+}
+
+.style-input-2 input {
     width: 100%;
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 16px;
+    font-size: 1rem;
     outline: none;
     background: white;
 }

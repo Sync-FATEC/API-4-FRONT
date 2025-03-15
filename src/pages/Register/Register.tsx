@@ -1,49 +1,9 @@
-import React, { useContext } from 'react';
 import './Register.css';
-import { AuthContext } from '../../contexts/auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import api, { links } from '../../api/api';
-import { RegisterForm } from '../../type/auth';
-import { errorSwal } from '../../components/swal/errorSwal';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 
 export default function RegisterClient() {
-  const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  if (authContext.isAuthenticated) {
-    navigate('/sidebar');
-  }
-
-  const handleSubmitRegister = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const name = (form.elements.namedItem('name') as HTMLInputElement).value;
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-    let cpf = (form.elements.namedItem('cpf') as HTMLInputElement).value;
-    const password = (form.elements.namedItem('password') as HTMLInputElement).value;
-    const role = 'USER';
-
-    cpf = cpf.replace(/\D/g, '');
-
-    const registerData: RegisterForm = {
-      name,
-      email,
-      cpf,
-      password,
-      role
-    };
-
-    try {
-      await links.registerUser(registerData);
-      navigate('/login');
-    } catch (error) {
-      errorSwal((error as any).response.data.error);
-    }
-  };
-
   const children = (
     <div className='register-modal'>
       <div className='personal-data'>
@@ -52,11 +12,11 @@ export default function RegisterClient() {
         </div>
 
         <div className='input-container'>
-          <Input label='Nome' placeholder='Digite seu nome'/>
+          <Input label='Nome' placeholder='Digite seu nome' styleInput={2}/>
         </div>
 
         <div className='input-container'>
-          <Input label='E-mail'placeholder='usuario@mail.com'/>
+          <Input label='E-mail'placeholder='usuario@mail.com' styleInput={2}/>
         </div>
       </div>
 
@@ -66,7 +26,7 @@ export default function RegisterClient() {
         </div>
 
         <div className='input-container'>
-          <Input label='CPF' placeholder='123.456.789-00'/>
+          <Input label='CPF' placeholder='123.456.789-00' styleInput={2}/>
         </div>
       </div>
       
