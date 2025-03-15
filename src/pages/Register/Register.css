@@ -3,7 +3,7 @@
 }
 
 .subtitle {
-  border-bottom: 1px solid var(--lightgray-color-font);
+  border-bottom: 1px solid var(--dusty-lavender-subtitle);
   margin-bottom: 10px;
   margin-top: 2px;
 }
@@ -11,7 +11,7 @@
 .input-container {
   font-weight: bold;  
   font-size: 2rem;
-  color: #7E6B8C;
+  color: var(--purple-gray);
 }
 
 .personal-data {
