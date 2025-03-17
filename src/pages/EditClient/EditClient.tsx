@@ -7,6 +7,14 @@ export default function EditClient() {
   const nameUser = 'Kaue'
   const emailUser = 'kaue@mail.com'
   const cpfUser = '123.456.789-00'
+  const registrationDate = '01/01/2021'
+
+  const description = (
+    <div className='description'>
+      <p>Cadastro em <span className='bold'>{registrationDate}</span></p>
+    </div>
+  );
+
   const children = (
     <div className='edit-modal'>
       <div className='personal-data'>
@@ -45,6 +53,7 @@ export default function EditClient() {
     <main>
       <Modal 
       title='Detalhes do usuário'
+      description={description}
       children={children}
       />
     </main>

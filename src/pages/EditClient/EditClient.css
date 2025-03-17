@@ -15,7 +15,7 @@
 }
 
 .personal-data {
-  margin-bottom: 8%;
+  margin-bottom: 4%;
 }
 
 .identification-documents {
@@ -25,4 +25,13 @@
 .Buttons {
   display: flex;
   gap: 5%;
+}
+
+.description {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+  color: black;
 }
