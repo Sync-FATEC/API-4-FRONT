@@ -5,6 +5,8 @@ import { AuthProvider } from './contexts/auth/AuthContext';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 import LoginComponent from './pages/Login/Login';
 import ForgetPasswordComponent from './pages/ForgetPassword/ForgetPassword';
+import RegisterClient from './pages/EditClient/EditClient';
+import EditClient from './pages/EditClient/EditClient';
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginComponent />} />
             <Route path='/esqueci-senha' element={<ForgetPasswordComponent />} />
+            <Route path='/edit-client' element={<EditClient />} />
             <Route path="*" element={<RequireAuthAdmin><div>padwawd</div></RequireAuthAdmin>} />
           </Routes>
         </AuthProvider>

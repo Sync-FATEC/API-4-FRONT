@@ -1,22 +1,25 @@
-import './Register.css';
+import './EditClient.css';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 
-export default function RegisterClient() {
+export default function EditClient() {
+  const nameUser = 'Kaue'
+  const emailUser = 'kaue@mail.com'
+  const cpfUser = '123.456.789-00'
   const children = (
-    <div className='register-modal'>
+    <div className='edit-modal'>
       <div className='personal-data'>
         <div className='subtitle'>
           <p>Dados pessoais</p>
         </div>
 
         <div className='input-container'>
-          <Input label='Nome' placeholder='Digite seu nome' styleInput={2}/>
+          <Input label='Nome' value={nameUser} styleInput={2}/>
         </div>
 
         <div className='input-container'>
-          <Input label='E-mail'placeholder='usuario@mail.com' styleInput={2}/>
+          <Input label='E-mail' value={emailUser} styleInput={2}/>
         </div>
       </div>
 
@@ -26,7 +29,7 @@ export default function RegisterClient() {
         </div>
 
         <div className='input-container'>
-          <Input label='CPF' placeholder='123.456.789-00' styleInput={2}/>
+          <Input label='CPF' value={cpfUser} styleInput={2}/>
         </div>
       </div>
       
@@ -41,7 +44,7 @@ export default function RegisterClient() {
   return (
     <main>
       <Modal 
-      title='Cadastro de usuário'
+      title='Detalhes do usuário'
       children={children}
       />
     </main>
