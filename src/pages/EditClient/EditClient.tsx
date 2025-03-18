@@ -37,7 +37,7 @@ export default function EditClient() {
         </div>
 
         <div className='input-container'>
-          <Input label='CPF' value={cpfUser} styleInput={2}/>
+          <Input label='CPF' value={cpfUser} styleInput={2} disabled/>
         </div>
       </div>
       

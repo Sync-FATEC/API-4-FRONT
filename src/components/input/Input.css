@@ -18,10 +18,15 @@
     border-radius: 10px;
     border: none;
     font-size: 1rem;
-    padding: 12px;
     outline: none;
     background: var(--periwinkle);
     margin-top: 5px;
+}
+
+.style-input-1 input[disabled] {
+    background: var(--periwinkle-dark); /* Cor mais escura para indicar desabilitado */
+    opacity: 0.6; /* Reduz a opacidade para reforçar o estado desabilitado */
+    cursor: not-allowed; /* Mostra o cursor de "não permitido" */
 }
 
 .style-input-2 {
@@ -38,4 +43,10 @@
     outline: none;
     background: var(--white);
     margin-top: 5px;
+}
+
+.style-input-2 input[disabled] {
+    background: var(--gray-light); /* Cor mais escura para indicar desabilitado */
+    opacity: 0.6; /* Reduz a opacidade para reforçar o estado desabilitado */
+    cursor: not-allowed; /* Mostra o cursor de "não permitido" */
 }
