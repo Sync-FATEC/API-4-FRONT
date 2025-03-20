@@ -4,7 +4,7 @@ import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import userService from '../../api/UserService';
-import { parseISO, format } from "date-fns";
+import { parseISO, format, set } from "date-fns";
 
 interface EditClientProps {
   id?: string;
@@ -21,6 +21,7 @@ export default function EditClient({id}: EditClientProps) {
     cpf: '',
     createdAt: '',
   });
+  const [cpfOriginal, setCpfOrifinal] = useState('');
 
   useEffect(() => {
     async function fetchUserData() {
@@ -29,6 +30,7 @@ export default function EditClient({id}: EditClientProps) {
         const { name, email, cpf, createdAt } = response.data.model;
   
         // Formatando a data
+        setCpfOrifinal(cpf);
         const formattedDate = format(parseISO(createdAt), "dd/MM/yyyy");
   
         setUserData({ name, email, cpf, createdAt: formattedDate });
@@ -54,11 +56,11 @@ export default function EditClient({id}: EditClientProps) {
         </div>
 
         <div className='input-container'>
-          <Input label='Nome' value={userData.name} styleInput={2}/>
+          <Input label='Nome' value={userData.name} styleInput={2} onChange={(e) => setUserData({...userData, name: e.target.value})}/>
         </div>
 
         <div className='input-container'>
-          <Input label='E-mail' value={userData.email} styleInput={2}/>
+          <Input label='E-mail' value={userData.email} styleInput={2} onChange={(e) => setUserData({...userData, email: e.target.value})}/>
         </div>
       </div>
 
@@ -74,7 +76,7 @@ export default function EditClient({id}: EditClientProps) {
       
       <div className='Buttons'>
         <Button label='Cancelar' styleButton={2}/>
-        <Button label='Cadastrar' styleButton={1}/>
+        <Button label='Editar' styleButton={1}/>
       </div>
 
     </div>
