@@ -1,0 +1,120 @@
+.LandingPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: var(--padding-global);
+    background-color: var(--lavender);
+}
+
+.LandingPage h1, .LandingPage h2 {
+    font-size: 56px;
+    color: var(--black);
+    font-weight: 700;
+}
+
+.LandingPage p {
+    color: var(--mulberry);
+}
+
+.LandingPageHeader {
+    height: 300px;
+    display: flex;
+    padding: 0 20px;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(180deg, #5751d400, #5751d485);
+    border-radius: 0 0 24px 24px;
+}
+
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.headerContent img {
+    width: 190px;
+}
+
+.headerContent .navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.headerContent .navBar a {
+    color: var(--mulberry);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 0 20px;
+}
+
+.headerContent .navBar a:hover {
+    color: var(--deep-indigo);
+}
+
+.headerContent .loginButton {
+    background-color: var(--deep-indigo);
+    color: var(--white);
+    padding: 15px 25px;
+    border-radius: var(--border);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.headerContent .loginButton > a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.headerContent .loginButton:hover {
+    background-color: var(--deep-indigo-hover);
+}
+
+.LandingPageHeader h1 {
+    margin-top: 100px;
+}
+
+.LandingPageHeader p {
+    font-weight: 900;
+}
+
+/* SECTION */
+
+.LandingPageContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.LandingPageContent p {
+    font-weight: 700;
+}
+
+.contentMeteorologico {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 50px;
+}
+
+.contentMeteorologico div {
+    width: 50%;
+}
+
+.contentMeteorologico img {
+    width: 50%;
+    max-width: 500px;
+}
+
+
+.contentMeteorologico:nth-child(even) {
+    flex-direction: row-reverse;
+}
