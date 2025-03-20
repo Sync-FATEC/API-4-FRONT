@@ -5,6 +5,7 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import userService from '../../api/UserService';
 import { parseISO, format, set } from "date-fns";
+import { jwtDecode } from 'jwt-decode';
 
 interface EditClientProps {
   id?: string;
@@ -14,7 +15,21 @@ function formatCPF(cpf: string) {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
+function getUserIdFromToken(): string | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    const decoded: { id: string } = jwtDecode(token);
+    return decoded.id;
+  } catch (error) {
+    console.error('Erro ao decodificar o token:', error);
+    return null;
+  }
+}
+
 export default function EditClient({id}: EditClientProps) {
+  const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -24,9 +39,16 @@ export default function EditClient({id}: EditClientProps) {
   const [cpfOriginal, setCpfOrifinal] = useState('');
 
   useEffect(() => {
+    const id = getUserIdFromToken();
+    setUserId(id);
+  }, []);
+
+  useEffect(() => {
     async function fetchUserData() {
+      if (!userId) return;
+
       try {
-        const response = await userService.getDataUser(id || '1');
+        const response = await userService.getDataUser(userId);
         const { name, email, cpf, createdAt } = response.data.model;
   
         // Formatando a data
@@ -40,7 +62,7 @@ export default function EditClient({id}: EditClientProps) {
     }
   
     fetchUserData();
-  }, [id]);
+  }, [userId]);
 
   const description = (
     <div className='description'>
