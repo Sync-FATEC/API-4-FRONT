@@ -57,25 +57,6 @@
     color: var(--deep-indigo);
 }
 
-.headerContent .loginButton {
-    background-color: var(--deep-indigo);
-    color: var(--white);
-    padding: 15px 25px;
-    border-radius: var(--border);
-    font-weight: 700;
-    font-size: 16px;
-    text-decoration: none;
-}
-
-.headerContent .loginButton > a {
-    color: var(--white);
-    text-decoration: none;
-}
-
-.headerContent .loginButton:hover {
-    background-color: var(--deep-indigo-hover);
-}
-
 .LandingPageHeader h1 {
     margin-top: 100px;
 }
@@ -104,6 +85,7 @@
     flex-direction: row;
     margin-top: 50px;
 }
+
 
 .contentMeteorologico div {
     width: 50%;
@@ -141,6 +123,12 @@
 
     .headerContent .navBar a {
         margin: 0 10px;
+    }
+}
+
+@media (max-width: 850px) {
+    .LandingPage h1 {
+        margin-top: 50px;
     }
 }
 

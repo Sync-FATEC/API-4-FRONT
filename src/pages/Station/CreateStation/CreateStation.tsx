@@ -5,9 +5,9 @@ import Modal from "../../../components/modal/Modal";
 import "./CreateStation.css";
 import { errorSwal } from "../../../components/swal/errorSwal";
 import { CreateStationType } from "../../../types/station/CreateStationType";
-import api, { links } from "../../../api/api";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import { useNavigate } from "react-router-dom";
+import api from "../../../api/api";
 
 export default function CreateStation() {
   const [name, setName] = useState("");
@@ -24,7 +24,7 @@ export default function CreateStation() {
       longitude,
     };
     try {
-      const response = await links.createStation(data);
+      const response = await api.post("/station/create", data);
       successSwal("Estação cadastrada com sucesso");
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");

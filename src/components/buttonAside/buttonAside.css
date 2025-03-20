@@ -1,0 +1,18 @@
+.buttonAside {
+    border-radius: var(--border);
+    background-color: var(--periwinkle);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonAside img {
+    width: 32px;
+    height: 32px;
+}
+
+.buttonAside:hover {
+    background-color: var(--periwinkle-hover);
+}

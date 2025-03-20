@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./Login.css";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
-import logo from "../../../public/static/img/tecsus-logo.png";
+import logo from "../../../src/static/img/tecsus-logo.png";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 

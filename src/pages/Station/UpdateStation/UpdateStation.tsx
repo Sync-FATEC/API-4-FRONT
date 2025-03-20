@@ -5,11 +5,11 @@ import Modal from "../../../components/modal/Modal";
 import "./UpdateStation.css";
 import { errorSwal } from "../../../components/swal/errorSwal";
 import { CreateStationType } from "../../../types/station/CreateStationType";
-import api, { links } from "../../../api/api";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
 import { UpdateStationType } from "../../../types/station/UpdateStationType";
+import api from "../../../api/api";
 
 export default function UpdateStation() {
   const [name, setName] = useState("");
@@ -27,7 +27,7 @@ export default function UpdateStation() {
         return;
       }
       try {
-        const response = await links.readStation(id);
+        const response = await api.get(`/station/read/${id}`);
         setName(response.data.model.name);
         setUuid(response.data.model.uuid);
         setLatitude(response.data.model.latitude);
@@ -54,7 +54,7 @@ export default function UpdateStation() {
       longitude,
     };
     try {
-      const response = await links.UpdateStation(data);
+      const response = await api.put("/station/update", data);
       successSwal("Estação atualizada com sucesso");
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
