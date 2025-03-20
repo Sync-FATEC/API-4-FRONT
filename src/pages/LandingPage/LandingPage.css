@@ -118,3 +118,66 @@
 .contentMeteorologico:nth-child(even) {
     flex-direction: row-reverse;
 }
+
+@media (max-width: 1500px) {
+    .LandingPage {
+        padding: 12px 100px;
+    }
+
+    .headerContent .navBar a {
+        margin: 0 10px;
+    }
+    
+}
+
+@media (max-width: 1200px) {
+    .LandingPage {
+        padding: 12px 50px;
+    }
+
+    .headerContent .navBar {
+        display: none;
+    }
+
+    .headerContent .navBar a {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 700px) {
+    .LandingPage {
+        padding: 12px 10px;
+    }
+
+    .headerContent .navBar {
+        display: none;
+    }
+
+    .headerContent .navBar a {
+        margin: 0 10px;
+    }
+
+    .contentMeteorologico {
+        flex-direction: column-reverse;
+    }
+
+    .contentMeteorologico img {
+        width: 100%;
+    }
+
+    .contentMeteorologico div {
+        width: 100%;
+    }
+
+    .contentMeteorologico:nth-child(even) {
+        flex-direction: column-reverse;
+    }
+
+    .headerContent img {
+        width: 150px;
+    }
+    
+    .LandingPage h1, .LandingPage h2 {
+        font-size: 36px;
+    }
+}

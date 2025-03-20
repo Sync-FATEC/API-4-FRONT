@@ -2,7 +2,7 @@ import React, { createContext, useState, useCallback } from "react";
 import api from "../../api/api";
 import { errorSwal } from "../../components/swal/errorSwal";
 import { jwtDecode } from 'jwt-decode';
-import { AuthContextType, AuthProviderProps, UserInfo } from "../../type/auth";
+import { AuthContextType, AuthProviderProps, UserInfo } from "../../types/auth/auth";
 import { useNavigate } from "react-router-dom";
 
 
