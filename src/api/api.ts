@@ -9,15 +9,4 @@ const api = axios.create({
   baseURL: "http://localhost:5000",
 });
 
-const links = {
-  registerUser: (registerForm: RegisterForm) => api.post("/auth/register", registerForm),
-
-  // STATION
-
-  createStation: (createStation: CreateStationType) => api.post("/station/create", createStation),
-  UpdateStation: (updateStation: UpdateStationType) => api.put("/station/update", updateStation),
-  readStation: (id: string) => api.get("/station/read/" + id),
-};
-
-export { links };
 export default api;

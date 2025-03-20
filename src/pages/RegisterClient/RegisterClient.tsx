@@ -1,4 +1,4 @@
-import './Register.css';
+import './RegisterClient.css';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
