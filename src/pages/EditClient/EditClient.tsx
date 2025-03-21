@@ -3,13 +3,9 @@ import './EditClient.css';
 import Modal from '../../components/modal/Modal';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
-import userService from '../../api/UserService';
-import { parseISO, format, set } from "date-fns";
+import userService from '../../api/userService';
+import { parseISO, format } from "date-fns";
 import { jwtDecode } from 'jwt-decode';
-
-interface EditClientProps {
-  id?: string;
-}
 
 function formatCPF(cpf: string) {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -28,7 +24,7 @@ function getUserIdFromToken(): string | null {
   }
 }
 
-export default function EditClient({id}: EditClientProps) {
+export default function EditClient() {
   const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState({
     name: '',
@@ -43,16 +39,32 @@ export default function EditClient({id}: EditClientProps) {
     setUserId(id);
   }, []);
 
+  const handleSubmitEdit = async () => {
+    const data = {
+      id: userId,
+      name: userData.name,
+      email: userData.email,
+      cpf: cpfOriginal
+    }
+
+    try {
+      await userService.editUser(data);
+      alert('Usuário atualizado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      alert('Erro ao atualizar usuário')
+    }
+  }
+
   useEffect(() => {
     async function fetchUserData() {
       if (!userId) return;
-
+  
       try {
         const response = await userService.getDataUser(userId);
         const { name, email, cpf, createdAt } = response.data.model;
   
-        // Formatando a data
-        setCpfOrifinal(cpf);
+        setCpfOrifinal(cpf); // Ensure cpfOriginal is updated here
         const formattedDate = format(parseISO(createdAt), "dd/MM/yyyy");
   
         setUserData({ name, email, cpf, createdAt: formattedDate });
@@ -98,7 +110,7 @@ export default function EditClient({id}: EditClientProps) {
       
       <div className='Buttons'>
         <Button label='Cancelar' styleButton={2}/>
-        <Button label='Editar' styleButton={1}/>
+        <Button label='Editar' onClick={handleSubmitEdit} styleButton={1}/>
       </div>
 
     </div>
