@@ -8,6 +8,7 @@ import { CreateStationType } from "../../../types/station/CreateStationType";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api/api";
+import stationService from "../../../api/stationService";
 
 export default function CreateStation() {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ export default function CreateStation() {
       longitude,
     };
     try {
-      const response = await api.post("/station/create", data);
+      const response = await stationService.createStation(data);
       successSwal("Estação cadastrada com sucesso");
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");

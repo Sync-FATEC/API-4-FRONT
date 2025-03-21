@@ -1,32 +1,32 @@
+import { useContext } from 'react';
 import logo from '../../../src/static/img/tecsus.png'
 import ButtonAside from '../buttonAside/buttonAside';
 import './aside.css';
-
-import dash from '../../static/img/aside/dash.png'
-import alert from '../../static/img/aside/alert.png'
-import user from '../../static/img/aside/user.png'
-import alertN from '../../static/img/aside/alertN.png'
-import config from '../../static/img/aside/config.png'
-import parameter from '../../static/img/aside/parameter.png'
-import station from '../../static/img/aside/station.png'
-import logout from '../../static/img/aside/logout.png'
+import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../contexts/auth/AuthContext';
 
 export function Aside() {
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = () => {
+    authContext.logout()
+  }
+  
   return (
     <div className='aside'>
-        <div>
-          <img src={logo} alt="Logo"/>
-          <ButtonAside img={dash} link='/dashboard' />
-          <ButtonAside img={user} link='/dashboard' />
-          <ButtonAside img={station} link='/dashboard' />
-          <ButtonAside img={parameter} link='/dashboard' />
-          <ButtonAside img={alert} link='/dashboard' />
-          <ButtonAside img={alertN} link='/dashboard' />
-          <ButtonAside img={config} link='/dashboard' />
-        </div>
-        <div className='logout'>
-          <ButtonAside img={logout} link='/dashboard' />
-        </div>
+      <div>
+        <img src={logo} alt="Logo" />
+        <ButtonAside icon={faChartPie} link='/dashboard' />
+        <ButtonAside icon={faUser} link='/dashboard' />
+        <ButtonAside icon={faRss} link='/dashboard' />
+        <ButtonAside icon={faSliders} link='/dashboard' />
+        <ButtonAside icon={faTriangleExclamation} link='/dashboard' />
+        <ButtonAside icon={faBell} link='/dashboard' />
+        <ButtonAside icon={faGear} link='/dashboard' />
+      </div>
+      <div className='logout'>
+        <ButtonAside icon={faRightFromBracket} onClick={handleLogout} link=''/>
+      </div>
     </div>
   );
 }

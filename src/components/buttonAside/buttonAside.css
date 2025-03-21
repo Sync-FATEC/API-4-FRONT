@@ -8,9 +8,9 @@
     align-items: center;
 }
 
-.buttonAside img {
-    width: 32px;
-    height: 32px;
+.buttonAside svg {
+    width: 24px;
+    height: 24px;
 }
 
 .buttonAside:hover {

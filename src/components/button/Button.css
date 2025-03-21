@@ -26,6 +26,7 @@
 .custom-button-type-3 {
     background-color: var(--deep-indigo);
     color: white;
+    text-align: center;
 }
 
 .custom-button-type-3:hover {

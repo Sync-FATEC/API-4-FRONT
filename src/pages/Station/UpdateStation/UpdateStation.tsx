@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../components/loading/loading";
 import { UpdateStationType } from "../../../types/station/UpdateStationType";
 import api from "../../../api/api";
+import stationService from "../../../api/stationService";
 
 export default function UpdateStation() {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ export default function UpdateStation() {
         return;
       }
       try {
-        const response = await api.get(`/station/read/${id}`);
+        const response = await stationService.readStation(id);
         setName(response.data.model.name);
         setUuid(response.data.model.uuid);
         setLatitude(response.data.model.latitude);
@@ -54,7 +55,7 @@ export default function UpdateStation() {
       longitude,
     };
     try {
-      const response = await api.put("/station/update", data);
+      const response = await stationService.UpdateStation(data);
       successSwal("Estação atualizada com sucesso");
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
