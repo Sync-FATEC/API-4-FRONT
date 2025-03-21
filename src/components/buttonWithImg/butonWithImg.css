@@ -1,0 +1,22 @@
+.butonWithImg {
+    background-color: var(--deep-indigo);
+    color: var(--white);
+    padding: 15px 25px;
+    border-radius: var(--border);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.butonWithImg > a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.butonWithImg svg {
+    margin-right: 10px;
+}
+
+.butonWithImg:hover {
+    background-color: var(--deep-indigo-hover);
+}

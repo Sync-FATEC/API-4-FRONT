@@ -16,7 +16,7 @@ function App() {
             <Route path="/login" element={<LoginComponent />} />
             <Route path='/esqueci-senha' element={<ForgetPasswordComponent />} />
             <Route path="/" element={<LandingPage />} />
-            <Route path="*" element={<RequireAuthAdmin><div>padwawd</div></RequireAuthAdmin>} />
+            <Route path="*" element={<RequireAuthAdmin><div>Pagina não encontrada</div></RequireAuthAdmin>} />
           </Routes>
         </AuthProvider>
       </Router>
