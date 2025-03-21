@@ -9,6 +9,7 @@ import { successSwal } from "../../../components/swal/sucessSwal";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api/api";
 import stationService from "../../../api/stationService";
+import { formatLatLong } from "../../../utils/station/formatLatLong";
 
 export default function CreateStation() {
   const [name, setName] = useState("");
@@ -65,7 +66,7 @@ export default function CreateStation() {
             placeholder="-99.999999"
             styleInput={2}
             value={latitude}
-            onChange={(e) => setLatitude(e.target.value)}
+            onChange={(e) => setLatitude(formatLatLong(e.target.value))}
           />
         </div>
 
@@ -75,7 +76,7 @@ export default function CreateStation() {
             placeholder="-99.999999"
             styleInput={2}
             value={longitude}
-            onChange={(e) => setLongitude(e.target.value)}
+            onChange={(e) => setLongitude(formatLatLong(e.target.value))}
           />
         </div>
 
