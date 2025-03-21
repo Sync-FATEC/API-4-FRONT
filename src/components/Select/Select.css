@@ -15,7 +15,6 @@
 .select-wrapper {
     position: relative;
     width: 100%;
-    background: var(--lavender);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -27,7 +26,6 @@
     border: none;
     font-size: 1rem;
     outline: none;
-    background: transparent;
     appearance: none;
     border-radius: 8px;
     margin-top: 5px;
