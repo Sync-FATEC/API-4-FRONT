@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './EditClient.css';
-import Modal from '../../components/modal/Modal';
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
-import userService from '../../api/userService';
+import Modal from '../../../components/modal/Modal';
+import Input from '../../../components/input/Input';
+import Button from '../../../components/button/Button';
+import userService from '../../../api/userService';
 import { parseISO, format } from "date-fns";
 import { jwtDecode } from 'jwt-decode';
 

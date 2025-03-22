@@ -3,8 +3,6 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../src/static/img/tecsus-logo.png";
 import './LandingPage.css'
-import DynamicList from "../../components/list/DynamicList";
-import { AuthContext } from "../../contexts/auth/AuthContext";
 import pluviometro from '../../../src/static/img/equipamentos/pluviometro.png'
 import anemometro from '../../../src/static/img/equipamentos/anemometro.png'
 import barometro from '../../../src/static/img/equipamentos/barometro.png'
@@ -14,9 +12,6 @@ import termometro from '../../../src/static/img/equipamentos/termometro.png'
 import ButtonWithImg from "../../components/buttonWithImg/buttonWithImg";
 
 export default function LandingPage() {
-
-
-
     return (
         <main className="LandingPage">
             <header className="LandingPageHeader">

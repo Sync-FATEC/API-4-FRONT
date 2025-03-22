@@ -1,38 +1,36 @@
 import React from 'react';
-import DynamicList from '../../../components/list/DynamicList';
+import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
 
 const ListTypeAlert: React.FC = () => {
 
-    interface User {
+    interface TypeAlert {
         id: number;
         name: string;
-        email: string;
+        value: number;
+        mathComparator: string;
+        parameter: string;
       }
     
-      const users: User[] = [
-        { id: 1, name: "Alice", email: "alice@example.com" },
-        { id: 2, name: "Bob", email: "bob@example.com" },
-        { id: 3, name: "Charlie", email: "charlie@example.com" },
+      const data: TypeAlert[] = [
+        { id: 1, name: "Alice", value: 10, mathComparator: ">", parameter: "Temperature" },
+        { id: 2, name: "Bob", value: 20, mathComparator: "<", parameter: "Pressure" },
+        { id: 3, name: "Charlie", value: 30, mathComparator: "=", parameter: "Humidity - B29" },
       ];
-    
-      const userFields = [
-        { key: "id" as keyof User, label: "ID" },
-        { key: "name" as keyof User, label: "Nome" },
-        { key: "email" as keyof User, label: "E-mail" },
+        
+      const fields = [
+        { key: "name" as keyof TypeAlert, label: "Nome" },
+        { key: "value" as keyof TypeAlert, label: "Valor" },
+        { key: "mathComparator" as keyof TypeAlert, label: "Comparador" },
+        { key: "parameter" as keyof TypeAlert, label: "Parâmetro" },
       ];
     
     return (
-        <div>
-            <h1>List of Type Alerts</h1>
-            <p>This is a simple page to display a list of type alerts.</p>
-            <DynamicList 
-            data={users}
-            fields={userFields}
-            onDelete={(index) => console.log("delete", index)}
-            onUpdate={(index) => console.log("update", index)}
-            isEditable={true}
-            />
-        </div>
+      <ModalAdmin 
+      createlink='/criar-tipo-alerta'
+      listProps={{data, fields, onDelete: () => {}, onUpdate: () => {}, isEditable: true}}
+      style={1}
+      text='Usuários'
+      />
     );
 };
 

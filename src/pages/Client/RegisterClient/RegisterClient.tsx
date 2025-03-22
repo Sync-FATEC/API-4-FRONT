@@ -1,9 +1,9 @@
 import './RegisterClient.css';
-import Modal from '../../components/modal/Modal';
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
+import Modal from '../../../components/modal/Modal';
+import Input from '../../../components/input/Input';
+import Button from '../../../components/button/Button';
 import { useState } from 'react';
-import userService from '../../api/UserService';
+import userService from '../../../api/userService';
 
 function formatCPF(cpf: string) {
   cpf = cpf.replace(/\D/g, ''); // Remove tudo que não for número
