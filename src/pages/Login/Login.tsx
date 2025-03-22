@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,11 @@ export default function LoginComponent() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    authContext.logout();
+  }
+  , []);
 
   const handleSubmitLogin = async () => {
     try {
