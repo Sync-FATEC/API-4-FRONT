@@ -1,57 +1,69 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
+import stationService from '../../../api/stationService';
+import { errorSwal } from '../../../components/swal/errorSwal';
+import { UpdateStationType } from '../../../types/station/UpdateStationType';
+import { useNavigate } from 'react-router-dom';
+import { successSwal } from '../../../components/swal/sucessSwal';
 
 export interface StationProps {
+    id: string;
+    uuid: string;
     name: string;
-    address: string;
-    model: string;
-    status: string;
-    lastUpdate: string;
-    id: number;
+    latitude: string;
+    longitude: string;
 }
 
 const ListStation: React.FC = () => {
+    const navigate = useNavigate();
+    const [data, setData] = React.useState<StationProps[]>([]);
 
-    const data: StationProps[] = [
-        {
-            name: 'Station A',
-            address: '123 Main St',
-            model: 'Model X',
-            status: 'Active',
-            lastUpdate: '2023-01-01',
-            id: 1,
-        },
-        {
-            name: 'Station B',
-            address: '456 Elm St',
-            model: 'Model Y',
-            status: 'Inactive',
-            lastUpdate: '2023-01-02',
-            id: 2,
-        },
-        {
-            name: 'Station C',
-            address: '789 Oak St',
-            model: 'Model Z',
-            status: 'Active',
-            lastUpdate: '2023-01-03',
-            id: 3,
-        },
-    ];
+    useEffect(() => {
+        const handleReadStations = async () => {
+            try {
+                const response = await stationService.listStations();
+                setData(response.data.model);
+            } catch (error) {
+                errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+            }
+        };
+        handleReadStations();
+    }
+    , []);
+
+    const handleDelete = async (id: string) => {
+        try {
+            await stationService.deleteStation(id);
+            setData(data.filter((station) => station.id !== id));
+            successSwal("Estação deletada com sucesso");
+        } catch (error) {
+            errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+        }
+    }
+
+    const handleUpdate = async (id: string) => {
+        navigate(`/estacao/atualizar/${id}`);  
+    }
 
     const fields = [
+        { key: "uuid" as keyof StationProps, label: "UUID" },
         { key: "name" as keyof StationProps, label: "Nome" },
-        { key: "address" as keyof StationProps, label: "Endereço" },
-        { key: "model" as keyof StationProps, label: "Modelo" },
-        { key: "status" as keyof StationProps, label: "Status" },
-        { key: "lastUpdate" as keyof StationProps, label: "Última Atualização" },
-    ]
+        { key: "latitude" as keyof StationProps, label: "Latitude" },
+        { key: "longitude" as keyof StationProps, label: "Longitude" },
+    ];
 
     return (
         <ModalAdmin 
-            createlink='/station/create'
+            createlink='/estacao/criar'
             text='estaçôes'
-            listProps={{ data, fields, onDelete: () => {}, onUpdate: () => {}, isEditable: true }}
+            listProps={{ 
+              data, 
+              fields, 
+              onDelete: handleDelete, 
+              onUpdate: handleUpdate, 
+              isEditable: true,
+              idKey: 'id' as keyof StationProps 
+            }}
             style={1}
         />
     );

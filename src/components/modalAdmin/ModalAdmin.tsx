@@ -27,7 +27,7 @@ export default function ModalAdmin({
           </div>
           <ButtonWithImg
             style={2}
-            text={`Adicionar`}
+            text={`Adicionar ${text}`}
             icon={faPlus}
             link={createlink}
           />
@@ -38,6 +38,7 @@ export default function ModalAdmin({
             onUpdate={listProps.onUpdate}
             isEditable={listProps.isEditable}
             detailsLink=""
+            text={text}
           />
         </div>
       </div>

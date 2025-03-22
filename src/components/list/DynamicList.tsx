@@ -1,15 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./DynamicList.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface ListProps<T> {
   data: T[];
   fields: { key: keyof T; label: string }[];
-  onDelete: (index: number) => void;
-  onUpdate: (index: number) => void;
+  onDelete: (id: string) => void;
+  onUpdate: (id: string) => void;
   isEditable: boolean;
   detailsLink?: string;
+  idKey?: keyof T;
+  text?: string;
 }
 
 function  DynamicList<T>({
@@ -19,20 +21,35 @@ function  DynamicList<T>({
   onUpdate,
   detailsLink,
   isEditable = detailsLink ? true : false,
+  idKey = 'id' as keyof T,
+  text,
 }: ListProps<T>) {
   const navigateToDetails = () => {
     // Create to navigate to details page
   };
 
   const [filteredData, setFilteredData] = useState(data);
+  
+  useEffect(() => {
+    setFilteredData(data);
+  }, [data]);
+  
+  // Calcular o estilo do grid com base no número de campos
+  const gridStyle = {
+    gridTemplateColumns: isEditable 
+      ? `repeat(${fields.length}, 1fr) 100px` 
+      : `repeat(${fields.length}, 1fr)`
+  };
 
   return (
     <div className="list-container">
       <div className="list-top-header">
-        <input
-          className="search-box"
+        <div className="search-box-container">
+          <FontAwesomeIcon icon={faSearch} />
+          <input
+            className="search-box"
           type="text"
-          placeholder="Pesquisar"
+          placeholder={`Pesquisar ${text}`}
           onChange={(e) => {
             data.filter((item) => {
                 const filterValue = e.target.value.toLowerCase();
@@ -43,21 +60,22 @@ function  DynamicList<T>({
                 );
                 setFilteredData(filtered);
             });
-          }}
-        />
-        <p> Total: {data.length}</p>
+            }}
+          />
+        </div>
+        <p> Total de {text}: {data.length}</p>
       </div>
       <div className="list-grid">
-        <div className="list-header">
+        <div className="list-header" style={gridStyle}>
           {fields.map((field) => (
             <div key={String(field.key)} className="list-header-item">
               {field.label}
             </div>
           ))}
-          <div className="list-header-item">Ações</div>
+          {isEditable && <div className="list-header-item">Ações</div>}
         </div>
         {filteredData.map((item, index) => (
-          <div key={index} className="list-row">
+          <div key={index} className="list-row" style={gridStyle}>
             {fields.map((field) => (
               <div
                 key={String(field.key)}
@@ -71,11 +89,11 @@ function  DynamicList<T>({
               <div className="actions-cell">
                 <FontAwesomeIcon
                   icon={faEdit}
-                  onClick={() => onUpdate(index)}
+                  onClick={() => onUpdate(String(item[idKey]))}
                 />
                 <FontAwesomeIcon
                   icon={faTrash}
-                  onClick={() => onDelete(index)}
+                  onClick={() => onDelete(String(item[idKey]))}
                 />
               </div>
             )}

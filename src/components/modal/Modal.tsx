@@ -23,7 +23,7 @@ export default function Modal({ title, description,children }: ModalProps) {
             <h2>{title}</h2>
           </div>
 
-          <button className="modal-close" onClick={() => navigate('/')}>
+          <button className="modal-close" onClick={() => navigate(-1)}>
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>

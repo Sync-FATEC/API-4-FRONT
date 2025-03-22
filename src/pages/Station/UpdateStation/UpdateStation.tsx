@@ -58,6 +58,7 @@ export default function UpdateStation() {
     try {
       const response = await stationService.UpdateStation(data);
       successSwal("Estação atualizada com sucesso");
+      navigate(-1);
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
     }
