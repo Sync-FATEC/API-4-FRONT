@@ -26,10 +26,10 @@ const ListTypeAlert: React.FC = () => {
     
     return (
       <ModalAdmin 
-      createlink='/criar-tipo-alerta'
+      createlink='/tipo-alerta/criar'
       listProps={{data, fields, onDelete: () => {}, onUpdate: () => {}, isEditable: true}}
       style={1}
-      text='Usuários'
+      text='tipos de alerta'
       />
     );
 };
