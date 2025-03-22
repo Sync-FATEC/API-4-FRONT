@@ -31,7 +31,7 @@ export default function CreateTypeParameter() {
         try {
             const response = await typeParameterService.createTypeParameter(data);
             successSwal("Tipo de parâmetro cadastrado com sucesso");
-            navigate(-1);
+            navigate("/tipo-parametro");
         } catch (error) {
             errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
         }

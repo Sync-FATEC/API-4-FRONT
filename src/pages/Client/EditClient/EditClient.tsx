@@ -53,7 +53,7 @@ export default function EditClient() {
 
     try {
       await userService.editUser(data);
-      navigate(-1)
+      navigate("/usuario");
       successSwal('Usuário atualizado com sucesso');
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');

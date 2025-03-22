@@ -70,7 +70,7 @@ export default function CreatePassword() {
 return (
     <main>
       <Modal
-      title='Cadastro de usuário'
+      title='Cadastrar senha do usuário'
       children={children}
       />
     </main>

@@ -28,7 +28,7 @@ export default function UpdateTypeParameter() {
         const handleReadTypeParameter = async () => {
             if (!id) {
                 errorSwal("Tipo de parâmetro não encontrado");
-                navigate(-1);
+                navigate("/tipo-parametro");
             }
             try {
                 const response = await typeParameterService.readTypeParameter(id);
@@ -40,7 +40,7 @@ export default function UpdateTypeParameter() {
                 setOffset(response.data.offset.toString());
             } catch (error) {
                 errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
-                navigate(-1);
+                navigate("/tipo-parametro");
             } finally {
                 setLoading(false);
             }

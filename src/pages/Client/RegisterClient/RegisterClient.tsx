@@ -35,7 +35,7 @@ export default function RegisterClient() {
     try {
       const response = await userService.registerUser(userData);
       successSwal('Usuário cadastrado com sucesso');
-      navigate(-1)
+      navigate("/usuario")
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
     }
