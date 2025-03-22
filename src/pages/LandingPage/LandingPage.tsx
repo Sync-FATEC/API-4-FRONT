@@ -26,7 +26,7 @@ export default function LandingPage() {
                         <nav><a href="#Piranômetro">Piranômetro</a></nav>
                         <nav><a href="#Higrômetro">Higrômetro</a></nav>
                     </div>
-                    <ButtonWithImg icon={faArrowUpRightFromSquare} text="Login" link="/login" />
+                    <ButtonWithImg style={1} icon={faArrowUpRightFromSquare} text="Login" link="/login" />
                 </div>
                 <h1>Instrumetos Meteorologicos</h1>
                 <p>Esta base de conhecimento reúne informações detalhadas sobre os principais dispositivos utilizados no monitoramento do clima.</p>
