@@ -1,16 +1,37 @@
 import './buttonAside.css'
 import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { Link } from 'react-router-dom';
 
 interface ButtonAsideProps {
     icon: any;
     link: string;
     onClick?: () => void;
+    isActive?: boolean;
 }
 
 export default function ButtonAside(props: ButtonAsideProps) {
+    const buttonContent = (
+        <FontAwesomeIcon icon={props.icon} />
+    );
+
+    if (props.onClick) {
+        return (
+            <button 
+                onClick={props.onClick} 
+                className={`buttonAside ${props.isActive ? 'active' : ''}`}
+            >
+                {buttonContent}
+            </button>
+        );
+    }
+
     return (
-        <button onClick={props.onClick} className='buttonAside'><FontAwesomeIcon icon={props.icon}/></button>
-    )
+        <Link 
+            to={props.link} 
+            className={`buttonAside ${props.isActive ? 'active' : ''}`}
+        >
+            {buttonContent}
+        </Link>
+    );
 }

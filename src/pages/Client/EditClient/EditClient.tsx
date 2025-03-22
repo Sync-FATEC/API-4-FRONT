@@ -6,6 +6,9 @@ import Button from '../../../components/button/Button';
 import userService from '../../../api/userService';
 import { parseISO, format } from "date-fns";
 import { jwtDecode } from 'jwt-decode';
+import { successSwal } from '../../../components/swal/sucessSwal';
+import { errorSwal } from '../../../components/swal/errorSwal';
+import { useNavigate } from 'react-router-dom';
 
 function formatCPF(cpf: string) {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -25,6 +28,7 @@ function getUserIdFromToken(): string | null {
 }
 
 export default function EditClient() {
+  const navigate = useNavigate();
   const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState({
     name: '',
@@ -49,10 +53,10 @@ export default function EditClient() {
 
     try {
       await userService.editUser(data);
-      alert('Usuário atualizado com sucesso!');
+      navigate(-1)
+      successSwal('Usuário atualizado com sucesso');
     } catch (error) {
-      console.error('Erro ao atualizar usuário:', error);
-      alert('Erro ao atualizar usuário')
+      errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
     }
   }
 
@@ -64,7 +68,7 @@ export default function EditClient() {
         const response = await userService.getDataUser(userId);
         const { name, email, cpf, createdAt } = response.data.model;
   
-        setCpfOrifinal(cpf); // Ensure cpfOriginal is updated here
+        setCpfOrifinal(cpf);
         const formattedDate = format(parseISO(createdAt), "dd/MM/yyyy");
   
         setUserData({ name, email, cpf, createdAt: formattedDate });
@@ -109,7 +113,7 @@ export default function EditClient() {
       </div>
       
       <div className='Buttons'>
-        <Button label='Cancelar' styleButton={2}/>
+        <Button label='Cancelar' onClick={() => {navigate(-1)}} styleButton={2}/>
         <Button label='Editar' onClick={handleSubmitEdit} styleButton={1}/>
       </div>
 

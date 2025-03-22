@@ -15,7 +15,7 @@ export default function LoginComponent() {
   const handleSubmitLogin = async () => {
     try {
       await authContext.login(email, password);
-      navigate("/");
+      navigate("/estacao");
     } catch (error) {
       console.error(error);
     }

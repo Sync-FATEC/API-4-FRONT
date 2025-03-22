@@ -40,9 +40,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const decodedToken: any = jwtDecode(token);
   
       const name = decodedToken?.name || "Usuário desconhecido";
+      const emailjwt = decodedToken?.email || "Usario sem email";
       const role = decodedToken?.role || "Sem função";
   
-      const jsonUserInfo = { name, role };
+      const jsonUserInfo = { name, role, email: emailjwt };
       setUser(jsonUserInfo);
       setIsAuthenticated(true);
       
@@ -76,8 +77,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         const name = decodedToken?.name || "Usuário desconhecido";
         const role = decodedToken?.role || "Sem função";
-    
-        const jsonUserInfo = { name, role };
+        const email = decodedToken?.email || "Usuário sem email";
+        
+        const jsonUserInfo = { name, role, email };
 
         setUser(jsonUserInfo);
         setIsAuthenticated(true);
