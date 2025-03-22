@@ -5,9 +5,8 @@ import { AuthProvider } from './contexts/auth/AuthContext';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 import LoginComponent from './pages/Login/Login';
 import ForgetPasswordComponent from './pages/ForgetPassword/ForgetPassword';
-import LandingPage from './pages/LandingPage/LandingPage';
-import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
-import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/UpdateTypeParameter';
+import CreateTypeAlert from './pages/TypeAlert/Create/CreateTypeAlert';
+import ListTypeAlert from './pages/TypeAlert/List/ListTypeAlert';
 import Page404 from './pages/Page404/Page404';
 
 function App() {
@@ -18,7 +17,9 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginComponent />} />
             <Route path='/esqueci-senha' element={<ForgetPasswordComponent />} />
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<ListTypeAlert />} />
+            <Route path='/criar-tipo-alerta' element={<CreateTypeAlert />}/>
+            <Route path='/tipos-de-alerta' element={<ListTypeAlert/>} /> 
             <Route path="*" element={<Page404 />} />
           </Routes>
         </AuthProvider>

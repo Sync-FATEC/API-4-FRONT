@@ -25,7 +25,7 @@ export function Aside() {
         <ButtonAside icon={faGear} link='/dashboard' />
       </div>
       <div className='logout'>
-        <ButtonAside icon={faRightFromBracket} onClick={handleLogout} link=''/>
+        <ButtonAside icon={faRightFromBracket} onClick={handleLogout}  link=''/>
       </div>
     </div>
   );

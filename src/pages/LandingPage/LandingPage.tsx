@@ -3,7 +3,6 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../src/static/img/tecsus-logo.png";
 import './LandingPage.css'
-import { AuthContext } from "../../contexts/auth/AuthContext";
 import pluviometro from '../../../src/static/img/equipamentos/pluviometro.png'
 import anemometro from '../../../src/static/img/equipamentos/anemometro.png'
 import barometro from '../../../src/static/img/equipamentos/barometro.png'
@@ -26,7 +25,7 @@ export default function LandingPage() {
                         <nav><a href="#Piranômetro">Piranômetro</a></nav>
                         <nav><a href="#Higrômetro">Higrômetro</a></nav>
                     </div>
-                    <ButtonWithImg icon={faArrowUpRightFromSquare} text="Login" link="/login" />
+                    <ButtonWithImg style={1} icon={faArrowUpRightFromSquare} text="Login" link="/login" />
                 </div>
                 <h1>Instrumetos Meteorologicos</h1>
                 <p>Esta base de conhecimento reúne informações detalhadas sobre os principais dispositivos utilizados no monitoramento do clima.</p>
