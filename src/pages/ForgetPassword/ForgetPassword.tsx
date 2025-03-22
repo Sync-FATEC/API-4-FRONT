@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import "./ForgetPassword.css";
-import logo from "./static/img/tecsus-logo.png";
+import logo from "../../../src/static/img/tecsus-logo.png";
 
 export default function ForgetPasswordComponent() {
   return (

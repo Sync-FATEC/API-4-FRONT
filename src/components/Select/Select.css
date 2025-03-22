@@ -1,0 +1,121 @@
+.select-container {
+    gap: 5px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 6px;
+}
+
+.style-select-1, .style-select-2 {
+    color: var(--purple-gray);
+    font-weight: bold;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    appearance: none;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+.custom-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: var(--lavender);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.custom-arrow-icon {
+    color: var(--black);
+    font-size: 16px;
+}
+
+.style-select-1 select[disabled] {
+    background: var(--periwinkle-dark);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.style-select-2 select {
+    border: 1px solid var(--border-input);
+    background: var(--white);
+    border-radius: 8px;
+}
+
+.style-select-2 select[disabled] {
+    background: var(--gray-light);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.input-container {
+    gap: 5px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 6px;
+}
+
+.style-input-1 {
+    color: var(--off-white);
+    font-weight: bold;
+}
+
+.style-input-1 input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    background: var(--periwinkle);
+}
+
+.style-input-1 input[disabled] {
+    background: var(--periwinkle-dark);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.style-input-2 {
+    color: var(--purple-gray);
+    font-weight: bold;
+}
+
+.style-input-2 input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-input);
+    font-size: 1rem;
+    outline: none;
+    background: var(--white);
+}
+
+.style-input-2 input[disabled] {
+    background: var(--gray-light);
+    opacity: 0.6;
+    cursor: not-allowed;
+}

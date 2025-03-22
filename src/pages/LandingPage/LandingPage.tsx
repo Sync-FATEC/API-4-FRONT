@@ -1,14 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../../public/static/img/tecsus-logo.png";
+import { useNavigate } from "react-router-dom";
+import logo from "../../../src/static/img/tecsus-logo.png";
 import './LandingPage.css'
-import pluviometro from '../../../public/static/img/equipamentos/pluviometro.png'
-import anemometro from '../../../public/static/img/equipamentos/anemometro.png'
-import barometro from '../../../public/static/img/equipamentos/barometro.png'
-import piranometro from '../../../public/static/img/equipamentos/piranometro.png'
-import higrometro from '../../../public/static/img/equipamentos/higrometro.png'
-import termometro from '../../../public/static/img/equipamentos/termometro.png'
 import DynamicList from "../../components/list/DynamicList";
+import { AuthContext } from "../../contexts/auth/AuthContext";
+import pluviometro from '../../../src/static/img/equipamentos/pluviometro.png'
+import anemometro from '../../../src/static/img/equipamentos/anemometro.png'
+import barometro from '../../../src/static/img/equipamentos/barometro.png'
+import piranometro from '../../../src/static/img/equipamentos/piranometro.png'
+import higrometro from '../../../src/static/img/equipamentos/higrometro.png'
+import termometro from '../../../src/static/img/equipamentos/termometro.png'
+import ButtonWithImg from "../../components/buttonWithImg/buttonWithImg";
 
 export default function LandingPage() {
 
@@ -27,7 +30,7 @@ export default function LandingPage() {
                         <nav><a href="#Piranômetro">Piranômetro</a></nav>
                         <nav><a href="#Higrômetro">Higrômetro</a></nav>
                     </div>
-                    <a className="loginButton" href="/login"><FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Login</a>
+                    <ButtonWithImg style={1} icon={faArrowUpRightFromSquare} text="Login" link="/login" />
                 </div>
                 <h1>Instrumetos Meteorologicos</h1>
                 <p>Esta base de conhecimento reúne informações detalhadas sobre os principais dispositivos utilizados no monitoramento do clima.</p>
@@ -71,7 +74,7 @@ export default function LandingPage() {
                 <div className="contentMeteorologico" id="Higrômetro">
                     <div>
                         <h2>Higrômetro</h2>
-                        <p>O higrômetro avalia a umidade do ar, mostrando quanto vapor d’água está presente em relação ao máximo que o ar suporta antes de condensar. Ele pode ser mecânico, com materiais que se expandem ao absorver umidade, ou eletrônico, com sensores que detectam mudanças na capacitância. Em um dia úmido, o higrômetro pode indicar 80%, sugerindo que o ar está quase saturado. Esse valor influencia o conforto humano e previsões de chuva ou nevoeiro.</p>
+                        <p>O higrômetro avalia a umidade do ar, mostrando quanto vapor d'água está presente em relação ao máximo que o ar suporta antes de condensar. Ele pode ser mecânico, com materiais que se expandem ao absorver umidade, ou eletrônico, com sensores que detectam mudanças na capacitância. Em um dia úmido, o higrômetro pode indicar 80%, sugerindo que o ar está quase saturado. Esse valor influencia o conforto humano e previsões de chuva ou nevoeiro.</p>
                     </div>
                     <img src={higrometro} alt="imagem de um pluviômetro" />
                 </div>

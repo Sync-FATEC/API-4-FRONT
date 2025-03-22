@@ -1,0 +1,39 @@
+.butonWithImg {
+    background-color: var(--deep-indigo);
+    color: var(--white);
+    padding: 15px 25px;
+    border-radius: var(--border);
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    max-width: 187px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.indigo {
+    background-color: var(--indigo-solid);
+}
+
+.lavender {
+    background-color: var(--lavender-pale);
+    color: var(--black);
+}
+
+.butonWithImg > a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.butonWithImg svg {
+    margin-right: 10px;
+}
+
+.indigo:hover {
+    background-color: var(--deep-indigo-hover);
+}
+
+.lavender:hover {
+    background-color: var(--lavender-pale-hover);
+}

@@ -61,6 +61,10 @@
   gap: 15px; /* Aumentando o espaço entre os inputs */
 }
 
+.login-input label {
+  float: left;
+}
+
 /* Campos de entrada individuais */
 .login-input .input-field {
   margin-bottom: 20px; /* Adicionando um espaçamento maior entre os inputs */
