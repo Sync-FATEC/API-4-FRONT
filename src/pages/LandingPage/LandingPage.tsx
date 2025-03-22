@@ -8,8 +8,12 @@ import barometro from '../../../public/static/img/equipamentos/barometro.png'
 import piranometro from '../../../public/static/img/equipamentos/piranometro.png'
 import higrometro from '../../../public/static/img/equipamentos/higrometro.png'
 import termometro from '../../../public/static/img/equipamentos/termometro.png'
+import DynamicList from "../../components/list/DynamicList";
 
 export default function LandingPage() {
+
+
+
     return (
         <main className="LandingPage">
             <header className="LandingPageHeader">
