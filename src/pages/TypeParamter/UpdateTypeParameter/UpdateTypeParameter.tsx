@@ -23,8 +23,6 @@ export default function UpdateTypeParameter() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log(id);
-        
         const handleReadTypeParameter = async () => {
             if (!id) {
                 errorSwal("Tipo de parâmetro não encontrado");
@@ -32,12 +30,12 @@ export default function UpdateTypeParameter() {
             }
             try {
                 const response = await typeParameterService.readTypeParameter(id);
-                setTypeJson(response.data.typeJson);
-                setName(response.data.name);
-                setUnit(response.data.unit);
-                setNumberOfDecimalsCases(response.data.numberOfDecimalsCases.toString());
-                setFactor(response.data.factor.toString());
-                setOffset(response.data.offset.toString());
+                setName(response.data.model.name)
+                setUnit(response.data.model.unit)
+                setTypeJson(response.data.model.typeJson)
+                setNumberOfDecimalsCases(response.data.model.numberOfDecimalsCases.toString())
+                setFactor(response.data.model.factor.toString())
+                setOffset(response.data.model.offset.toString())
             } catch (error) {
                 errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
                 navigate("/tipo-parametro");
@@ -62,6 +60,7 @@ export default function UpdateTypeParameter() {
         try {
             const response = await typeParameterService.updateTypeParameter(data);
             successSwal("Tipo de parâmetro atualizado com sucesso");
+            navigate("/tipo-parametro");
         } catch (error) {
             errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
         }

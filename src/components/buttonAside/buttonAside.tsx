@@ -8,6 +8,7 @@ interface ButtonAsideProps {
     link: string;
     onClick?: () => void;
     isActive?: boolean;
+    title?: string;
 }
 
 export default function ButtonAside(props: ButtonAsideProps) {
@@ -20,6 +21,7 @@ export default function ButtonAside(props: ButtonAsideProps) {
             <button 
                 onClick={props.onClick} 
                 className={`buttonAside ${props.isActive ? 'active' : ''}`}
+                title={props.title}
             >
                 {buttonContent}
             </button>
@@ -30,6 +32,7 @@ export default function ButtonAside(props: ButtonAsideProps) {
         <Link 
             to={props.link} 
             className={`buttonAside ${props.isActive ? 'active' : ''}`}
+            title={props.title}
         >
             {buttonContent}
         </Link>

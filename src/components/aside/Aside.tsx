@@ -14,43 +14,24 @@ export function Aside() {
   const handleLogout = () => {
     authContext.logout()
   }
-
-  if(authContext.user?.role === "FUNCIONARIO") {
-    return (
-      <div className='aside'>
-        <div>
-          <img src={logo} alt="Logo" />
-          <ButtonAside icon={faChartPie} link='/dashboard' isActive={currentPath === '/dashboard'} />
-          <ButtonAside icon={faRss} link='/estacao' isActive={currentPath === '/estacao'} />
-          <ButtonAside icon={faSliders} link='/tipo-parametro' isActive={currentPath === '/tipo-parametro'} />
-          <ButtonAside icon={faTriangleExclamation} link='/tipo-alerta' isActive={currentPath === '/tipo-alerta'} />
-          <ButtonAside icon={faBell} link='/alertas' isActive={currentPath === '/alertas'} />
-          <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} />
-        </div>
-        <div className='logout'>
-          <ButtonAside icon={faRightFromBracket} onClick={handleLogout} link='' />
-        </div>
-      </div>
-    );
-  }
   
-  if(authContext.user?.role === "ADMIN") {
     return (
       <div className='aside'>
         <div>
           <img src={logo} alt="Logo" />
-          <ButtonAside icon={faChartPie} link='/dashboard' isActive={currentPath === '/dashboard'} />
-          <ButtonAside icon={faUser} link='/usuario' isActive={currentPath === '/usuario'} />
-          <ButtonAside icon={faRss} link='/estacao' isActive={currentPath === '/estacao'} />
-          <ButtonAside icon={faSliders} link='/tipo-parametro' isActive={currentPath === '/tipo-parametro'} />
-          <ButtonAside icon={faTriangleExclamation} link='/tipo-alerta' isActive={currentPath === '/tipo-alerta'} />
-          <ButtonAside icon={faBell} link='/alertas' isActive={currentPath === '/alertas'} />
-          <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} />
+          <ButtonAside icon={faChartPie} link='/dashboard' isActive={currentPath === '/dashboard'} title="Dashboard" />
+          {authContext.user?.role === "ADMIN" && (
+            <ButtonAside icon={faUser} link='/usuario' isActive={currentPath === '/usuario'} title="Usuários" />
+          )}
+          <ButtonAside icon={faRss} link='/estacao' isActive={currentPath === '/estacao'} title="Estação" />
+          <ButtonAside icon={faSliders} link='/tipo-parametro' isActive={currentPath === '/tipo-parametro'} title="Tipo de Parâmetro" />
+          <ButtonAside icon={faTriangleExclamation} link='/tipo-alerta' isActive={currentPath === '/tipo-alerta'} title="Tipo de Alerta" />
+          <ButtonAside icon={faBell} link='/alertas' isActive={currentPath === '/alertas'} title="Alertas" />
+          <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} title="Opções" />
         </div>
         <div className='logout'>
-          <ButtonAside icon={faRightFromBracket} onClick={handleLogout} link='' />
+          <ButtonAside icon={faRightFromBracket} onClick={handleLogout} link='' title="Sair" />
         </div>
       </div>
     );
-  }
 }
