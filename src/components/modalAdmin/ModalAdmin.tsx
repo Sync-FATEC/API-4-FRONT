@@ -3,6 +3,7 @@ import { Aside } from "../aside/Aside";
 import ButtonWithImg from "../buttonWithImg/buttonWithImg";
 import "./ModalAdmin.css";
 import DynamicList, { ListProps } from "../list/DynamicList";
+import NoData from "../noData/NoData";
 
 interface ModalAdminProps<T> {
   text: string;
@@ -31,6 +32,10 @@ export default function ModalAdmin({
             icon={faPlus}
             link={createlink}
           />
+
+          {(listProps.data.length === 0) ? (
+            <NoData />
+          ) : (
           <DynamicList
             data={listProps.data}
             fields={listProps.fields}
@@ -40,6 +45,7 @@ export default function ModalAdmin({
             detailsLink=""
             text={text}
           />
+          )}
         </div>
       </div>
     </main>

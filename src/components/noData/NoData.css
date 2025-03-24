@@ -1,0 +1,45 @@
+.noData-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.noData-icon {
+    font-size: 100px;
+    color: var(--indigo-solid);
+    opacity: 0.6;
+}
+
+.noData-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--indigo-solid);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    line-height: 1;
+    user-select: none;
+    opacity: 0.6;
+}
+
+.noData-text {
+    color: var(--dark-plum);
+    margin-bottom: 2rem;
+    text-align: center;
+    user-select: none;
+    opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+    .noData-title {
+        font-size: 6rem;
+    }
+    
+    .noData-content {
+        padding: 2rem;
+    }
+}
