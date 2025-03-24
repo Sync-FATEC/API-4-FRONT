@@ -6,6 +6,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .buttonAside svg {
@@ -15,4 +19,9 @@
 
 .buttonAside:hover {
     background-color: var(--periwinkle-hover);
+}
+
+.buttonAside.active {
+    background-color: var(--lime-green);
+    box-shadow: 0 0 0 2px var(--periwinkle-shadow, rgba(80, 80, 160, 0.3));
 }

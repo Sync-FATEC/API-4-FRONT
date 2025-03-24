@@ -1,57 +1,77 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
+import userService from '../../../api/userService';
+import { errorSwal } from '../../../components/swal/errorSwal';
+import { useNavigate } from 'react-router-dom';
+import { successSwal } from '../../../components/swal/sucessSwal';
+import api from '../../../api/api';
+import { formatDateAndHour } from '../../../utils/formatDateAndHour';
+import formatTrueOrFalse from '../../../utils/formatTrueOrFalse';
 
-export interface ClientProps {
+export interface UserProps {
+    id: string;
     name: string;
     email: string;
     cpf: string;
-    status: string;
-    lastUpdate: string;
-    id: number;
+    role: string;
+    createdAt: string;
+    active: boolean;
 }
 
 const ListClient: React.FC = () => {
+    const navigate = useNavigate();
+    const [data, setData] = React.useState<UserProps[]>([]);
 
-    const data: ClientProps[] = [
-        {
-            name: 'Client A',
-            email: 'clienta@example.com',
-            cpf: '123.456.789-00',
-            status: 'Active',
-            lastUpdate: '2023-01-01',
-            id: 1,
-        },
-        {
-            name: 'Client B',
-            email: 'clientb@example.com',
-            cpf: '987.654.321-00',
-            status: 'Inactive',
-            lastUpdate: '2023-01-02',
-            id: 2,
-        },
-        {
-            name: 'Client C',
-            email: 'clientc@example.com',
-            cpf: '456.789.123-00',
-            status: 'Active',
-            lastUpdate: '2023-01-03',
-            id: 3,
-        },
-    ];
+    useEffect(() => {
+        const handleReadUsers = async () => {
+            try {
+                const response = await userService.ListClients();
+                const formattedData = response.data.model.map((user: UserProps) => ({
+                    ...user,
+                    active: formatTrueOrFalse(user.active)
+                }));
+                setData(formattedData);
+            } catch (error) {
+                errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+            }
+        };
+        handleReadUsers();
+    }, []);
+
+    const handleDelete = async (id: string) => {
+        try {
+            await userService.deleteUser(id);
+            setData(data.filter((user) => user.id !== id));
+            successSwal("Usuário deletado com sucesso");
+        } catch (error) {
+            errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+        }
+    }
+
+    const handleUpdate = async (id: string) => {
+        navigate(`/usuario/atualizar/${id}`);  
+    }
 
     const fields = [
-        { key: "name" as keyof ClientProps, label: "Nome" },
-        { key: "email" as keyof ClientProps, label: "E-mail" },
-        { key: "cpf" as keyof ClientProps, label: "CPF" },
-        { key: "status" as keyof ClientProps, label: "Status" },
-        { key: "lastUpdate" as keyof ClientProps, label: "Última Atualização" },
+        { key: "name" as keyof UserProps, label: "Nome" },
+        { key: "email" as keyof UserProps, label: "E-mail" },
+        { key: "cpf" as keyof UserProps, label: "CPF" },
+        { key: "role" as keyof UserProps, label: "Função" },
+        { key: "active" as keyof UserProps, label: "Ativo" },
     ];
 
     return (
         <ModalAdmin 
-            createlink='/cliente/criar'
-            text='clientes'
-            listProps={{ data, fields, onDelete: () => {}, onUpdate: () => {}, isEditable: true , detailsLink: '/clientes/editar'}}
+            createlink='/usuario/criar'
+            text='usuários'
+            listProps={{ 
+              data, 
+              fields, 
+              onDelete: handleDelete, 
+              onUpdate: handleUpdate, 
+              isEditable: true,
+              idKey: 'id' as keyof UserProps 
+            }}
             style={1}
         />
     );

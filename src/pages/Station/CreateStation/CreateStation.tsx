@@ -28,6 +28,7 @@ export default function CreateStation() {
     try {
       const response = await stationService.createStation(data);
       successSwal("Estação cadastrada com sucesso");
+      navigate("/estacao");
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
     }

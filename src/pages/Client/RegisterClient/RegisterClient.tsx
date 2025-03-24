@@ -4,6 +4,9 @@ import Input from '../../../components/input/Input';
 import Button from '../../../components/button/Button';
 import { useState } from 'react';
 import userService from '../../../api/userService';
+import { useNavigate } from 'react-router-dom';
+import { successSwal } from '../../../components/swal/sucessSwal';
+import { errorSwal } from '../../../components/swal/errorSwal';
 
 function formatCPF(cpf: string) {
   cpf = cpf.replace(/\D/g, ''); // Remove tudo que não for número
@@ -16,10 +19,11 @@ function formatCPF(cpf: string) {
 
 
 export default function RegisterClient() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    cpf: '', // Armazena CPF sem formatação
+    cpf: '',
   });
 
   function handleCPFChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -30,9 +34,10 @@ export default function RegisterClient() {
   const handleSubmit = async () => {
     try {
       const response = await userService.registerUser(userData);
-      console.log('Usuário cadastrado com sucesso:', response.data);
+      successSwal('Usuário cadastrado com sucesso');
+      navigate("/usuario")
     } catch (error) {
-      console.error('Erro ao cadastrar usuário:', error);
+      errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
     }
   };
 
@@ -63,7 +68,7 @@ export default function RegisterClient() {
       </div>
 
       <div className='Buttons'>
-        <Button label='Cancelar' styleButton={2}/>
+        <Button label='Cancelar' onClick={() => {navigate(-1)}} styleButton={2}/>
         <Button label='Cadastrar' onClick={handleSubmit} styleButton={1}/>
       </div>
     </div>
