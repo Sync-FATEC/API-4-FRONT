@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
 import stationService from '../../../api/stationService';
 import { errorSwal } from '../../../components/swal/errorSwal';
 import { UpdateStationType } from '../../../types/station/UpdateStationType';
 import { useNavigate } from 'react-router-dom';
 import { successSwal } from '../../../components/swal/sucessSwal';
+import { set } from 'date-fns';
 
 export interface StationProps {
     id: string;
@@ -24,7 +25,9 @@ const ListStation: React.FC = () => {
                 const response = await stationService.listStations();
                 setData(response.data.model);
             } catch (error) {
-                errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+                if (!(error as any)?.response?.data?.error.includes("para listar")) {
+                    errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+                }
             }
         };
         handleReadStations();
@@ -55,7 +58,7 @@ const ListStation: React.FC = () => {
     return (
         <ModalAdmin 
             createlink='/estacao/criar'
-            text='estaçôes'
+            text='estações'
             listProps={{ 
               data, 
               fields, 

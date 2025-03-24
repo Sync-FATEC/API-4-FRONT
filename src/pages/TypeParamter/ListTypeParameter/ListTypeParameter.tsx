@@ -25,7 +25,9 @@ const ListTypeParameter: React.FC = () => {
                 const response = await typeParameterService.listTypeParameters();
                 setData(response.data.model);
             } catch (error) {
-                errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+                if (!(error as any)?.response?.data?.error.includes("para listar")) {
+                    errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+                }   
             }
         };
         handleReadTypeParameters();
