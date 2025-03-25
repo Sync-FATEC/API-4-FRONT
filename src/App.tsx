@@ -19,6 +19,7 @@ import ListClient from './pages/Client/ListClient/ListClient';
 import CreatePassword from './pages/Client/CreatePassword/CreatePassword';
 import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/UpdateTypeParameter';
 import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
+import UpdateTypeAlert from './pages/TypeAlert/Update/UpdateTypeAlert';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
 
             {/* Tipo de Alerta */}
             <Route path='/tipo-alerta/criar' element={<RequireAuthAdmin><CreateTypeAlert /></RequireAuthAdmin>}/>
+            <Route path='/tipo-alerta/editar/:id' element={<RequireAuthAdmin><UpdateTypeAlert /></RequireAuthAdmin>}/>
             <Route path='/tipo-alerta' element={<RequireAuthAdmin><ListTypeAlert /></RequireAuthAdmin>} />
 
             {/* Estacao */}
