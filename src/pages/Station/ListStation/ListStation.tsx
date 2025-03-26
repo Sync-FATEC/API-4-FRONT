@@ -65,7 +65,8 @@ const ListStation: React.FC = () => {
               onDelete: handleDelete, 
               onUpdate: handleUpdate, 
               isEditable: true,
-              idKey: 'id' as keyof StationProps 
+              idKey: 'id' as keyof StationProps, 
+              detailsLink: '/estacao/',
             }}
             style={1}
         />

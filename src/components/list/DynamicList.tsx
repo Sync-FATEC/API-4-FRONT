@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./DynamicList.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export interface ListProps<T> {
   data: T[];
@@ -24,8 +25,12 @@ function DynamicList<T>({
   idKey = "id" as keyof T,
   text,
 }: ListProps<T>) {
-  const navigateToDetails = () => {
-    // Create to navigate to details page
+  const navigate = useNavigate();
+
+  const navigateToDetails = (id: string) => {
+    if (detailsLink) {
+      navigate(detailsLink + id);
+    }
   };
 
   const [filteredData, setFilteredData] = useState(data);
@@ -78,12 +83,13 @@ function DynamicList<T>({
           {isEditable && <div className="list-header-item">Ações</div>}
         </div>
         {filteredData.map((item, index) => (
-          <div key={index} className="list-row" style={gridStyle}>
+          <div key={index} 
+          className="list-row" 
+          style={gridStyle}>
             {fields.map((field) => (
               <div
                 key={String(field.key)}
                 className="list-cell"
-                onClick={navigateToDetails}
               >
                 {String(item[field.key])}
               </div>
@@ -98,6 +104,12 @@ function DynamicList<T>({
                   icon={faTrash}
                   onClick={() => onDelete(String(item[idKey]))}
                 />
+                {detailsLink && (
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    onClick={() => navigateToDetails(String(item[idKey]))}
+                  />
+                )}
               </div>
             )}
           </div>
