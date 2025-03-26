@@ -1,0 +1,24 @@
+.register-modal {
+  display: block;
+}
+
+.subtitle {
+  border-bottom: 1px solid var(--dusty-lavender-subtitle);
+  margin-bottom: 10px;
+  margin-top: 2px;
+}
+
+.input-container {
+  font-weight: bold;
+  font-size: 2rem;
+  color: var(--purple-gray);
+}
+
+.personal-data {
+  margin-bottom: 4%;
+}
+
+.Buttons {
+  display: flex;
+  gap: 5%;
+}

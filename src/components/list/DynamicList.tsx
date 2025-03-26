@@ -14,14 +14,14 @@ export interface ListProps<T> {
   text?: string;
 }
 
-function  DynamicList<T>({
+function DynamicList<T>({
   data,
   fields,
   onDelete,
   onUpdate,
   detailsLink,
   isEditable = detailsLink ? true : false,
-  idKey = 'id' as keyof T,
+  idKey = "id" as keyof T,
   text,
 }: ListProps<T>) {
   const navigateToDetails = () => {
@@ -29,16 +29,16 @@ function  DynamicList<T>({
   };
 
   const [filteredData, setFilteredData] = useState(data);
-  
+
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
-  
+
   // Calcular o estilo do grid com base no número de campos
   const gridStyle = {
-    gridTemplateColumns: isEditable 
-      ? `repeat(${fields.length}, 1fr) 100px` 
-      : `repeat(${fields.length}, 1fr)`
+    gridTemplateColumns: isEditable
+      ? `repeat(${fields.length}, 1fr) 100px`
+      : `repeat(${fields.length}, 1fr)`,
   };
 
   return (
@@ -48,22 +48,25 @@ function  DynamicList<T>({
           <FontAwesomeIcon icon={faSearch} />
           <input
             className="search-box"
-          type="text"
-          placeholder={`Pesquisar ${text}`}
-          onChange={(e) => {
-            data.filter((item) => {
+            type="text"
+            placeholder={`Pesquisar ${text}`}
+            onChange={(e) => {
+              data.filter((item) => {
                 const filterValue = e.target.value.toLowerCase();
                 const filtered = data.filter((item) =>
-                fields.some((field) =>
-                  String(item[field.key]).toLowerCase().includes(filterValue)
-                )
+                  fields.some((field) =>
+                    String(item[field.key]).toLowerCase().includes(filterValue)
+                  )
                 );
                 setFilteredData(filtered);
-            });
+              });
             }}
           />
         </div>
-        <p> Total de {text}: {data.length}</p>
+        <p>
+          {" "}
+          Total de {text}: {data.length}
+        </p>
       </div>
       <div className="list-grid">
         <div className="list-header" style={gridStyle}>
