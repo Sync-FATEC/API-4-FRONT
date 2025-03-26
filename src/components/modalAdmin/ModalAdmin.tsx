@@ -42,7 +42,7 @@ export default function ModalAdmin({
             onDelete={listProps.onDelete}
             onUpdate={listProps.onUpdate}
             isEditable={listProps.isEditable}
-            detailsLink=""
+            detailsLink={listProps.detailsLink}
             text={text}
           />
           )}

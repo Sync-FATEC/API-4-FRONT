@@ -20,6 +20,7 @@ import CreatePassword from './pages/Client/CreatePassword/CreatePassword';
 import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/UpdateTypeParameter';
 import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
 import UpdateTypeAlert from './pages/TypeAlert/Update/UpdateTypeAlert';
+import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
 
             {/* Estacao */}
             <Route path='/estacao' element={<RequireAuthAdmin><ListStation /></RequireAuthAdmin>} />
+            <Route path='/estacao/:id' element={<RequireAuthAdmin><DetailsStation /></RequireAuthAdmin>} />
             <Route path='/estacao/atualizar/:id' element={<RequireAuthAdmin><UpdateStation /></RequireAuthAdmin>} />
             <Route path='/estacao/criar' element={<RequireAuthAdmin><CreateStation /></RequireAuthAdmin>} />
 
