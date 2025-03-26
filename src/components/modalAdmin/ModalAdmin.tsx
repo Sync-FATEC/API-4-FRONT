@@ -1,4 +1,4 @@
-import { fa0, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Aside } from "../aside/Aside";
 import ButtonWithImg from "../buttonWithImg/buttonWithImg";
 import "./ModalAdmin.css";
@@ -21,30 +21,30 @@ export default function ModalAdmin({
   return (
     <main className="modal-admin">
       <Aside />
-      <div className="modal-admin-bg1">
+      <div className="modal-admin-content">
         <div className="modal-admin-bg2">
-          <div>
-            <p className="modal-admin-title">Listagem de {text} </p>
+          <div className="modal-admin-header">
+            <p className="modal-admin-title">Listagem de {text}</p>
+            <ButtonWithImg
+              style={2}
+              text={`Adicionar ${text}`}
+              icon={faPlus}
+              link={createlink}
+            />
           </div>
-          <ButtonWithImg
-            style={2}
-            text={`Adicionar ${text}`}
-            icon={faPlus}
-            link={createlink}
-          />
 
           {(listProps.data.length === 0) ? (
             <NoData />
           ) : (
-          <DynamicList
-            data={listProps.data}
-            fields={listProps.fields}
-            onDelete={listProps.onDelete}
-            onUpdate={listProps.onUpdate}
-            isEditable={listProps.isEditable}
-            detailsLink={listProps.detailsLink}
-            text={text}
-          />
+            <DynamicList
+              data={listProps.data}
+              fields={listProps.fields}
+              onDelete={listProps.onDelete}
+              onUpdate={listProps.onUpdate}
+              isEditable={listProps.isEditable}
+              detailsLink={listProps.detailsLink}
+              text={text}
+            />
           )}
         </div>
       </div>

@@ -14,8 +14,9 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 20px 20px 0 0;
-    border-bottom: 1px solid #e0e0e0;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .list-table {
@@ -27,6 +28,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow-x: auto;
 }
 
 .list-header {
@@ -37,6 +39,7 @@
     font-weight: 700;
     padding: 0 10px;
     border-bottom: 1px solid #e0e0e0;
+    min-width: max-content;
 }
 
 .list-header-item {
@@ -53,6 +56,7 @@
     border-bottom: 1px solid #e0e0e0;
     padding: 10px;
     transition: background-color 0.3s;
+    min-width: max-content;
 }
 
 .list-row:hover {
@@ -97,6 +101,83 @@
     border-bottom: 1px solid var(--purple-gray);
     width: 50vw;
     max-width: 400px;
+    min-width: 200px;
 }
+
+/* Estilos para visualização mobile */
+.mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.mobile-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mobile-card-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.mobile-card-label {
+    font-weight: 700;
+    color: var(--dark-plum);
+    font-size: 0.9em;
+}
+
+.mobile-card-value {
+    color: var(--dark-plum);
+    font-size: 1em;
+}
+
+.mobile-card-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Media queries para responsividade */
+@media screen and (max-width: 1100px) {
+    .list-top-header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .search-box-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .list-container {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .mobile-card {
+        padding: 10px;
+    }
+
+    .mobile-card-label {
+        font-size: 0.8em;
+    }
+
+    .mobile-card-value {
+        font-size: 0.9em;
+    }
+}
+
 
 
