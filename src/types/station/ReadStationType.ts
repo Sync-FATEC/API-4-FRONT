@@ -16,5 +16,11 @@ export type ReadStationType = {
                 factor: number;
                 offset: number;
             };
+            typeAlerts: {
+                id: string;
+                name: string;
+                comparisonOperator: '>' | '<' | '=';
+                value: number;
+            }[];
         }[];
 };

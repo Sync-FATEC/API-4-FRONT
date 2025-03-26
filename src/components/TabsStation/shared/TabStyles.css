@@ -127,6 +127,7 @@
 
 .station-tab__parameter-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: var(--padding-input);
     background-color: var(--white);
@@ -137,10 +138,40 @@
 }
 
 .station-tab__parameter-info {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--padding-input);
+    width: 100%;
+}
+
+.station-tab__parameter-info p {
+    margin: 0.5rem 0;
+}
+
+.station-tab__parameter-info strong {
+    color: #666;
+}
+
+.station-tab__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.station-tab__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.station-tab__input,
+.station-tab__textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.station-tab__textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
 @media (max-width: 768px) {
@@ -169,4 +200,88 @@
     .station-tab__delete-button {
         width: 100%;
     }
+}
+
+.station-tab__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin);
+}
+
+.station-tab__form-section {
+    background-color: var(--white);
+    border-radius: var(--border);
+    padding: var(--padding-input);
+    border: 1px solid var(--lavender-pale);
+}
+
+.station-tab__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: calc(var(--padding-input) * 1.25);
+}
+
+.station-tab__card {
+    background-color: var(--white);
+    border-radius: var(--border);
+    padding: var(--padding-input);
+    border: 1px solid var(--lavender-pale);
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-input);
+}
+
+.station-tab__card-info {
+    flex: 1;
+}
+
+.station-tab__button {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border);
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.station-tab__button--primary {
+    background-color: var(--deep-indigo);
+    color: white;
+}
+
+.station-tab__button--primary:hover {
+    background-color: var(--indigo-solid);
+    transform: translateY(-2px);
+}
+
+.station-tab__button--danger {
+    background-color: #ff4757;
+    color: white;
+}
+
+.station-tab__button--danger:hover {
+    background-color: #ff6b81;
+    transform: translateY(-2px);
+}
+
+.station-tab__button--danger:disabled {
+    background-color: #ffb3b3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.station-tab__empty-message {
+    text-align: center;
+    color: var(--gray);
+    font-style: italic;
+}
+
+.station-tab__info-item--warning {
+    color: #ff4757;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
+}
+
+.station-tab__info-item--warning strong {
+    color: inherit;
 } 

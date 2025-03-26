@@ -87,8 +87,18 @@ export const Maps = ({ latitude, longitude }: MapsProps) => {
       }
     };
 
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API || "";
+
+
+    if (!apiKey) {
+      console.error("A chave da API do Google Maps não foi encontrada!");
+      return;
+    }
+
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDFjdQpf_eK1Lpf_T90puggXC2nkJ1d29M&callback=Function.prototype`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=Function.prototype`;
+    console.log(script.src);
+
     script.async = true;
     script.onload = () => initMap();
     document.head.appendChild(script);
