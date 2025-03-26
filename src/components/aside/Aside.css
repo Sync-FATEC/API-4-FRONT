@@ -1,30 +1,167 @@
 .aside {
-    width: 100px;
-    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 70px;
     background-color: var(--indigo-solid);
-    overflow-x: hidden;
-    padding-top: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
-    z-index: 10;
+    padding: 20px 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-.aside div {
+.aside:hover {
+    width: 250px;
+}
+
+.aside-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 10px;
+    width: 100%;
 }
 
-.aside div > img {
-    height: 50px;
+.aside-content img {
+    height: 40px;
     margin-bottom: 20px;
+    padding: 0 15px;
+    min-width: 40px;
+    object-fit: contain;
+}
+
+.aside button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.aside button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.aside button.active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.aside button span {
+    color: white;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.aside:hover button span {
+    opacity: 1;
+}
+
+.aside button svg {
+    min-width: 20px;
+    color: white;
 }
 
 .logout {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: var(--indigo-solid);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
     cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+.menu-toggle:hover {
+    background-color: var(--indigo-solid-hover, #3a3474);
+    transform: scale(1.05);
+}
+
+.menu-toggle:active {
+    transform: scale(0.95);
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .aside {
+        transform: translateX(-100%);
+        width: 250px;
+    }
+
+    .aside.open {
+        transform: translateX(0);
+    }
+
+    .aside button span {
+        opacity: 1;
+    }
+
+    .overlay {
+        display: block;
+    }
+
+    .aside-content img {
+        height: 40px;
+        padding: 0 20px;
+    }
+
+    .aside button {
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .aside {
+        width: 100%;
+    }
+
+    .menu-toggle {
+        top: 15px;
+        left: 15px;
+    }
 }

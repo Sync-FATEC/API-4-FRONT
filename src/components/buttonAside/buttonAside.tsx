@@ -13,7 +13,10 @@ interface ButtonAsideProps {
 
 export default function ButtonAside(props: ButtonAsideProps) {
     const buttonContent = (
-        <FontAwesomeIcon icon={props.icon} />
+        <>
+            <FontAwesomeIcon icon={props.icon} />
+            {props.title && <span>{props.title}</span>}
+        </>
     );
 
     if (props.onClick) {
