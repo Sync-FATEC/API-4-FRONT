@@ -26,6 +26,10 @@ export default function LoginComponent() {
     }
   };
 
+  const handleLoginAsReader = async () => {
+    navigate("/");
+  }
+
   return (
     <main className="login-container">
       <div className="login-background"></div>
@@ -36,9 +40,9 @@ export default function LoginComponent() {
             <Input label="Endereço de E-mail" styleInput={1} value={email} onChange={(e) => setEmail(e.target.value)} />
             <Input label="Senha" styleInput={1} value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <p className="login-forgot">
+          {/* <p className="login-forgot">
             Esqueceu sua senha? <a href="/esqueci-senha" className="login-link">Clique aqui</a>
-          </p>
+          </p> */}
           <div className="login-buttons">
             <Button label="Entrar" onClick={handleSubmitLogin} styleButton={3} />
           </div>
@@ -50,7 +54,7 @@ export default function LoginComponent() {
           </div>
 
           <div className="login-buttons">
-            <Button label="Entrar apenas como leitor" styleButton={3} />
+            <Button onClick={handleLoginAsReader} label="Entrar apenas como leitor" styleButton={3} />
           </div>
         </div>
       </section>

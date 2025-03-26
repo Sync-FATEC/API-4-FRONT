@@ -8,23 +8,10 @@ import { parseISO, format } from "date-fns";
 import { jwtDecode } from 'jwt-decode';
 import { successSwal } from '../../../components/swal/sucessSwal';
 import { errorSwal } from '../../../components/swal/errorSwal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function formatCPF(cpf: string) {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-}
-
-function getUserIdFromToken(): string | null {
-  const token = localStorage.getItem('token');
-  if (!token) return null;
-
-  try {
-    const decoded: { id: string } = jwtDecode(token);
-    return decoded.id;
-  } catch (error) {
-    console.error('Erro ao decodificar o token:', error);
-    return null;
-  }
 }
 
 export default function EditClient() {
@@ -37,11 +24,7 @@ export default function EditClient() {
     createdAt: '',
   });
   const [cpfOriginal, setCpfOrifinal] = useState('');
-
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    setUserId(id);
-  }, []);
+  const id = useParams().id;
 
   const handleSubmitEdit = async () => {
     const data = {
@@ -62,10 +45,10 @@ export default function EditClient() {
 
   useEffect(() => {
     async function fetchUserData() {
-      if (!userId) return;
+      if (!id) return;
   
       try {
-        const response = await userService.getDataUser(userId);
+        const response = await userService.getDataUser(id);
         const { name, email, cpf, createdAt } = response.data.model;
   
         setCpfOrifinal(cpf);

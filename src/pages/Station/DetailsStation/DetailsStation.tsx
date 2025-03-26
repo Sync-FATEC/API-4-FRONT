@@ -34,12 +34,10 @@ export default function DetailsStation() {
     }
   };
 
-  // Carrega os dados iniciais
   useEffect(() => {
     handleReadStation();
   }, [id]);
 
-  // Atualiza os dados quando mudar de tab
   useEffect(() => {
     handleReadStation();
   }, [activeTab]);
@@ -48,28 +46,46 @@ export default function DetailsStation() {
     setActiveTab(tab);
   };
 
+  const tabs = [
+    { id: 'details', label: 'Detalhes' },
+    { id: 'parameters', label: 'Tipos de parâmetros' },
+    { id: 'alerts', label: 'Tipos de alertas' }
+  ];
+
   const renderTabContent = () => {
     if (loading) {
-      return <Loading />;
+      return (
+        <div className="loading">
+          <Loading />
+        </div>
+      );
+    }
+
+    if (!station) {
+      return (
+        <div className="loading">
+          Estação não encontrada
+        </div>
+      );
     }
 
     switch (activeTab) {
       case 'details':
-        return station ? <DetailsStationTab station={station} /> : <div>Estação não encontrada</div>;
+        return <DetailsStationTab station={station} />;
       case 'parameters':
-        return station ? (
+        return (
           <TypeParameterTab 
             station={station} 
             onUpdateStation={handleReadStation}
-          /> 
-        ) : <div>Estação não encontrada</div>;
+          />
+        );
       case 'alerts':
-        return station ? (
+        return (
           <TypeAlertTab 
             station={station}
             onUpdateStation={handleReadStation}
-          /> 
-        ) : <div>Estação não encontrada</div>;
+          />
+        );
       default:
         return null;
     }
@@ -78,32 +94,26 @@ export default function DetailsStation() {
   return (
     <main className="modal-admin">
       <Aside />
-      <div className="modal-admin-bg1">
+      <div className="modal-admin-content">
         <div className="modal-admin-bg2">
-          <div>
-            <p className="modal-admin-title">Detalhes da estação {station?.uuid || 'Carregando...'} </p>
+          <div className="details-station-header">
+            <h1 className="details-station-title">
+              Detalhes da estação {station?.uuid || 'Carregando...'}
+            </h1>
           </div>
+          
           <div className="list-container">
             <div className="list-top-header">
               <div className="box-container">
-                <div 
-                  className={`tabs-station ${activeTab === 'details' ? 'active' : ''}`}
-                  onClick={() => handleTabChange('details')}
-                >
-                  <p>Detalhes</p>
-                </div>
-                <div 
-                  className={`tabs-station ${activeTab === 'parameters' ? 'active' : ''}`}
-                  onClick={() => handleTabChange('parameters')}
-                >
-                  <p>Tipos de parametros</p>
-                </div>
-                <div 
-                  className={`tabs-station ${activeTab === 'alerts' ? 'active' : ''}`}
-                  onClick={() => handleTabChange('alerts')}
-                >
-                  <p>Tipos de alertas</p>
-                </div>
+                {tabs.map(tab => (
+                  <div 
+                    key={tab.id}
+                    className={`tabs-station ${activeTab === tab.id ? 'active' : ''}`}
+                    onClick={() => handleTabChange(tab.id)}
+                  >
+                    <p>{tab.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="tab-content">

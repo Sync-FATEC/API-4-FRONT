@@ -1,27 +1,35 @@
 .buttonAside {
-    border-radius: var(--border);
-    background-color: var(--periwinkle);
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: none;
+    background: none;
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
     cursor: pointer;
     text-decoration: none;
-    color: inherit;
+    color: white;
+    transition: background-color 0.3s;
 }
 
 .buttonAside svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.buttonAside span {
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .buttonAside:hover {
-    background-color: var(--periwinkle-hover);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .buttonAside.active {
-    background-color: var(--lime-green);
-    box-shadow: 0 0 0 2px var(--periwinkle-shadow, rgba(80, 80, 160, 0.3));
+    background-color: rgba(255, 255, 255, 0.15);
 }
