@@ -4,16 +4,18 @@ import stationService from "../../../api/stationService";
 import { errorSwal } from "../../../components/swal/errorSwal";
 import { ReadStationType } from "../../../types/station/ReadStationType";
 import { Aside } from "../../../components/aside/Aside";
-import './DetailsStation.css'
+import "./DetailsStation.css";
 import DetailsStationTab from "../../../components/TabsStation/DetailsStationTab/DetailsStationTab";
 import TypeParameterTab from "../../../components/TabsStation/TypeParameterTab/TypeParameterTab";
 import Loading from "../../../components/loading/loading";
 import TypeAlertTab from "../../../components/TabsStation/typeAlertTab/TypeAlertTab";
+import AlertTab from "../../../components/TabsStation/alertTab/AlertTab";
+import MeasureTab from "../../../components/TabsStation/measureTab/MeasureTab";
 
 export default function DetailsStation() {
   const id = useParams().id;
   const [station, setStation] = useState<ReadStationType | null>(null);
-  const [activeTab, setActiveTab] = useState('details');
+  const [activeTab, setActiveTab] = useState("details");
   const [loading, setLoading] = useState(true);
 
   const handleReadStation = async () => {
@@ -47,9 +49,11 @@ export default function DetailsStation() {
   };
 
   const tabs = [
-    { id: 'details', label: 'Detalhes' },
-    { id: 'parameters', label: 'Tipos de parâmetros' },
-    { id: 'alerts', label: 'Tipos de alertas' }
+    { id: "details", label: "Detalhes" },
+    { id: "parameters", label: "Tipos de parâmetros" },
+    { id: "typeAlerts", label: "Tipos de alertas" },
+    { id: "alerts", label: "Alertas" },
+    { id: "measures", label: "Medições" },
   ];
 
   const renderTabContent = () => {
@@ -62,30 +66,31 @@ export default function DetailsStation() {
     }
 
     if (!station) {
-      return (
-        <div className="loading">
-          Estação não encontrada
-        </div>
-      );
+      return <div className="loading">Estação não encontrada</div>;
     }
 
     switch (activeTab) {
-      case 'details':
+      case "details":
         return <DetailsStationTab station={station} />;
-      case 'parameters':
+      case "parameters":
         return (
-          <TypeParameterTab 
-            station={station} 
-            onUpdateStation={handleReadStation}
-          />
-        );
-      case 'alerts':
-        return (
-          <TypeAlertTab 
+          <TypeParameterTab
             station={station}
             onUpdateStation={handleReadStation}
           />
         );
+      case "typeAlerts":
+        return (
+          <TypeAlertTab station={station} onUpdateStation={handleReadStation} />
+        );
+      case "alerts":
+        return (
+          <AlertTab station={station} onUpdateStation={handleReadStation} />
+        );
+      case "measures":
+        return (
+          <MeasureTab station={station} onUpdateStation={handleReadStation} />
+        )
       default:
         return null;
     }
@@ -98,17 +103,19 @@ export default function DetailsStation() {
         <div className="modal-admin-bg2">
           <div className="details-station-header">
             <h1 className="details-station-title">
-              Detalhes da estação {station?.uuid || 'Carregando...'}
+              Detalhes da estação {station?.uuid || "Carregando..."}
             </h1>
           </div>
-          
+
           <div className="list-container">
             <div className="list-top-header">
               <div className="box-container">
-                {tabs.map(tab => (
-                  <div 
+                {tabs.map((tab) => (
+                  <div
                     key={tab.id}
-                    className={`tabs-station ${activeTab === tab.id ? 'active' : ''}`}
+                    className={`tabs-station ${
+                      activeTab === tab.id ? "active" : ""
+                    }`}
                     onClick={() => handleTabChange(tab.id)}
                   >
                     <p>{tab.label}</p>
@@ -116,9 +123,7 @@ export default function DetailsStation() {
                 ))}
               </div>
             </div>
-            <div className="tab-content">
-              {renderTabContent()}
-            </div>
+            <div className="tab-content">{renderTabContent()}</div>
           </div>
         </div>
       </div>

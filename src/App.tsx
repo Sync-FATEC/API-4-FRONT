@@ -18,6 +18,7 @@ import CreatePassword from './pages/Client/CreatePassword/CreatePassword';
 import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/UpdateTypeParameter';
 import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
 import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
+import ListAlert from './pages/Alert/ListAlert/ListAlert';
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
             <Route path='/tipo-parametro/criar' element={<RequireAuthAdmin><CreateTypeParameter /></RequireAuthAdmin>} />
             <Route path='/tipo-parametro/atualizar/:id' element={<RequireAuthAdmin><UpdateTypeParameter /></RequireAuthAdmin>} />
 
+            {/* ALerta */}
+            <Route path='/alertas' element={<RequireAuthAdmin><ListAlert /></RequireAuthAdmin>} />
 
             <Route path="*" element={<Page404 />} />
           </Routes>
