@@ -12,6 +12,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .box-container::-webkit-scrollbar {
@@ -140,7 +141,6 @@
 
     .list-container {
         margin: 0;
-        border-radius: 0;
     }
 
     .list-top-header {

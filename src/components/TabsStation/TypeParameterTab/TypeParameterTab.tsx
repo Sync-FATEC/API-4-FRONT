@@ -4,6 +4,7 @@ import { ReadTypeParameterType } from "../../../types/TypeParameter/ReadTypePara
 import { typeParameterService } from "../../../api/typeParameterService";
 import { parameterService } from "../../../api/parameterService";
 import '../shared/TabStyles.css';
+import { errorSwal } from "../../swal/errorSwal";
 
 interface TypeParameterTabProps {
     station: ReadStationType;
@@ -21,7 +22,7 @@ export default function TypeParameterTab({station, onUpdateStation}: TypeParamet
                 const response = await typeParameterService.listTypeParameters();
                 setTypeParameters(response.data.model);
             } catch (error) {
-                console.error('Erro ao carregar tipos de parâmetros:', error);
+                errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
             }
         }
 
@@ -38,7 +39,7 @@ export default function TypeParameterTab({station, onUpdateStation}: TypeParamet
             onUpdateStation();
             setSelectedTypeParameter(""); // Limpa a seleção
         } catch (error) {
-            console.error('Erro ao criar parâmetro:', error);
+            errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
         }
     }
 
@@ -48,7 +49,7 @@ export default function TypeParameterTab({station, onUpdateStation}: TypeParamet
             // Após deletar o parâmetro, atualiza a estação
             onUpdateStation();
         } catch (error) {
-            console.error('Erro ao deletar parâmetro:', error);
+            errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
         }
     }
 

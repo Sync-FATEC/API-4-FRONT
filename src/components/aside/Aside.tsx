@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from '../../../src/static/img/tecsus.png'
 import ButtonAside from '../buttonAside/buttonAside';
-import './aside.css';
+import './Aside.css';
 import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
