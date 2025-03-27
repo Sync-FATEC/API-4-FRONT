@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { typeAlertService } from '../../../api/typeAlertService';
 import { ReadStationType } from '../../../types/station/ReadStationType';
 import '../shared/TabStyles.css';
+import { errorSwal } from '../../swal/errorSwal';
 
 interface TypeAlert {
     id: string;
@@ -56,7 +57,7 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
             setValue('');
             
         } catch (error) {
-            console.error('Erro ao criar tipo de alerta:', error);
+            errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
         }
     };
 
@@ -65,7 +66,7 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
             await typeAlertService.deleteTypeAlert(id);
             onUpdateStation();
         } catch (error) {
-            console.error('Erro ao excluir tipo de alerta:', error);
+            errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
         }
     };
 
