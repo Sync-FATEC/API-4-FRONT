@@ -3,6 +3,7 @@ import { ReadStationType } from "../../../types/station/ReadStationType";
 import "../shared/TabStyles.css";
 import DynamicList from "../../list/DynamicList";
 import api from "../../../api/api";
+import { errorSwal } from "../../swal/errorSwal";
 
 export interface ListMeasureResponseDTO {
   id: string;
@@ -41,7 +42,7 @@ export default function MeasureTab({
         }))
       );
     } catch (error) {
-      console.error(error);
+      errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
     }
   };
 
