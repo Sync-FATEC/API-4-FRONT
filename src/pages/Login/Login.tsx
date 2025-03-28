@@ -27,7 +27,7 @@ export default function LoginComponent() {
   };
 
   const handleLoginAsReader = async () => {
-    navigate("/");
+    navigate("/estacao");
   }
 
   return (

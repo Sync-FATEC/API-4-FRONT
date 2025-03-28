@@ -22,6 +22,7 @@ export default function EditClient() {
     email: '',
     cpf: '',
     createdAt: '',
+    role: ''
   });
   const [cpfOriginal, setCpfOrifinal] = useState('');
   const id = useParams().id;
@@ -31,7 +32,8 @@ export default function EditClient() {
       id: userId,
       name: userData.name,
       email: userData.email,
-      cpf: cpfOriginal
+      cpf: cpfOriginal,
+      role: userData.role
     }
 
     try {
@@ -49,12 +51,12 @@ export default function EditClient() {
   
       try {
         const response = await userService.getDataUser(id);
-        const { name, email, cpf, createdAt } = response.data.model;
+        const { name, email, cpf, createdAt, role } = response.data.model;
   
         setCpfOrifinal(cpf);
         const formattedDate = format(parseISO(createdAt), "dd/MM/yyyy");
-  
-        setUserData({ name, email, cpf, createdAt: formattedDate });
+        setUserId(id);
+        setUserData({ name, email, cpf, createdAt: formattedDate, role });
       } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);
       }
@@ -82,6 +84,18 @@ export default function EditClient() {
 
         <div className='input-container'>
           <Input label='E-mail' value={userData.email} styleInput={2} onChange={(e) => setUserData({...userData, email: e.target.value})}/>
+        </div>
+
+        <div className='input-container'>
+          <label className='input-label'>Tipo de Usuário</label>
+          <select 
+            className='input-select'
+            value={userData.role}
+            onChange={(e) => setUserData({...userData, role: e.target.value})}
+          >
+            <option value="FUNCIONARIO">Funcionário</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
         </div>
       </div>
 

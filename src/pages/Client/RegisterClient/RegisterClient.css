@@ -26,3 +26,30 @@
   display: flex;
   gap: 5%;
 }
+
+.input-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-select:hover {
+  border-color: #2196F3;
+}
+
+.input-select:focus {
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.input-select option {
+  padding: 12px;
+  font-size: 16px;
+}
