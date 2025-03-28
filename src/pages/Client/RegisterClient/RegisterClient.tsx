@@ -17,6 +17,11 @@ function formatCPF(cpf: string) {
   );
 }
 
+// Função para validar o formato do e-mail
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
 export default function RegisterClient() {
   const navigate = useNavigate();
@@ -32,10 +37,15 @@ export default function RegisterClient() {
   }
 
   const handleSubmit = async () => {
+    if (!isValidEmail(userData.email)) {
+      errorSwal('Por favor, insira um e-mail válido.');
+      return;
+    }
+
     try {
       const response = await userService.registerUser(userData);
       successSwal('Usuário cadastrado com sucesso');
-      navigate("/usuario")
+      navigate("/usuario");
     } catch (error) {
       errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
     }
