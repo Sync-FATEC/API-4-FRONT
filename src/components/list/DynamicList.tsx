@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./DynamicList.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 
 export interface ListProps<T> {
   data: T[];
@@ -29,10 +30,12 @@ function DynamicList<T>({
 }: ListProps<T>) {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const auth = useContext(AuthContext)
+  
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1200);
     };
 
     window.addEventListener('resize', handleResize);
@@ -52,7 +55,7 @@ function DynamicList<T>({
   }, [data]);
 
   const gridStyle = {
-    gridTemplateColumns: isEditable || isDelete
+    gridTemplateColumns: (isEditable && auth.user?.role !== undefined) || (isDelete && auth.user?.role === "ADMIN") || detailsLink
       ? `repeat(${fields.length}, 1fr) 100px`
       : `repeat(${fields.length}, 1fr)`,
   };
@@ -65,18 +68,19 @@ function DynamicList<T>({
           <span className="mobile-card-value">{String(item[field.key])}</span>
         </div>
       ))}
-      <div className="mobile-card-actions">
-        {isEditable && (
+      {(isEditable && auth.user?.role !== undefined) || (isDelete && auth.user?.role === "ADMIN") || detailsLink ? (
+        <div className="mobile-card-actions">
+          {isEditable && auth.user?.role !== undefined && (
             <FontAwesomeIcon
               icon={faEdit}
               onClick={() => onUpdate(String(item[idKey]))}
             />
           )}
-          {isDelete && (
+          {isDelete && auth.user?.role === "ADMIN" && (
             <FontAwesomeIcon
-            icon={faTrash}
-            onClick={() => onDelete(String(item[idKey]))}
-          />
+              icon={faTrash}
+              onClick={() => onDelete(String(item[idKey]))}
+            />
           )}
           {detailsLink && (
             <FontAwesomeIcon
@@ -85,6 +89,7 @@ function DynamicList<T>({
             />
           )}
         </div>
+      ) : null}
     </div>
   );
 
@@ -124,7 +129,9 @@ function DynamicList<T>({
                 {field.label}
               </div>
             ))}
-            {(isEditable || isDelete) && <div className="list-header-item">Ações</div>}
+            {(isEditable && auth.user?.role !== undefined) || (isDelete && auth.user?.role === "ADMIN") || detailsLink ? (
+              <div className="list-header-item">Ações</div>
+            ) : null}
           </div>
           {filteredData.map((item) => (
             <div key={String(item[idKey])} className="list-row" style={gridStyle}>
@@ -133,18 +140,19 @@ function DynamicList<T>({
                   {String(item[field.key])}
                 </div>
               ))}
-              <div className="actions-cell">
-                {isEditable && (
+              {(isEditable && auth.user?.role !== undefined) || (isDelete && auth.user?.role === "ADMIN") || detailsLink ? (
+                <div className="actions-cell">
+                  {isEditable && auth.user?.role !== undefined && (
                     <FontAwesomeIcon
                       icon={faEdit}
                       onClick={() => onUpdate(String(item[idKey]))}
                     />
                   )}
-                  {isDelete && (
+                  {isDelete && auth.user?.role === "ADMIN" && (
                     <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={() => onDelete(String(item[idKey]))}
-                  />
+                      icon={faTrash}
+                      onClick={() => onDelete(String(item[idKey]))}
+                    />
                   )}
                   {detailsLink && (
                     <FontAwesomeIcon
@@ -153,6 +161,7 @@ function DynamicList<T>({
                     />
                   )}
                 </div>
+              ) : null}
             </div>
           ))}
         </div>

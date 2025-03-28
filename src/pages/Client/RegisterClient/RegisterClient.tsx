@@ -29,6 +29,7 @@ export default function RegisterClient() {
     name: '',
     email: '',
     cpf: '',
+    role: ''
   });
 
   function handleCPFChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -64,6 +65,18 @@ export default function RegisterClient() {
 
         <div className='input-container'>
           <Input label='E-mail' placeholder='usuario@mail.com' styleInput={2} onChange={(e) => setUserData({...userData, email: e.target.value})}/>
+        </div>
+
+        <div className='input-container'>
+          <label className='input-label'>Tipo de Usuário</label>
+          <select 
+            className='input-select'
+            value={userData.role}
+            onChange={(e) => setUserData({...userData, role: e.target.value})}
+          >
+            <option value="FUNCIONARIO">Funcionário</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
         </div>
       </div>
 

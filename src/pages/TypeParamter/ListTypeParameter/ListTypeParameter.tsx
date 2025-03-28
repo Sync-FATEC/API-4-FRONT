@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
 import { typeParameterService } from '../../../api/typeParameterService';
 import { errorSwal } from '../../../components/swal/errorSwal';
 import { useNavigate } from 'react-router-dom';
 import { successSwal } from '../../../components/swal/sucessSwal';
-
+import Loading from '../../../components/loading/loading';
 export interface TypeParameterProps {
     id: string;
     typeJson: string;
@@ -18,6 +18,7 @@ export interface TypeParameterProps {
 const ListTypeParameter: React.FC = () => {
     const navigate = useNavigate();
     const [data, setData] = React.useState<TypeParameterProps[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const handleReadTypeParameters = async () => {
@@ -28,10 +29,17 @@ const ListTypeParameter: React.FC = () => {
                 if (!(error as any)?.response?.data?.error.includes("para listar")) {
                     errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
                 }   
+            } finally {
+                setIsLoading(false);
             }
+
         };
         handleReadTypeParameters();
     }, []);
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     const handleDelete = async (id: string) => {
         try {

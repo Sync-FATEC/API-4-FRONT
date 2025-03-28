@@ -19,7 +19,7 @@ import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/Update
 import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
 import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
 import ListAlert from './pages/Alert/ListAlert/ListAlert';
-
+import MapsStation from './pages/Station/MapsStation/MapsStation';
 function App() {
   return (
     <div className="App">
@@ -37,18 +37,19 @@ function App() {
             <Route path='/usuario/criar-senha/:email' element={<CreatePassword />} />
 
             {/* Estacao */}
-            <Route path='/estacao' element={<RequireAuthAdmin><ListStation /></RequireAuthAdmin>} />
-            <Route path='/estacao/:id' element={<RequireAuthAdmin><DetailsStation /></RequireAuthAdmin>} />
+            <Route path='/estacao' element={<ListStation />} />
+            <Route path='/estacao/mapa' element={<MapsStation />} />
+            <Route path='/estacao/:id' element={<DetailsStation />} />
             <Route path='/estacao/atualizar/:id' element={<RequireAuthAdmin><UpdateStation /></RequireAuthAdmin>} />
             <Route path='/estacao/criar' element={<RequireAuthAdmin><CreateStation /></RequireAuthAdmin>} />
 
             {/* Tipo de Parâmetro */}
-            <Route path='/tipo-parametro' element={<RequireAuthAdmin><ListTypeParameter /></RequireAuthAdmin>} />
+            <Route path='/tipo-parametro' element={<ListTypeParameter />} />
             <Route path='/tipo-parametro/criar' element={<RequireAuthAdmin><CreateTypeParameter /></RequireAuthAdmin>} />
             <Route path='/tipo-parametro/atualizar/:id' element={<RequireAuthAdmin><UpdateTypeParameter /></RequireAuthAdmin>} />
 
             {/* ALerta */}
-            <Route path='/alertas' element={<RequireAuthAdmin><ListAlert /></RequireAuthAdmin>} />
+            <Route path='/alertas' element={<ListAlert />} />
 
             <Route path="*" element={<Page404 />} />
           </Routes>

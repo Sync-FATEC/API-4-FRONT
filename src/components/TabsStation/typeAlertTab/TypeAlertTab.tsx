@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { typeAlertService } from '../../../api/typeAlertService';
 import { ReadStationType } from '../../../types/station/ReadStationType';
 import '../shared/TabStyles.css';
 import { errorSwal } from '../../swal/errorSwal';
+import { AuthContext } from '../../../contexts/auth/AuthContext';
 
 interface TypeAlert {
     id: string;
@@ -21,6 +22,7 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
     const [name, setName] = useState('');
     const [comparisonOperator, setComparisonOperator] = useState<'>' | '<' | '='>('=');
     const [value, setValue] = useState('');
+    const auth = useContext(AuthContext);
 
     // Função para obter todos os alertas de todos os parâmetros
     const getAllAlerts = () => {
@@ -81,76 +83,78 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
             <h2 className="station-tab__title">Tipos de Alertas</h2>
             
             <div className="station-tab__content">
-                <div className="station-tab__form-section">
-                    <h3 className="station-tab__subtitle">Criar Novo Tipo de Alerta</h3>
-                    
-                    <div className="station-tab__form">
-                        <div className="station-tab__form-group">
-                            <label className="station-tab__label">Parâmetro:</label>
-                            <select
-                                value={selectedParameter}
-                                onChange={(e) => setSelectedParameter(e.target.value)}
-                                className="station-tab__select"
-                            >
-                                <option value="">Selecione um parâmetro</option>
-                                {station.parameters.map((param) => (
-                                    <option key={param.id} value={param.id}>
-                                        {param.idTypeParameter.name} ({param.idTypeParameter.unit})
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {selectedParameter && (
-                            <>
-                                <div className="station-tab__form-group">
-                                    <label className="station-tab__label">Nome do Alerta:</label>
-                                    <input
-                                        type="text"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className="station-tab__input"
-                                        placeholder="Digite um nome para identificar o alerta"
-                                    />
-                                </div>
-
-                                <div className="station-tab__form-group">
-                                    <label className="station-tab__label">Operador de Comparação:</label>
-                                    <select
-                                        value={comparisonOperator}
-                                        onChange={(e) => setComparisonOperator(e.target.value as '>' | '<' | '=')}
-                                        className="station-tab__select"
-                                    >
-                                        <option value=">">Maior que</option>
-                                        <option value="<">Menor que</option>
-                                        <option value="=">Igual a</option>
-                                    </select>
-                                </div>
-
-                                <div className="station-tab__form-group">
-                                    <label className="station-tab__label">Valor ({getParameterInfo(selectedParameter)?.unit}):</label>
-                                    <input
-                                        type="number"
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
-                                        className="station-tab__input"
-                                        step={getParameterInfo(selectedParameter)?.numberOfDecimalsCases 
-                                            ? `0.${'0'.repeat((getParameterInfo(selectedParameter)?.numberOfDecimalsCases || 0) - 1)}1` 
-                                            : '1'}
-                                    />
-                                </div>
-
-                                <button
-                                    className="station-tab__button station-tab__button--primary"
-                                    onClick={handleCreateTypeAlert}
-                                    disabled={!name || !value}
+                {auth.user !== undefined && (
+                    <div className="station-tab__form-section">
+                        <h3 className="station-tab__subtitle">Criar Novo Tipo de Alerta</h3>
+                        
+                        <div className="station-tab__form">
+                            <div className="station-tab__form-group">
+                                <label className="station-tab__label">Parâmetro:</label>
+                                <select
+                                    value={selectedParameter}
+                                    onChange={(e) => setSelectedParameter(e.target.value)}
+                                    className="station-tab__select"
                                 >
-                                    Criar Tipo de Alerta
-                                </button>
-                            </>
-                        )}
+                                    <option value="">Selecione um parâmetro</option>
+                                    {station.parameters.map((param) => (
+                                        <option key={param.id} value={param.id}>
+                                            {param.idTypeParameter.name} ({param.idTypeParameter.unit})
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {selectedParameter && (
+                                <>
+                                    <div className="station-tab__form-group">
+                                        <label className="station-tab__label">Nome do Alerta:</label>
+                                        <input
+                                            type="text"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            className="station-tab__input"
+                                            placeholder="Digite um nome para identificar o alerta"
+                                        />
+                                    </div>
+
+                                    <div className="station-tab__form-group">
+                                        <label className="station-tab__label">Operador de Comparação:</label>
+                                        <select
+                                            value={comparisonOperator}
+                                            onChange={(e) => setComparisonOperator(e.target.value as '>' | '<' | '=')}
+                                            className="station-tab__select"
+                                        >
+                                            <option value=">">Maior que</option>
+                                            <option value="<">Menor que</option>
+                                            <option value="=">Igual a</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="station-tab__form-group">
+                                        <label className="station-tab__label">Valor ({getParameterInfo(selectedParameter)?.unit}):</label>
+                                        <input
+                                            type="number"
+                                            value={value}
+                                            onChange={(e) => setValue(e.target.value)}
+                                            className="station-tab__input"
+                                            step={getParameterInfo(selectedParameter)?.numberOfDecimalsCases 
+                                                ? `0.${'0'.repeat((getParameterInfo(selectedParameter)?.numberOfDecimalsCases || 0) - 1)}1` 
+                                                : '1'}
+                                        />
+                                    </div>
+
+                                    <button
+                                        className="station-tab__button station-tab__button--primary"
+                                        onClick={handleCreateTypeAlert}
+                                        disabled={!name || !value}
+                                    >
+                                        Criar Tipo de Alerta
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 <div className="station-tab__list">
                     {allAlerts.length > 0 ? (
@@ -170,16 +174,18 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
                                         <p className="station-tab__info-item">
                                             <strong>Tipo:</strong> {parameterInfo.typeJson}
                                         </p>
+                                    </div>
                                         <p className="station-tab__info-item">
                                             <strong>Condição:</strong> {alert.comparisonOperator} {alert.value} {parameterInfo.unit}
                                         </p>
-                                    </div>
-                                    <button 
-                                        className="station-tab__button station-tab__button--danger"
-                                        onClick={() => handleDeleteTypeAlert(alert.id)}
-                                    >
-                                        Excluir
-                                    </button>
+                                    {auth.user?.role === "ADMIN" && (
+                                        <button 
+                                            className="station-tab__button station-tab__button--danger"
+                                            onClick={() => handleDeleteTypeAlert(alert.id)}
+                                        >
+                                            Excluir
+                                        </button>
+                                    )}
                                 </div>
                             );
                         })

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ReadStationType } from "../../../types/station/ReadStationType";
 import { ReadTypeParameterType } from "../../../types/TypeParameter/ReadTypeParameter";
 import { typeParameterService } from "../../../api/typeParameterService";
 import { parameterService } from "../../../api/parameterService";
 import '../shared/TabStyles.css';
 import { errorSwal } from "../../swal/errorSwal";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 interface TypeParameterTabProps {
     station: ReadStationType;
@@ -15,6 +16,7 @@ export default function TypeParameterTab({station, onUpdateStation}: TypeParamet
     const [typeParameters, setTypeParameters] = useState<ReadTypeParameterType[]>([]);
     const [selectedTypeParameter, setSelectedTypeParameter] = useState<string>("");
     const [stationParameters, setStationParameters] = useState(station.parameters);
+    const auth = useContext(AuthContext);
 
     useEffect(() => {
         const handleReadTypeParameter = async () => {
@@ -68,32 +70,34 @@ export default function TypeParameterTab({station, onUpdateStation}: TypeParamet
             <h2 className="station-tab__title">Parâmetros da estação</h2>
             
             <div className="station-tab__content">
-                <div className="station-tab__form-section">
-                    <div className="station-tab__select-container">
-                        <select 
-                            className="station-tab__select"
-                            value={selectedTypeParameter}
-                            onChange={(e) => setSelectedTypeParameter(e.target.value)}
-                        >
-                            <option value="">Selecione um tipo de parâmetro</option>
-                            {availableTypeParameters.map((type) => (
-                                <option key={type.id} value={type.id}>
-                                    {type.name}
-                                </option>
-                            ))}
-                        </select>
-                        <button 
-                            className="station-tab__button station-tab__button--primary"
-                            onClick={handleCreateParameter}
-                            disabled={!selectedTypeParameter}
-                        >
-                            Adicionar Parâmetro
-                        </button>
+                {auth.user !== undefined ? (
+                    <div className="station-tab__form-section">
+                        <div className="station-tab__select-container">
+                            <select 
+                                className="station-tab__select"
+                                value={selectedTypeParameter}
+                                onChange={(e) => setSelectedTypeParameter(e.target.value)}
+                            >
+                                <option value="">Selecione um tipo de parâmetro</option>
+                                {availableTypeParameters.map((type) => (
+                                    <option key={type.id} value={type.id}>
+                                        {type.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <button 
+                                className="station-tab__button station-tab__button--primary"
+                                onClick={handleCreateParameter}
+                                disabled={!selectedTypeParameter}
+                            >
+                                Adicionar Parâmetro
+                            </button>
+                        </div>
                     </div>
-                </div>
+                ) : null}
 
                 <div className="station-tab__list">
-                    {stationParameters.map((param) => (
+                    {stationParameters.map((param: { id: string; idTypeParameter: { name: string; typeJson: string; unit: string }; typeAlerts?: any[] }) => (
                         <div key={param.id} className="station-tab__card">
                             <div className="station-tab__card-info">
                                 <p className="station-tab__info-item">
@@ -105,20 +109,22 @@ export default function TypeParameterTab({station, onUpdateStation}: TypeParamet
                                 <p className="station-tab__info-item">
                                     <strong>Unidade de Medida:</strong> {param.idTypeParameter.unit}
                                 </p>
-                                {hasAlerts(param.id) && (
+                                {auth.user !== undefined && hasAlerts(param.id) && (
                                     <p className="station-tab__info-item station-tab__info-item--warning">
                                         <strong>Aviso:</strong> Este parâmetro possui alertas associados
                                     </p>
                                 )}
                             </div>
-                            <button 
-                                className="station-tab__button station-tab__button--danger"
-                                onClick={() => handleDeleteParameter(param.id)}
-                                disabled={hasAlerts(param.id)}
-                                title={hasAlerts(param.id) ? "Não é possível excluir um parâmetro com alertas associados" : ""}
-                            >
-                                Excluir
-                            </button>
+                            {auth.user?.role === "ADMIN" && (
+                                <button 
+                                    className="station-tab__button station-tab__button--danger"
+                                    onClick={() => handleDeleteParameter(param.id)}
+                                    disabled={hasAlerts(param.id)}
+                                    title={hasAlerts(param.id) ? "Não é possível excluir um parâmetro com alertas associados" : ""}
+                                >
+                                    Excluir
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>
