@@ -27,6 +27,7 @@ export default function LoginComponent() {
   };
 
   const handleLoginAsReader = async () => {
+    authContext.logout()
     navigate("/estacao");
   }
 
