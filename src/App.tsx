@@ -19,7 +19,7 @@ import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/Update
 import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
 import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
 import ListAlert from './pages/Alert/ListAlert/ListAlert';
-
+import MapsStation from './pages/Station/MapsStation/MapsStation';
 function App() {
   return (
     <div className="App">
@@ -38,6 +38,7 @@ function App() {
 
             {/* Estacao */}
             <Route path='/estacao' element={<ListStation />} />
+            <Route path='/estacao/mapa' element={<MapsStation />} />
             <Route path='/estacao/:id' element={<DetailsStation />} />
             <Route path='/estacao/atualizar/:id' element={<RequireAuthAdmin><UpdateStation /></RequireAuthAdmin>} />
             <Route path='/estacao/criar' element={<RequireAuthAdmin><CreateStation /></RequireAuthAdmin>} />

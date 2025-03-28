@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import Loading from "../loading/loading";
-import { containerStyle, mapOptions } from "./mapConfig";
+import { containerStyle, mapOptions, MultiMapsProps } from "./mapConfig";
 
-interface MapsProps {
-  latitude: number;
-  longitude: number;
-}
-
-export const Maps = ({ latitude, longitude }: MapsProps) => {
+export const MultiMaps = ({ stations }: MultiMapsProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
-  const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
+  const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const initializeMap = async () => {
-    const position = { lat: latitude, lng: longitude };
+    if (stations.length === 0) return;
+
+    const firstStation = stations[0];
+    const centerPosition = {
+      lat: parseFloat(firstStation.latitude),
+      lng: parseFloat(firstStation.longitude),
+    };
 
     const { Map } = (await google.maps.importLibrary("maps")) as google.maps.MapsLibrary;
     const { AdvancedMarkerElement } = (await google.maps.importLibrary("marker")) as google.maps.MarkerLibrary;
@@ -24,20 +25,33 @@ export const Maps = ({ latitude, longitude }: MapsProps) => {
     const map = new Map(mapRef.current, {
       ...mapOptions,
       zoom: 12,
-      center: position,
+      center: centerPosition,
     });
     mapInstanceRef.current = map;
 
-    const marker = new AdvancedMarkerElement({
-      map,
-      position,
-      title: "Localização da Estação",
-    });
-    markerRef.current = marker;
+    // Limpar marcadores anteriores
+    markersRef.current.forEach(marker => marker.map = null);
+    markersRef.current = [];
 
-    marker.addListener("click", () => {
-      map.setZoom(15);
-      map.setCenter(position);
+    // Adicionar novos marcadores
+    stations.forEach(station => {
+      const position = {
+        lat: parseFloat(station.latitude),
+        lng: parseFloat(station.longitude),
+      };
+
+      const marker = new AdvancedMarkerElement({
+        map,
+        position,
+        title: `${station.name} ; ${station.uuid}`,
+      });
+
+      marker.addListener("click", () => {
+        map.setZoom(15);
+        map.setCenter(position);
+      });
+
+      markersRef.current.push(marker);
     });
 
     setIsLoading(false);
@@ -63,19 +77,17 @@ export const Maps = ({ latitude, longitude }: MapsProps) => {
     const script = loadGoogleMapsScript();
 
     return () => {
-      if (markerRef.current) {
-        markerRef.current.map = null;
-      }
+      markersRef.current.forEach(marker => marker.map = null);
       if (script?.parentNode) {
         script.parentNode.removeChild(script);
       }
     };
-  }, [latitude, longitude]);
+  }, [stations]);
 
   return (
-    <div>
+    <div className="station-tab__map">
       {isLoading && <Loading />}
       <div ref={mapRef} style={containerStyle} id="map" />
     </div>
   );
-};
+}; 
