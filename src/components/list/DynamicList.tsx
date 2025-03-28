@@ -10,6 +10,7 @@ export interface ListProps<T> {
   onDelete: (id: string) => void;
   onUpdate: (id: string) => void;
   isEditable: boolean;
+  isDelete: boolean;
   detailsLink?: string;
   idKey?: keyof T;
   text?: string;
@@ -22,6 +23,7 @@ function DynamicList<T>({
   onUpdate,
   detailsLink,
   isEditable = detailsLink ? true : false,
+  isDelete = detailsLink ? true : false,
   idKey = "id" as keyof T,
   text,
 }: ListProps<T>) {
@@ -50,7 +52,7 @@ function DynamicList<T>({
   }, [data]);
 
   const gridStyle = {
-    gridTemplateColumns: isEditable
+    gridTemplateColumns: isEditable || isDelete
       ? `repeat(${fields.length}, 1fr) 100px`
       : `repeat(${fields.length}, 1fr)`,
   };
@@ -63,16 +65,19 @@ function DynamicList<T>({
           <span className="mobile-card-value">{String(item[field.key])}</span>
         </div>
       ))}
-      {isEditable && (
-        <div className="mobile-card-actions">
-          <FontAwesomeIcon
-            icon={faEdit}
-            onClick={() => onUpdate(String(item[idKey]))}
-          />
-          <FontAwesomeIcon
+      <div className="mobile-card-actions">
+        {isEditable && (
+            <FontAwesomeIcon
+              icon={faEdit}
+              onClick={() => onUpdate(String(item[idKey]))}
+            />
+          )}
+          {isDelete && (
+            <FontAwesomeIcon
             icon={faTrash}
             onClick={() => onDelete(String(item[idKey]))}
           />
+          )}
           {detailsLink && (
             <FontAwesomeIcon
               icon={faSearch}
@@ -80,7 +85,6 @@ function DynamicList<T>({
             />
           )}
         </div>
-      )}
     </div>
   );
 
@@ -120,7 +124,7 @@ function DynamicList<T>({
                 {field.label}
               </div>
             ))}
-            {isEditable && <div className="list-header-item">Ações</div>}
+            {(isEditable || isDelete) && <div className="list-header-item">Ações</div>}
           </div>
           {filteredData.map((item) => (
             <div key={String(item[idKey])} className="list-row" style={gridStyle}>
@@ -129,16 +133,19 @@ function DynamicList<T>({
                   {String(item[field.key])}
                 </div>
               ))}
-              {isEditable && (
-                <div className="actions-cell">
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    onClick={() => onUpdate(String(item[idKey]))}
-                  />
-                  <FontAwesomeIcon
+              <div className="actions-cell">
+                {isEditable && (
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      onClick={() => onUpdate(String(item[idKey]))}
+                    />
+                  )}
+                  {isDelete && (
+                    <FontAwesomeIcon
                     icon={faTrash}
                     onClick={() => onDelete(String(item[idKey]))}
                   />
+                  )}
                   {detailsLink && (
                     <FontAwesomeIcon
                       icon={faSearch}
@@ -146,7 +153,6 @@ function DynamicList<T>({
                     />
                   )}
                 </div>
-              )}
             </div>
           ))}
         </div>

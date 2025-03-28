@@ -9,12 +9,14 @@ interface ModalAdminProps<T> {
   text: string;
   createlink: string;
   style: number;
+  haveButton?: boolean;
   listProps: ListProps<T>;
 }
 
 export default function ModalAdmin({
   createlink,
   listProps,
+  haveButton,
   style,
   text,
 }: ModalAdminProps<any>) {
@@ -25,15 +27,19 @@ export default function ModalAdmin({
         <div className="modal-admin-bg2">
           <div className="modal-admin-header">
             <p className="modal-admin-title">Listagem de {text}</p>
-            <ButtonWithImg
-              style={2}
-              text={`Adicionar ${text}`}
-              icon={faPlus}
-              link={createlink}
-            />
+            {haveButton && (
+              <>
+                <ButtonWithImg
+                  style={2}
+                  text={`Adicionar ${text}`}
+                  icon={faPlus}
+                  link={createlink}
+                />
+              </>
+            )}
           </div>
 
-          {(listProps.data.length === 0) ? (
+          {listProps.data.length === 0 ? (
             <NoData />
           ) : (
             <DynamicList
@@ -42,6 +48,7 @@ export default function ModalAdmin({
               onDelete={listProps.onDelete}
               onUpdate={listProps.onUpdate}
               isEditable={listProps.isEditable}
+              isDelete={listProps.isDelete}
               detailsLink={listProps.detailsLink}
               text={text}
             />
