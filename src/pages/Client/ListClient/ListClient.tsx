@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
 import userService from '../../../api/userService';
 import { errorSwal } from '../../../components/swal/errorSwal';
@@ -7,6 +7,7 @@ import { successSwal } from '../../../components/swal/sucessSwal';
 import api from '../../../api/api';
 import { formatDateAndHour } from '../../../utils/formatDateAndHour';
 import formatTrueOrFalse from '../../../utils/formatTrueOrFalse';
+import Loading from '../../../components/loading/loading';
 
 export interface UserProps {
     id: string;
@@ -21,6 +22,7 @@ export interface UserProps {
 const ListClient: React.FC = () => {
     const navigate = useNavigate();
     const [data, setData] = React.useState<UserProps[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const handleReadUsers = async () => {
@@ -35,10 +37,16 @@ const ListClient: React.FC = () => {
                 if (!(error as any)?.response?.data?.error.includes("para listar")) {
                     errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
                 }
+            } finally {
+                setIsLoading(false);
             }
         };
         handleReadUsers();
     }, []);
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     const handleDelete = async (id: string) => {
         try {

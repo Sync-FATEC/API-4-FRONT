@@ -5,6 +5,7 @@ import { UnifiedAlertDTO, ListAlertDTO } from "../../../components/TabsStation/a
 import { alertService } from "../../../api/alertService";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import { errorSwal } from "../../../components/swal/errorSwal";
+import Loading from "../../../components/loading/loading";
 
 // filepath: c:\Users\erikc\OneDrive\Área de Trabalho\API.2025.1\API-4-FRONT\src\pages\Alert\ListAlert\ListAlert.tsx
 
@@ -19,6 +20,7 @@ export interface AlertProps {
 
 const ListAlert: React.FC = () => {
   const [alerts, setAlerts] = useState<UnifiedAlertDTO[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
     const handleDelete = async (id: string) => {
       try {
@@ -47,12 +49,18 @@ const ListAlert: React.FC = () => {
       );
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     getAllAlerts();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <ModalAdmin

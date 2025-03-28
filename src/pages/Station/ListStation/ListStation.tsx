@@ -6,7 +6,7 @@ import { UpdateStationType } from '../../../types/station/UpdateStationType';
 import { useNavigate } from 'react-router-dom';
 import { successSwal } from '../../../components/swal/sucessSwal';
 import { set } from 'date-fns';
-
+import Loading from '../../../components/loading/loading';
 export interface StationProps {
     id: string;
     uuid: string;
@@ -18,6 +18,7 @@ export interface StationProps {
 const ListStation: React.FC = () => {
     const navigate = useNavigate();
     const [data, setData] = React.useState<StationProps[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const handleReadStations = async () => {
@@ -28,11 +29,16 @@ const ListStation: React.FC = () => {
                 if (!(error as any)?.response?.data?.error.includes("para listar")) {
                     errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
                 }
+            } finally {
+                setIsLoading(false);
             }
         };
         handleReadStations();
+    }, []);
+
+    if (isLoading) {
+        return <Loading />;
     }
-    , []);
 
     const handleDelete = async (id: string) => {
         try {
