@@ -59,12 +59,14 @@ const ListStation: React.FC = () => {
         <ModalAdmin 
             createlink='/estacao/criar'
             text='estações'
+            haveButton={true}
             listProps={{ 
               data, 
               fields, 
               onDelete: handleDelete, 
               onUpdate: handleUpdate, 
               isEditable: true,
+              isDelete: true,
               idKey: 'id' as keyof StationProps, 
               detailsLink: '/estacao/',
             }}

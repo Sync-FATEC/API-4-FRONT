@@ -3,14 +3,15 @@ import { ReadStationType } from "../../../types/station/ReadStationType";
 import "../shared/TabStyles.css";
 import DynamicList from "../../list/DynamicList";
 import api from "../../../api/api";
+import { alertService } from "../../../api/alertService";
 import { errorSwal } from "../../swal/errorSwal";
+import { successSwal } from "../../swal/sucessSwal";
 
 export interface ListAlertDTO {
   id: string;
   message: string;
   measure: ListMeasureResponseDTO;
 }
-
 export interface ListMeasureResponseDTO {
   id: string;
   unixTime: number;
@@ -33,6 +34,16 @@ export interface UnifiedAlertDTO {
 
 export default function AlertTab({ station, onUpdateStation }: AlertTabProps) {
   const [alerts, setAlerts] = useState<UnifiedAlertDTO[]>([]);
+
+  const handleDelete = async (id: string) => {
+    try {
+      await alertService.deleteAlert(id);
+      setAlerts(alerts.filter((alert) => alert.id !== id));
+      successSwal("Alerta deletado com sucesso");
+    } catch (error) {
+      errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+    }
+  }
 
   const getAllAlerts = async () => {
     try {
@@ -74,9 +85,10 @@ export default function AlertTab({ station, onUpdateStation }: AlertTabProps) {
               { key: "value", label: "Valor" },
               { key: "parameterText", label: "Parâmetro" },
             ]}
-            onDelete={(id) => {}}
+            onDelete={handleDelete}
             onUpdate={(id) => {}}
             isEditable={false}
+            isDelete={true}
             text="alertas"
           />
         ) : (

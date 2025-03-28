@@ -66,12 +66,14 @@ const ListClient: React.FC = () => {
         <ModalAdmin 
             createlink='/usuario/criar'
             text='usuários'
+            haveButton={true}
             listProps={{ 
               data, 
               fields, 
               onDelete: handleDelete, 
               onUpdate: handleUpdate, 
               isEditable: true,
+              isDelete: true,
               idKey: 'id' as keyof UserProps 
             }}
             style={1}

@@ -60,12 +60,14 @@ const ListTypeParameter: React.FC = () => {
         <ModalAdmin 
             createlink='/tipo-parametro/criar'
             text='tipos de parâmetros'
+            haveButton={true}
             listProps={{ 
               data, 
               fields, 
               onDelete: handleDelete, 
               onUpdate: handleUpdate, 
               isEditable: true,
+              isDelete: true,
               idKey: 'id' as keyof TypeParameterProps 
             }}
             style={1}

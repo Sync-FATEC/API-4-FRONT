@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import ModalAdmin from "../../../components/modalAdmin/ModalAdmin";
 import api from "../../../api/api";
 import { UnifiedAlertDTO, ListAlertDTO } from "../../../components/TabsStation/alertTab/AlertTab";
+import { alertService } from "../../../api/alertService";
+import { successSwal } from "../../../components/swal/sucessSwal";
+import { errorSwal } from "../../../components/swal/errorSwal";
 
 // filepath: c:\Users\erikc\OneDrive\Área de Trabalho\API.2025.1\API-4-FRONT\src\pages\Alert\ListAlert\ListAlert.tsx
 
@@ -16,6 +19,16 @@ export interface AlertProps {
 
 const ListAlert: React.FC = () => {
   const [alerts, setAlerts] = useState<UnifiedAlertDTO[]>([]);
+
+    const handleDelete = async (id: string) => {
+      try {
+        await alertService.deleteAlert(id);
+        setAlerts(alerts.filter((alert) => alert.id !== id));
+        successSwal("Alerta deletado com sucesso");
+      } catch (error) {
+        errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+      }
+    }
 
   const getAllAlerts = async () => {
     try {
@@ -53,9 +66,10 @@ const ListAlert: React.FC = () => {
             { key: "value", label: "Valor" },
             { key: "parameterText", label: "Parâmetro" },
           ],
-        onDelete: () => {},
+        onDelete: handleDelete,
         onUpdate: () => {},
         isEditable: false,
+        isDelete: true,
       }}
       style={1}
     />

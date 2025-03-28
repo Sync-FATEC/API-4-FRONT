@@ -4,6 +4,7 @@ import "../shared/TabStyles.css";
 import DynamicList from "../../list/DynamicList";
 import api from "../../../api/api";
 import { errorSwal } from "../../swal/errorSwal";
+import { successSwal } from "../../swal/sucessSwal";
 
 export interface ListMeasureResponseDTO {
   id: string;
@@ -29,6 +30,16 @@ export default function MeasureTab({
   onUpdateStation,
 }: MeasureTabProps) {
   const [measures, setMeasures] = useState<ListMeasure[]>([]);
+
+  const handleDelete = async (id: string) => {
+    try {
+      await api.delete(`/measure/delete/${id}`);
+      setMeasures(measures.filter((measure) => measure.id !== id));
+      successSwal("Medição deletada com sucesso");
+    } catch (error) {
+      errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+    }
+  }
 
   const getAllMeasures = async () => {
     try {
@@ -63,9 +74,10 @@ export default function MeasureTab({
               { key: "value", label: "Valor" },
               { key: "parameterText", label: "Parâmetro" },
             ]}
-            onDelete={(id) => {}}
+            onDelete={handleDelete}
             onUpdate={(id) => {}}
             isEditable={false}
+            isDelete={true}
             text="medições"
           />
         ) : (
