@@ -58,6 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     api.defaults.headers.common.Authorization = ``;
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setUser(undefined);
     navigate('/login')
   };
 

@@ -4,6 +4,8 @@ import ButtonWithImg from "../buttonWithImg/buttonWithImg";
 import "./ModalAdmin.css";
 import DynamicList, { ListProps } from "../list/DynamicList";
 import NoData from "../noData/NoData";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 
 interface ModalAdminProps<T> {
   text: string;
@@ -20,6 +22,8 @@ export default function ModalAdmin({
   style,
   text,
 }: ModalAdminProps<any>) {
+  const auth = useContext(AuthContext);
+
   return (
     <main className="modal-admin">
       <Aside />
@@ -27,7 +31,7 @@ export default function ModalAdmin({
         <div className="modal-admin-bg2">
           <div className="modal-admin-header">
             <p className="modal-admin-title">Listagem de {text}</p>
-            {haveButton && (
+            {haveButton && auth.user !== undefined && (
               <>
                 <ButtonWithImg
                   style={2}
