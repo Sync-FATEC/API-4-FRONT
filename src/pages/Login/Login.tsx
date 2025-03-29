@@ -20,7 +20,6 @@ export default function LoginComponent() {
   const handleSubmitLogin = async () => {
     try {
       await authContext.login(email, password);
-      navigate("/estacao");
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +38,17 @@ export default function LoginComponent() {
           <img src={logo} alt="Logo" className="login-logo" />
           <div className="login-input">
             <Input label="Endereço de E-mail" styleInput={1} value={email} onChange={(e) => setEmail(e.target.value)} />
-            <Input label="Senha" styleInput={1} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <div className="input-container">
+            <div className="style-input-1">
+                <label htmlFor="password">Senha</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                />
+            </div>
+        </div>
           </div>
           {/* <p className="login-forgot">
             Esqueceu sua senha? <a href="/esqueci-senha" className="login-link">Clique aqui</a>

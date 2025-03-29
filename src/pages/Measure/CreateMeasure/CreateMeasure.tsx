@@ -25,17 +25,11 @@ export default function CreateMeasure() {
     ]);
     const [parameters, setParameters] = useState<ReadTypeParameterType[]>([]);
     const [stations, setStations] = useState<ReadStationType[]>([]);
+    const [stationParameters, setStationParameters] = useState<ReadTypeParameterType[]>([]);
     const navigate = useNavigate();
-    const handleReadTypeParameters = async () => {
-        try {
-            const response = await typeParameterService.listTypeParameters();
-            setParameters(response.data.model);
-        } catch (error) {
-            errorSwal("Erro ao buscar parâmetros");
-        }
-    };
 
-    const handleReadStations = async () => {
+
+    const handleListStations = async () => {
         try {
             const response = await stationService.listStations();
             setStations(response.data.model);
@@ -44,10 +38,34 @@ export default function CreateMeasure() {
         }
     };
 
+    const handleReadStation = async (id: string) => {
+        try {
+            const response = await stationService.readStation(id);
+            const stationData = response.data.model as ReadStationType;
+            const stationParamIds = stationData.parameters.map(param => param.idTypeParameter.id);
+            const filteredParams = parameters.filter(param => 
+                stationParamIds.includes(param.id)
+            );
+            setStationParameters(filteredParams);
+            // Limpa os pares de parâmetros quando mudar a estação
+            setParameterPairs([{ parameterId: "", value: "" }]);
+        } catch (error) {
+            errorSwal("Erro ao buscar a estação");
+        }
+    };
+
     useEffect(() => {
-        handleReadTypeParameters();
-        handleReadStations();
+        handleListStations();
     }, []);
+
+    useEffect(() => {
+        if (selectedStationUuid) {
+            const selectedStation = stations.find(station => station.uuid === selectedStationUuid);
+            if (selectedStation) {
+                handleReadStation(selectedStation.id);
+            }
+        }
+    }, [selectedStationUuid]);
 
     const handleAddParameterPair = () => {
         setParameterPairs([...parameterPairs, { parameterId: "", value: "" }]);
@@ -97,7 +115,7 @@ export default function CreateMeasure() {
         }
     };
 
-    const parameterSelectOptions = parameters.map((param) => ({
+    const parameterSelectOptions = stationParameters.map((param) => ({
         value: param.id,
         label: `${param.name} (${param.unit})`,
     }));
