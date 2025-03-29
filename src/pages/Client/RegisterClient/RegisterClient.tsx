@@ -12,7 +12,7 @@ function formatCPF(cpf: string) {
   cpf = cpf.replace(/\D/g, ''); // Remove tudo que não for número
   cpf = cpf.slice(0, 11); // Garante no máximo 11 dígitos
 
-  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, (match, p1, p2, p3, p4) => 
+  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, (match, p1, p2, p3, p4) =>
     p4 ? `${p1}.${p2}.${p3}-${p4}` : `${p1}.${p2}.${p3}`
   );
 }
@@ -60,20 +60,21 @@ export default function RegisterClient() {
         </div>
 
         <div className='input-container'>
-          <Input label='Nome' placeholder='Digite seu nome' styleInput={2} onChange={(e) => setUserData({...userData, name: e.target.value})}/>
+          <Input label='Nome' placeholder='Digite seu nome' styleInput={2} onChange={(e) => setUserData({ ...userData, name: e.target.value })} />
         </div>
 
         <div className='input-container'>
-          <Input label='E-mail' placeholder='usuario@mail.com' styleInput={2} onChange={(e) => setUserData({...userData, email: e.target.value})}/>
+          <Input label='E-mail' placeholder='usuario@mail.com' styleInput={2} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
         </div>
 
         <div className='input-container'>
           <label className='input-label'>Tipo de Usuário</label>
-          <select 
+          <select
             className='input-select'
             value={userData.role}
-            onChange={(e) => setUserData({...userData, role: e.target.value})}
+            onChange={(e) => setUserData({ ...userData, role: e.target.value })}
           >
+            <option value="" disabled>Selecione o tipo</option>
             <option value="FUNCIONARIO">Funcionário</option>
             <option value="ADMIN">Administrador</option>
           </select>
@@ -86,22 +87,22 @@ export default function RegisterClient() {
         </div>
 
         <div className='input-container'>
-          <Input label='CPF' placeholder='123.456.789-00' styleInput={2} value={formatCPF(userData.cpf)} onChange={handleCPFChange}/>
+          <Input label='CPF' placeholder='123.456.789-00' styleInput={2} value={formatCPF(userData.cpf)} onChange={handleCPFChange} />
         </div>
       </div>
 
       <div className='Buttons'>
-        <Button label='Cancelar' onClick={() => {navigate(-1)}} styleButton={2}/>
-        <Button label='Cadastrar' onClick={handleSubmit} styleButton={1}/>
+        <Button label='Cancelar' onClick={() => { navigate(-1) }} styleButton={2} />
+        <Button label='Cadastrar' onClick={handleSubmit} styleButton={1} />
       </div>
     </div>
   );
 
   return (
     <main>
-      <Modal 
-      title='Cadastro de usuário'
-      children={children}
+      <Modal
+        title='Cadastro de usuário'
+        children={children}
       />
     </main>
   );

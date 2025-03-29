@@ -19,6 +19,11 @@ export interface UserProps {
     active: boolean;
 }
 
+function formatCPF(cpf: string) {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  }
+  
+
 const ListClient: React.FC = () => {
     const navigate = useNavigate();
     const [data, setData] = React.useState<UserProps[]>([]);
@@ -30,6 +35,7 @@ const ListClient: React.FC = () => {
                 const response = await userService.ListClients();
                 const formattedData = response.data.model.map((user: UserProps) => ({
                     ...user,
+                    cpf: formatCPF(user.cpf), 
                     active: formatTrueOrFalse(user.active)
                 }));
                 setData(formattedData);

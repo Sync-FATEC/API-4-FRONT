@@ -14,7 +14,6 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 20px 20px 0 0;
-    margin-bottom: 15px;
     flex-wrap: wrap;
     gap: 10px;
 }
@@ -39,13 +38,13 @@
     font-weight: 700;
     padding: 0 10px;
     border-bottom: 1px solid #e0e0e0;
-    min-width: max-content;
 }
 
 .list-header-item {
     padding: 0 5px;
     color: var(--dark-plum);
     font-weight: 700;
+    text-align: center;
 }
 
 .list-row {
@@ -56,7 +55,6 @@
     border-bottom: 1px solid #e0e0e0;
     padding: 10px;
     transition: background-color 0.3s;
-    min-width: max-content;
 }
 
 .list-row:hover {
@@ -70,6 +68,7 @@
     white-space: nowrap;
     color: var(--dark-plum);
     font-weight: 400;
+    text-align: center;
 }
 
 .actions-cell {
@@ -78,7 +77,7 @@
     cursor: pointer;
     padding: 0 5px;
     z-index: 10;
-}
+justify-content: center;}
 
 .search-box {
     width: 100%;
@@ -124,8 +123,10 @@
 
 .mobile-card-field {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+    align-items: center;
 }
 
 .mobile-card-label {
@@ -145,6 +146,7 @@
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #e0e0e0;
+    justify-content: center;
 }
 
 /* Media queries para responsividade */
