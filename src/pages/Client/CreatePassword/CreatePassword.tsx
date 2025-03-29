@@ -41,6 +41,7 @@ export default function CreatePassword() {
                         label="Senha"
                         placeholder="Digite a senha"
                         styleInput={2}
+                        type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -51,6 +52,7 @@ export default function CreatePassword() {
                         label="Confirmar senha"
                         placeholder="Confirme a senha"
                         styleInput={2}
+                        type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />

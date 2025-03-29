@@ -20,3 +20,19 @@
   --margin: 32px;
   --border: 12px;
 }
+
+html, body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px; 
+}
+::-webkit-scrollbar-track {
+  background: var(--lavender-light); 
+  border-radius: var(--border); 
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--indigo-transparent); 
+  border-radius: var(--border); 
+}
