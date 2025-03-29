@@ -1,72 +1,125 @@
-<h2 id='topo'>Frontend do Sistema de Monitoramento Ambiental</h2>
+# Sistema de Monitoramento Ambiental - Frontend
 
 <div align="center">
-<a href="#descricao"> Descrição </a> |
-<a href="#tecnologias"> Tecnologias Utilizadas </a> |
-<a href="#scripts"> Scripts Disponíveis </a> |
-<a href="#execucao"> Como Executar </a> |
-<a href="#estrutura"> Estrutura de Diretórios </a> |
-<a href="#contribuidores"> Contribuidores </a>
+<a href="#descricao">Descrição</a> |
+<a href="#features">Features</a> |
+<a href="#tecnologias">Tecnologias</a> |
+<a href="#rotas">Rotas</a> |
+<a href="#estrutura">Estrutura</a> |
+<a href="#execucao">Execução</a> |
+<a href="#contribuidores">Contribuidores</a>
 </div>
 
-<br>
+## Descricao
+Sistema de monitoramento ambiental desenvolvido para a Tecsus, responsável pela interface do usuário e exibição dos dados coletados pelas estações meteorológicas. O sistema permite o gerenciamento de estações, parâmetros ambientais, alertas e usuários.
 
-<h2 id='descricao'> Descrição </h2>
-Este é o frontend do sistema de monitoramento ambiental desenvolvido para a Tecsus. Ele é responsável pela interface do usuário e exibição dos dados coletados pelas estações meteorológicas.
+## Features
+- **Autenticação e Autorização**
+  - Login de usuários
+  - Recuperação de senha
+  - Controle de acesso baseado em perfil
 
-<br>
+- **Gerenciamento de Estações**
+  - Cadastro e visualização de estações meteorológicas
+  - Monitoramento em tempo real
+  - Histórico de dados
 
-<h2 id='tecnologias'> Tecnologias Utilizadas </h2>
-<ul>
-<li>React</li>
-<li>TypeScript</li>
-<li>Axios</li>
-<li>Styled-components</li>
-<li>SweetAlert2</li>
-</ul>
+- **Parâmetros Ambientais**
+  - Configuração de tipos de parâmetros
+  - Definição de limites e alertas
+  - Visualização de dados históricos
 
-<br>
+- **Sistema de Alertas**
+  - Configuração de tipos de alertas
+  - Histórico de alertas
 
-<h2 id='scripts'> Scripts Disponíveis </h2>
-<ul>
-<li><code>start</code>: Inicia o aplicativo em modo de desenvolvimento.</li>
-<li><code>build</code>: Compila o aplicativo para produção.</li>
-<li><code>test</code>: Executa os testes.</li>
-<li><code>eject</code>: Ejetar a configuração do Create React App.</li>
-</ul>
+- **Gestão de Clientes**
+  - Cadastro e gerenciamento de clientes
+  - Associação com estações
+  - Controle de acesso
 
-<br>
+## Tecnologias
+- **Frontend**
+  - React 18
+  - TypeScript
+  - Vite
+  - Styled-components
+  - React Router
+  - Axios
+  - SweetAlert2
 
-<h2 id='execucao'> Como Executar </h2>
-<ol>
-<li>Instale as dependências com <code>npm install</code>.</li>
-<li>Execute <code>npm run dev</code> para iniciar o aplicativo em modo de desenvolvimento.</li>
-</ol>
+- **Ferramentas de Desenvolvimento**
+  - ESLint
+  - Prettier
+  - Docker
+  - Git
 
-<br>
+## Rotas
+- `/` - Landing Page
+- `/login` - Página de login
+- `/estacao` - Gerenciamento de estações
+- `/usuario` - Gestão de clientes
+- `/tipo-parametro` - Configuração de tipos de parâmetros
+- `/alertas` - Sistema de alertas
+- `*` - Página 404 (Rota não encontrada)
 
-<h2 id='estrutura'> Estrutura de Diretórios </h2>
-<ul>
-<li><code>src/</code>: Contém o código fonte do frontend.
-  <ul>
-    <li><code>components/</code>: Componentes reutilizáveis.</li>
-    <li><code>pages/</code>: Páginas do aplicativo.</li>
-    <li><code>api/</code>: Configurações de API.</li>
-    <li><code>utils/</code>: Funções utilitárias.</li>
-  </ul>
-</li>
-</ul>
+## Estrutura
+```
+src/
+├── api/              # Serviços de API
+├── components/       # Componentes reutilizáveis
+├── contexts/        # Contextos React
+├── enums/           # Enumeradores
+├── hooks/           # Hooks personalizados
+├── pages/           # Páginas da aplicação
+├── static/          # Recursos estáticos
+├── types/           # Definições de tipos TypeScript
+└── utils/           # Funções utilitárias
+```
 
-<br>
+## Execucao
 
-<h2 id='contribuidores'> Contribuidores </h2>
-<ul>
-<li>João Gabriel Solis (Scrum Master)</li>
-<li>Ana Laura Moratelli (Product Owner)</li>
-<li>Ana Clara Marques (Desenvolvedora)</li>
-<li>Erik Yokota (Desenvolvedor)</li>
-<li>Filipe Colla (Desenvolvedor)</li>
-<li>Kauê Francisco (Desenvolvedor)</li>
-</ul>
+### Pré-requisitos
+- Node.js 18+
+- npm ou yarn
+- Docker (opcional)
 
-<a href='#topo'> Voltar ao topo </a>
+### Instalação
+1. Clone o repositório
+2. Instale as dependências:
+```bash
+npm install
+```
+
+### Desenvolvimento
+```bash
+npm run dev
+```
+
+### Produção
+```bash
+npm run build
+```
+
+### Docker
+```bash
+docker-compose up
+```
+
+## Scripts Disponíveis
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Compila para produção
+- `npm run preview` - Visualiza a build de produção
+- `npm run lint` - Executa o linter
+- `npm run format` - Formata o código
+
+## Contribuidores
+- João Gabriel Solis (Scrum Master)
+- Ana Laura Moratelli (Product Owner)
+- Ana Clara Marques (Desenvolvedora)
+- Erik Yokota (Desenvolvedor)
+- Filipe Colla (Desenvolvedor)
+- Kauê Francisco (Desenvolvedor)
+
+## Licença
+Este projeto está sob a licença [MIT](LICENSE).
