@@ -8,6 +8,13 @@
     letter-spacing: 0.5px;
 }
 
+.station-tab__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
 .station-tab__info {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -191,12 +198,12 @@
     .station-tab__select-container {
         flex-direction: column;
     }
-    
+
     .station-tab__parameter-card {
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .station-tab__delete-button {
         width: 100%;
     }
@@ -284,4 +291,4 @@
 
 .station-tab__info-item--warning strong {
     color: inherit;
-} 
+}

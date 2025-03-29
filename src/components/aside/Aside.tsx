@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import logo from '../../../src/static/img/tecsus.png'
 import ButtonAside from '../buttonAside/buttonAside';
 import './Aside.css';
-import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark, faMap } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark, faMap, faDatabase } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -64,6 +64,7 @@ export function Aside() {
           <ButtonAside icon={faSliders} link='/tipo-parametro' isActive={currentPath === '/tipo-parametro'} title="Tipo de Parâmetro" />
           <ButtonAside icon={faBell} link='/alertas' isActive={currentPath === '/alertas'} title="Alertas" />
           <ButtonAside icon={faMap} link='/estacao/mapa' isActive={currentPath === '/estacao/mapa'} title="Localização das estações" />
+          <ButtonAside icon={faDatabase} link='/medidas/criar' isActive={currentPath === '/medidas/criar'} title="Enviar medidas estações" />
 
           {/* <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} title="Opções" /> */}
         </div>
