@@ -96,11 +96,6 @@ npm install
 npm run dev
 ```
 
-### Produção
-```bash
-npm run build
-```
-
 ### Docker
 ```bash
 docker-compose up
