@@ -64,7 +64,9 @@ export function Aside() {
           <ButtonAside icon={faSliders} link='/tipo-parametro' isActive={currentPath === '/tipo-parametro'} title="Tipo de Parâmetro" />
           <ButtonAside icon={faBell} link='/alertas' isActive={currentPath === '/alertas'} title="Alertas" />
           <ButtonAside icon={faMap} link='/estacao/mapa' isActive={currentPath === '/estacao/mapa'} title="Localização das estações" />
-          <ButtonAside icon={faDatabase} link='/medidas/criar' isActive={currentPath === '/medidas/criar'} title="Enviar medidas estações" />
+          {authContext.user !== undefined && (
+            <ButtonAside icon={faDatabase} link='/medidas/criar' isActive={currentPath === '/medidas/criar'} title="Enviar medidas estações" />
+          )}
 
           {/* <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} title="Opções" /> */}
         </div>
