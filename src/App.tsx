@@ -20,6 +20,7 @@ import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/Create
 import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
 import ListAlert from './pages/Alert/ListAlert/ListAlert';
 import MapsStation from './pages/Station/MapsStation/MapsStation';
+import CreateMeasure from './pages/Measure/CreateMeasure/CreateMeasure';
 function App() {
   return (
     <div className="App">
@@ -50,6 +51,9 @@ function App() {
 
             {/* ALerta */}
             <Route path='/alertas' element={<ListAlert />} />
+
+            {/* Medida */}
+            <Route path='/medidas/criar' element={<RequireAuthAdmin><CreateMeasure /></RequireAuthAdmin>} />
 
             <Route path="*" element={<Page404 />} />
           </Routes>

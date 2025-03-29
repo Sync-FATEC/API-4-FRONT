@@ -1,5 +1,7 @@
 import { ReadStationType } from "../../../types/station/ReadStationType";
 import { Maps } from "../../Maps/Maps";
+import ModalAdmin from '../../../components/modalAdmin/ModalAdmin';
+import { StationProps } from "../../../pages/Station/ListStation/ListStation";
 import '../shared/TabStyles.css';
 
 
@@ -10,8 +12,11 @@ interface DetailsStationTabProps {
 export default function DetailsStationTab({ station }: DetailsStationTabProps) {
     return (
         <div className="station-tab">
-            <h2 className="station-tab__title">Detalhes da estação</h2>
-            
+            <div className="station-tab__header">
+                <h2 className="station-tab__title">Detalhes da estação</h2>
+           
+            </div>
+
             <div className="station-tab__content">
                 <div className="station-tab__info">
                     <div className="station-tab__card">
@@ -35,7 +40,7 @@ export default function DetailsStationTab({ station }: DetailsStationTabProps) {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="station-tab__map">
                     <Maps latitude={Number(station.latitude)} longitude={Number(station.longitude)} />
                 </div>
