@@ -35,11 +35,13 @@ const ListClient: React.FC = () => {
                 const response = await userService.ListClients();
                 const formattedData = response.data.model.map((user: UserProps) => ({
                     ...user,
-                    cpf: formatCPF(user.cpf), 
+                    cpf: user.cpf ? formatCPF(user.cpf) : "N/A", 
                     active: formatTrueOrFalse(user.active)
                 }));
                 setData(formattedData);
             } catch (error) {
+                console.error("Erro ao listar usuários:", error);
+                
                 if (!(error as any)?.response?.data?.error.includes("para listar")) {
                     errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
                 }
