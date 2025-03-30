@@ -23,11 +23,9 @@ export default function CreateMeasure() {
     const [parameterPairs, setParameterPairs] = useState<ParameterPair[]>([
         { parameterId: "", value: "" },
     ]);
-    const [parameters, setParameters] = useState<ReadTypeParameterType[]>([]);
     const [stations, setStations] = useState<ReadStationType[]>([]);
     const [stationParameters, setStationParameters] = useState<ReadTypeParameterType[]>([]);
     const navigate = useNavigate();
-
 
     const handleListStations = async () => {
         try {
@@ -42,11 +40,19 @@ export default function CreateMeasure() {
         try {
             const response = await stationService.readStation(id);
             const stationData = response.data.model as ReadStationType;
-            const stationParamIds = stationData.parameters.map(param => param.idTypeParameter.id);
-            const filteredParams = parameters.filter(param => 
-                stationParamIds.includes(param.id)
-            );
-            setStationParameters(filteredParams);
+            
+            // Mapeia os parâmetros da estação para o formato ReadTypeParameterType
+            const stationParams: ReadTypeParameterType[] = stationData.parameters.map(param => ({
+                id: param.idTypeParameter.id,
+                typeJson: param.idTypeParameter.typeJson,
+                name: param.idTypeParameter.name,
+                unit: param.idTypeParameter.unit,
+                numberOfDecimalsCases: param.idTypeParameter.numberOfDecimalsCases,
+                factor: param.idTypeParameter.factor,
+                offset: param.idTypeParameter.offset
+            }));
+            
+            setStationParameters(stationParams);
             // Limpa os pares de parâmetros quando mudar a estação
             setParameterPairs([{ parameterId: "", value: "" }]);
         } catch (error) {
@@ -64,6 +70,10 @@ export default function CreateMeasure() {
             if (selectedStation) {
                 handleReadStation(selectedStation.id);
             }
+        } else {
+            // Limpa os parâmetros da estação quando nenhuma estação for selecionada
+            setStationParameters([]);
+            setParameterPairs([{ parameterId: "", value: "" }]);
         }
     }, [selectedStationUuid]);
 
@@ -95,7 +105,7 @@ export default function CreateMeasure() {
 
         parameterPairs.forEach((pair) => {
             if (pair.parameterId) {
-                const selectedParameter = parameters.find(
+                const selectedParameter = stationParameters.find(
                     (param) => param.id === pair.parameterId
                 );
                 if (selectedParameter) {
@@ -145,51 +155,53 @@ export default function CreateMeasure() {
                     />
                 </div>
 
-                <div className="parameter-section">
-                    {parameterPairs.map((pair, index) => (
-                        <div key={index} className="parameter-row">
-                            <div className="input-container">
-                                <Select
-                                    label="Tipo do Parâmetro"
-                                    options={[
-                                        { value: "", label: "Selecione um parâmetro" },
-                                        ...parameterSelectOptions,
-                                    ]}
-                                    value={pair.parameterId}
-                                    onChange={(e) =>
-                                        handleParameterPairChange(index, "parameterId", e.target.value)
-                                    }
-                                    styleSelect={2}
-                                />
+                {selectedStationUuid && (
+                    <div className="parameter-section">
+                        {parameterPairs.map((pair, index) => (
+                            <div key={index} className="parameter-row">
+                                <div className="input-container">
+                                    <Select
+                                        label="Tipo do Parâmetro"
+                                        options={[
+                                            { value: "", label: "Selecione um parâmetro" },
+                                            ...parameterSelectOptions,
+                                        ]}
+                                        value={pair.parameterId}
+                                        onChange={(e) =>
+                                            handleParameterPairChange(index, "parameterId", e.target.value)
+                                        }
+                                        styleSelect={2}
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Input
+                                        label="Valor"
+                                        placeholder="Digite o valor"
+                                        styleInput={2}
+                                        value={pair.value}
+                                        onChange={(e) =>
+                                            handleParameterPairChange(index, "value", e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="input-container">
+                                    <Button
+                                        onClick={() => handleRemoveParameterPair(index)}
+                                        label="Remover"
+                                        styleButton={2}
+                                    />
+                                </div>
                             </div>
-                            <div className="input-container">
-                                <Input
-                                    label="Valor"
-                                    placeholder="Digite o valor"
-                                    styleInput={2}
-                                    value={pair.value}
-                                    onChange={(e) =>
-                                        handleParameterPairChange(index, "value", e.target.value)
-                                    }
-                                />
-                            </div>
-                            <div className="input-container">
-                                <Button
-                                    onClick={() => handleRemoveParameterPair(index)}
-                                    label="Remover"
-                                    styleButton={2}
-                                />
-                            </div>
+                        ))}
+                        <div className="input-container">
+                            <Button
+                                onClick={handleAddParameterPair}
+                                label="Adicionar Parâmetro"
+                                styleButton={1}
+                            />
                         </div>
-                    ))}
-                    <div className="input-container">
-                        <Button
-                            onClick={handleAddParameterPair}
-                            label="Adicionar Parâmetro"
-                            styleButton={1}
-                        />
                     </div>
-                </div>
+                )}
 
                 <div className="Buttons">
                     <Button onClick={() => navigate(-1)} label="Cancelar" styleButton={2} />
