@@ -97,6 +97,37 @@ export default function CreateMeasure() {
     };
 
     const handleCreateMeasure = async () => {
+        // Verificar se todos os campos estão preenchidos
+        if (!selectedStationUuid) {
+            errorSwal("Por favor, selecione uma estação");
+            return;
+        }
+
+        if (parameterPairs.length === 0) {
+            errorSwal("Por favor, adicione pelo menos um parâmetro");
+            return;
+        }
+
+        // Verificar se todos os pares de parâmetros estão preenchidos
+        const incompleteParameters = parameterPairs.some(
+            (pair) => !pair.parameterId || !pair.value
+        );
+
+        if (incompleteParameters) {
+            errorSwal("Por favor, preencha todos os campos de parâmetros e valores");
+            return;
+        }
+
+        // Verificar se os valores são números válidos
+        const invalidValues = parameterPairs.some(
+            (pair) => isNaN(Number(pair.value))
+        );
+
+        if (invalidValues) {
+            errorSwal("Por favor, insira apenas valores numéricos válidos");
+            return;
+        }
+
         const currentUnixTime = Math.floor(Date.now() / 1000);
         const data: any = {
             uid: selectedStationUuid,
@@ -134,6 +165,12 @@ export default function CreateMeasure() {
         value: station.uuid, 
         label: `${station.name} (${station.uuid})`,
     }));
+
+    // Verificar se o formulário está pronto para envio
+    const isFormValid = 
+        selectedStationUuid !== "" && 
+        parameterPairs.length > 0 && 
+        !parameterPairs.some(pair => !pair.parameterId || !pair.value || isNaN(Number(pair.value)));
 
     const children = (
         <div className="register-modal">
@@ -206,9 +243,9 @@ export default function CreateMeasure() {
                 <div className="Buttons">
                     <Button onClick={() => navigate(-1)} label="Cancelar" styleButton={2} />
                     <Button
-                        onClick={handleCreateMeasure}
+                        onClick={isFormValid ? handleCreateMeasure : () => errorSwal("Por favor, preencha todos os campos corretamente")}
                         label="Cadastrar"
-                        styleButton={1}
+                        styleButton={isFormValid ? 1 : 2}
                     />
                 </div>
             </div>
