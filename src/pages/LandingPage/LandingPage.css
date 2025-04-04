@@ -13,6 +13,7 @@
 
 .LandingPage p {
     color: var(--mulberry);
+    text-align: justify;
 }
 
 .LandingPageHeader {
