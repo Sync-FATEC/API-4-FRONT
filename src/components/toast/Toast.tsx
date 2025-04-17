@@ -39,7 +39,7 @@ const Toast: React.FC<ToastProps> = ({
 
   return (
     <div 
-      className={`toast toast-${type} ${visible ? 'visible' : 'hidden'}`}
+      className={`toast toast-warning ${visible ? 'visible' : 'hidden'}`}
       onClick={alertData ? handleClick : undefined}
       style={{ cursor: alertData ? 'pointer' : 'default' }}
     >

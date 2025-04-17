@@ -11,12 +11,17 @@ import Loading from "../../../components/loading/loading";
 import TypeAlertTab from "../../../components/TabsStation/typeAlertTab/TypeAlertTab";
 import AlertTab from "../../../components/TabsStation/alertTab/AlertTab";
 import MeasureTab from "../../../components/TabsStation/measureTab/MeasureTab";
+import axios from "axios";
+import { successSwal } from "../../../components/swal/sucessSwal";
+import api from "../../../api/api";
 
 export default function DetailsStation() {
   const id = useParams().id;
   const [station, setStation] = useState<ReadStationType | null>(null);
   const [activeTab, setActiveTab] = useState("details");
   const [loading, setLoading] = useState(true);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleReadStation = async () => {
     if (!id) {
@@ -96,6 +101,21 @@ export default function DetailsStation() {
     }
   };
 
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await api.post("/emailStation/create", {
+        email,
+        stationId: id
+      });
+      successSwal("E-mail cadastrado com sucesso!");
+      setShowEmailModal(false);
+      setEmail("");
+    } catch (error) {
+      errorSwal((error as any)?.response?.data?.error || "Erro ao cadastrar e-mail");
+    }
+  };
+
   return (
     <main className="modal-admin">
       <Aside />
@@ -105,7 +125,37 @@ export default function DetailsStation() {
             <h1 className="details-station-title">
               Detalhes da estação {station?.uuid || "Carregando..."}
             </h1>
+            <button
+              className="btn-register-email"
+              onClick={() => setShowEmailModal(true)}
+            >
+              Cadastrar E-mail para receber alertas 
+            </button>
           </div>
+
+          {/* Email Modal */}
+          {showEmailModal && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <h2>Cadastrar E-mail</h2>
+                <form onSubmit={handleEmailSubmit}>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Digite o e-mail"
+                    required
+                  />
+                  <div className="modal-buttons">
+                    <button type="submit">Cadastrar</button>
+                    <button type="button" onClick={() => setShowEmailModal(false)}>
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
 
           <div className="list-container">
             <div className="list-top-header">

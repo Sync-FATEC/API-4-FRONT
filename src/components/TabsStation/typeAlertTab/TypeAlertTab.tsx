@@ -21,6 +21,7 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
     const [selectedParameter, setSelectedParameter] = useState('');
     const [name, setName] = useState('');
     const [comparisonOperator, setComparisonOperator] = useState<'>' | '<' | '='>('=');
+    const [criticality, setCriticality] = useState(""); 
     const [value, setValue] = useState('');
     const auth = useContext(AuthContext);
 
@@ -48,6 +49,7 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
                 parameterId: selectedParameter,
                 name: name,
                 comparisonOperator: comparisonOperator,
+                criticality,
                 value: Number(value)
             };
 
@@ -129,6 +131,21 @@ export default function TypeAlertTab({ station, onUpdateStation }: TypeAlertTabP
                                             <option value="=">Igual a</option>
                                         </select>
                                     </div>
+
+                                    <div className="station-tab__form-group">
+                                        <label className="station-tab__label">Críticidade do alerta:</label>
+                                        <select
+                                            value={criticality}
+                                            onChange={(e) => setCriticality(e.target.value)}
+                                            className="station-tab__select"
+                                        >
+                                            <option value="LOW">Baixa</option>
+                                            <option value="MEDIUM">Média</option>
+                                            <option value="HIGH">Alta</option>
+                                            <option value="CRITICAL">CRÍTICA</option>
+                                        </select>
+                                    </div>
+
 
                                     <div className="station-tab__form-group">
                                         <label className="station-tab__label">Valor ({getParameterInfo(selectedParameter)?.unit}):</label>
