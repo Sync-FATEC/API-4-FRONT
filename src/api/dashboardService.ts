@@ -1,8 +1,16 @@
-import api from "./api";
+import api from './api';
 
-const dashboardService = {
-    listDashboard: () => api.get("/dashboard/list"),
-  
+export interface DashboardFilters {
+  date?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
-export default dashboardService
+const dashboardService = {
+  listDashboard: (filters?: DashboardFilters) =>
+    api.get('/dashboard/list', {
+      params: filters,
+    }),
+};
+
+export default dashboardService;

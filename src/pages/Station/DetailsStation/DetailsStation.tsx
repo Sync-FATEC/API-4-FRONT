@@ -136,7 +136,7 @@ export default function DetailsStation() {
               className="btn-register-email"
               onClick={() => setShowEmailModal(true)}
             >
-              Cadastrar E-mail para receber alertas 
+              Cadastrar E-mail para receber alertas
             </button>
           </div>
 
@@ -154,10 +154,10 @@ export default function DetailsStation() {
                     required
                   />
                   <div className="modal-buttons">
-                    <button type="submit">Cadastrar</button>
                     <button type="button" onClick={() => setShowEmailModal(false)}>
                       Cancelar
                     </button>
+                    <button type="submit">Cadastrar</button>
                   </div>
                 </form>
               </div>
