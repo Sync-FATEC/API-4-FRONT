@@ -277,9 +277,9 @@
 }
 
 .station-tab__empty-message {
-    text-align: center;
     color: var(--gray);
     font-style: italic;
+    margin-top: 8px;
 }
 
 .station-tab__info-item--warning {
