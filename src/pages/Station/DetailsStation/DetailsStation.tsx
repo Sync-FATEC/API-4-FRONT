@@ -11,6 +11,7 @@ import Loading from "../../../components/loading/loading";
 import TypeAlertTab from "../../../components/TabsStation/typeAlertTab/TypeAlertTab";
 import AlertTab from "../../../components/TabsStation/alertTab/AlertTab";
 import MeasureTab from "../../../components/TabsStation/measureTab/MeasureTab";
+import DashboardTab from "../../../components/TabsStation/dashboardTab/dashboardTab";
 
 export default function DetailsStation() {
   const id = useParams().id;
@@ -54,6 +55,8 @@ export default function DetailsStation() {
     { id: "typeAlerts", label: "Tipos de alertas" },
     { id: "alerts", label: "Alertas" },
     { id: "measures", label: "Medições" },
+    { id: "dashboard", label: "Dashboard" },
+
   ];
 
   const renderTabContent = () => {
@@ -91,6 +94,10 @@ export default function DetailsStation() {
         return (
           <MeasureTab station={station} onUpdateStation={handleReadStation} />
         )
+      case "dashboard":
+        return (
+          <DashboardTab station={station} onUpdateStation={handleReadStation} />
+        )
       default:
         return null;
     }
@@ -106,16 +113,14 @@ export default function DetailsStation() {
               Detalhes da estação {station?.uuid || "Carregando..."}
             </h1>
           </div>
-
           <div className="list-container">
             <div className="list-top-header">
               <div className="box-container">
                 {tabs.map((tab) => (
                   <div
                     key={tab.id}
-                    className={`tabs-station ${
-                      activeTab === tab.id ? "active" : ""
-                    }`}
+                    className={`tabs-station ${activeTab === tab.id ? "active" : ""
+                      }`}
                     onClick={() => handleTabChange(tab.id)}
                   >
                     <p>{tab.label}</p>
