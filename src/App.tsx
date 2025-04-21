@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './global.css';
 import './colors.css'
@@ -21,7 +22,13 @@ import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
 import ListAlert from './pages/Alert/ListAlert/ListAlert';
 import MapsStation from './pages/Station/MapsStation/MapsStation';
 import CreateMeasure from './pages/Measure/CreateMeasure/CreateMeasure';
+import { useEffect } from 'react';
+import { useWebSocket } from './hooks/useWebSocket';
+import ToastContainer from './components/toast/ToastContainer';
+
 function App() {
+  useWebSocket("ws://localhost:5555");
+
   return (
     <div className="App">
       <Router>
@@ -57,6 +64,7 @@ function App() {
 
             <Route path="*" element={<Page404 />} />
           </Routes>
+          <ToastContainer />
         </AuthProvider>
       </Router>
     </div>
