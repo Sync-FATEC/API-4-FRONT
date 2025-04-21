@@ -14,6 +14,7 @@ import MeasureTab from "../../../components/TabsStation/measureTab/MeasureTab";
 import axios from "axios";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import api from "../../../api/api";
+import DashboardTab from "../../../components/TabsStation/dashboardTab/dashboardTab";
 
 export default function DetailsStation() {
   const id = useParams().id;
@@ -59,6 +60,8 @@ export default function DetailsStation() {
     { id: "typeAlerts", label: "Tipos de alertas" },
     { id: "alerts", label: "Alertas" },
     { id: "measures", label: "Medições" },
+    { id: "dashboard", label: "Dashboard" },
+
   ];
 
   const renderTabContent = () => {
@@ -95,6 +98,10 @@ export default function DetailsStation() {
       case "measures":
         return (
           <MeasureTab station={station} onUpdateStation={handleReadStation} />
+        )
+      case "dashboard":
+        return (
+          <DashboardTab station={station} onUpdateStation={handleReadStation} />
         )
       default:
         return null;
@@ -163,9 +170,8 @@ export default function DetailsStation() {
                 {tabs.map((tab) => (
                   <div
                     key={tab.id}
-                    className={`tabs-station ${
-                      activeTab === tab.id ? "active" : ""
-                    }`}
+                    className={`tabs-station ${activeTab === tab.id ? "active" : ""
+                      }`}
                     onClick={() => handleTabChange(tab.id)}
                   >
                     <p>{tab.label}</p>
