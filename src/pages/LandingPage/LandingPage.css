@@ -15,7 +15,14 @@
     color: var(--mulberry);
     text-align: justify;
 }
-
+.contentMeteorologico ul li{
+    color: var(--mulberry);
+    text-align: justify;
+    font-weight: 700;
+}
+.formula{
+    margin-top: 8px;
+}
 .LandingPageHeader {
     display: flex;
     padding: 0 20px;
