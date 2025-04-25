@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ReadStationType } from '../../../types/station/ReadStationType';
 import Dashboard, { Parameter } from '../../../components/dashboard/dashboard';
 import dashboardService from '../../../api/dashboardService';
 import '../shared/TabStyles.css';
 import Button from '../../../components/button/Button';
+import { AuthContext } from '../../../contexts/auth/AuthContext';
 
 export interface DashboardFilters {
     date?: string;
@@ -41,11 +42,12 @@ export default function DashboardStationTab({ station }: DashboardStationTabProp
     const [singleDate, setSingleDate] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const authContenxt = useContext(AuthContext)
 
     const fetchData = async (filters?: DashboardFilters) => {
         setLoading(true);
         try {
-            const response = await dashboardService.listDashboard(filters);
+            const response = await dashboardService.getDashboard(filters);
             const stations: ApiStation[] = response.data.model.stations;
             const found = stations.find(s => s.id === station.id);
             let params: ApiParameter[] = found ? found.parameters : [];
@@ -103,6 +105,8 @@ export default function DashboardStationTab({ station }: DashboardStationTabProp
                 <h2 className="station-tab__title">Dashboard</h2>
             </div>
 
+            {authContenxt.isAuthenticated && (
+
             <div className="station-tab__filter">
                 <div className="style-select-1 filter-type">
                     <label>
@@ -152,6 +156,7 @@ export default function DashboardStationTab({ station }: DashboardStationTabProp
                         styleButton={1}
                     />   
             </div>
+            )}
 
             <div className="station-tab__content">
                 {loading ? (
