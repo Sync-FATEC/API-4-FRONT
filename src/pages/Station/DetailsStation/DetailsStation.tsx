@@ -15,7 +15,7 @@ import axios from "axios";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import api from "../../../api/api";
 import DashboardTab from "../../../components/TabsStation/dashboardTab/dashboardTab";
-
+import MeasureAverageTab from "../../../components/TabsStation/measureAverageTab/measureAverageTab";
 export default function DetailsStation() {
   const id = useParams().id;
   const [station, setStation] = useState<ReadStationType | null>(null);
@@ -60,8 +60,8 @@ export default function DetailsStation() {
     { id: "typeAlerts", label: "Tipos de alertas" },
     { id: "alerts", label: "Alertas" },
     { id: "measures", label: "Medições" },
+    { id: "measureAverage", label: "Médias de medições" },
     { id: "dashboard", label: "Dashboard" },
-
   ];
 
   const renderTabContent = () => {
@@ -102,6 +102,10 @@ export default function DetailsStation() {
       case "dashboard":
         return (
           <DashboardTab station={station} onUpdateStation={handleReadStation} />
+        )
+      case "measureAverage":
+        return (
+          <MeasureAverageTab station={station} onUpdateStation={handleReadStation} />
         )
       default:
         return null;
