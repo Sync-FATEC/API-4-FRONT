@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import stationService from "../../../api/stationService";
 import { errorSwal } from "../../../components/swal/errorSwal";
@@ -16,6 +16,7 @@ import { successSwal } from "../../../components/swal/sucessSwal";
 import api from "../../../api/api";
 import DashboardTab from "../../../components/TabsStation/dashboardTab/dashboardTab";
 import MeasureAverageTab from "../../../components/TabsStation/measureAverageTab/measureAverageTab";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 export default function DetailsStation() {
   const id = useParams().id;
   const [station, setStation] = useState<ReadStationType | null>(null);
@@ -23,6 +24,7 @@ export default function DetailsStation() {
   const [loading, setLoading] = useState(true);
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [email, setEmail] = useState("");
+  const authContext = useContext(AuthContext);
 
   const handleReadStation = async () => {
     if (!id) {
@@ -136,12 +138,14 @@ export default function DetailsStation() {
             <h1 className="details-station-title">
               Detalhes da estação {station?.uuid || "Carregando..."}
             </h1>
-            <button
-              className="btn-register-email"
-              onClick={() => setShowEmailModal(true)}
+            {!authContext.isAuthenticated && (
+              <button
+                className="btn-register-email"
+                onClick={() => setShowEmailModal(true)}
             >
               Cadastrar E-mail para receber alertas
             </button>
+            )}
           </div>
 
           {/* Email Modal */}

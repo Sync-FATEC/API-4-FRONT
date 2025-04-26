@@ -52,29 +52,66 @@ export default function DashboardStationTab({ station }: DashboardStationTabProp
             const found = stations.find(s => s.id === station.id);
             let params: ApiParameter[] = found ? found.parameters : [];
 
+            console.log('Dados recebidos da API:', params);
+            console.log('Filtros aplicados:', filters);
+
             if (filters) {
                 if (filters.date) {
-                    params = params.map(param => ({
-                        ...param,
-                        measurements: param.measurements.filter(m =>
-                            m.timestamp.startsWith(filters.date!)
-                        ),
-                    }));
-                } else if (filters.startDate && filters.endDate) {
-                    const startMs = new Date(filters.startDate).getTime();
-                    const endDateObj = new Date(filters.endDate);
-                    endDateObj.setHours(23, 59, 59, 999);
-                    const endMs = endDateObj.getTime();
+                    const targetDate = new Date(filters.date + 'T00:00:00.000Z');
+                    const nextDay = new Date(targetDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    
+                    console.log('Filtrando por data única:', {
+                        targetDate,
+                        nextDay,
+                        measurements: params[0]?.measurements
+                    });
+                    
                     params = params.map(param => ({
                         ...param,
                         measurements: param.measurements.filter(m => {
-                            const t = new Date(m.timestamp).getTime();
-                            return t >= startMs && t <= endMs;
+                            const measurementDate = new Date(m.timestamp);
+                            const isInRange = measurementDate >= targetDate && measurementDate < nextDay;
+                            console.log('Comparando datas:', {
+                                measurementDate,
+                                targetDate,
+                                nextDay,
+                                isInRange,
+                                filterDate: filters.date
+                            });
+                            return isInRange;
+                        }),
+                    }));
+                } else if (filters.startDate && filters.endDate) {
+                    const startDate = new Date(filters.startDate + 'T00:00:00.000Z');
+                    const endDate = new Date(filters.endDate + 'T23:59:59.999Z');
+                    
+                    console.log('Filtrando por intervalo:', {
+                        startDate,
+                        endDate,
+                        measurements: params[0]?.measurements
+                    });
+                    
+                    params = params.map(param => ({
+                        ...param,
+                        measurements: param.measurements.filter(m => {
+                            const measurementDate = new Date(m.timestamp);
+                            const isInRange = measurementDate >= startDate && measurementDate <= endDate;
+                            console.log('Comparando datas:', {
+                                measurementDate,
+                                startDate,
+                                endDate,
+                                isInRange,
+                                filterStartDate: filters.startDate,
+                                filterEndDate: filters.endDate
+                            });
+                            return isInRange;
                         }),
                     }));
                 }
             }
 
+            console.log('Dados após filtragem:', params);
             setParameters(params as Parameter[]);
         } catch (err) {
             console.error('Erro ao carregar dados do dashboard:', err);

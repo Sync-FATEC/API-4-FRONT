@@ -21,13 +21,17 @@ export default function ButtonAside(props: ButtonAsideProps) {
 
     if (props.onClick) {
         return (
-            <button 
-                onClick={props.onClick} 
+            <Link 
+                to={props.link || '#'}
+                onClick={(e) => {
+                    e.preventDefault();
+                    props.onClick && props.onClick();
+                }}
                 className={`buttonAside ${props.isActive ? 'active' : ''}`}
                 title={props.title}
             >
                 {buttonContent}
-            </button>
+            </Link>
         );
     }
 
