@@ -77,7 +77,7 @@ export default function MeasureTab({
             onDelete={handleDelete}
             onUpdate={(id) => {}}
             isEditable={false}
-            isDelete={true}
+            isDelete={false}
             text="medições"
           />
         ) : (
