@@ -6,7 +6,7 @@ import api from "../../../api/api";
 import { alertService } from "../../../api/alertService";
 import { errorSwal } from "../../swal/errorSwal";
 import { successSwal } from "../../swal/sucessSwal";
-
+import { transformCriticality } from "../../../utils/transformCriticality";
 export interface ListAlertDTO {
   id: string;
   message: string;
@@ -17,6 +17,7 @@ export interface ListMeasureResponseDTO {
   unixTime: number;
   value: number;
   parameterText: string;
+  criticality: string;
 }
 
 interface AlertTabProps {
@@ -30,6 +31,7 @@ export interface UnifiedAlertDTO {
   unixTime: string;
   value: number;
   parameterText: string;
+  criticality: string;
 }
 
 export default function AlertTab({ station, onUpdateStation }: AlertTabProps) {
@@ -60,6 +62,7 @@ export default function AlertTab({ station, onUpdateStation }: AlertTabProps) {
           ),
           value: alert.measure.value,
           parameterText: alert.measure.parameterText,
+          criticality: transformCriticality(alert.measure.criticality),
         }))
       );
     } catch (error) {
@@ -84,6 +87,7 @@ export default function AlertTab({ station, onUpdateStation }: AlertTabProps) {
               { key: "unixTime", label: "Data" },
               { key: "value", label: "Valor" },
               { key: "parameterText", label: "Parâmetro" },
+              { key: "criticality", label: "Criticidade" },
             ]}
             onDelete={handleDelete}
             onUpdate={(id) => {}}

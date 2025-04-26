@@ -6,7 +6,7 @@ import { alertService } from "../../../api/alertService";
 import { successSwal } from "../../../components/swal/sucessSwal";
 import { errorSwal } from "../../../components/swal/errorSwal";
 import Loading from "../../../components/loading/loading";
-
+import { transformCriticality } from "../../../utils/transformCriticality";
 // filepath: c:\Users\erikc\OneDrive\Área de Trabalho\API.2025.1\API-4-FRONT\src\pages\Alert\ListAlert\ListAlert.tsx
 
 export interface AlertProps {
@@ -16,6 +16,7 @@ export interface AlertProps {
   status: string;
   lastUpdate: string;
   id: number;
+  criticality: string;
 }
 
 const ListAlert: React.FC = () => {
@@ -45,6 +46,7 @@ const ListAlert: React.FC = () => {
           ),
           value: alert.measure.value,
           parameterText: alert.measure.parameterText,
+          criticality: transformCriticality(alert.measure.criticality),
         }))
       );
     } catch (error) {
@@ -73,6 +75,7 @@ const ListAlert: React.FC = () => {
             { key: "unixTime", label: "Data" },
             { key: "value", label: "Valor" },
             { key: "parameterText", label: "Parâmetro" },
+            { key: "criticality", label: "Criticidade" },
           ],
         onDelete: handleDelete,
         onUpdate: () => {},
