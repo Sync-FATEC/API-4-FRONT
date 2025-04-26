@@ -3,18 +3,36 @@ import { useLocation } from 'react-router-dom';
 import logo from '../../../src/static/img/tecsus.png'
 import ButtonAside from '../buttonAside/buttonAside';
 import './Aside.css';
-import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark, faMap, faDatabase } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark, faMap, faDatabase, faSync } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import api from '../../api/api';
+import { successSwal } from '../swal/sucessSwal';
+import { errorSwal } from '../swal/errorSwal';
 
 export function Aside() {
   const authContext = useContext(AuthContext);
   const location = useLocation();
   const currentPath = location.pathname;
   const [isOpen, setIsOpen] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const handleLogout = () => {
     authContext.logout()
+  }
+
+  const handleSync = async () => {
+    try {
+      setIsSyncing(true);
+      await api.post('/receiverJson/sync');
+      successSwal('Sincronização realizada com sucesso!');
+    } catch (error) {
+      console.error('Erro na sincronização:', error);
+      errorSwal('Erro ao sincronizar dados.');
+    } finally {
+      setIsSyncing(false);
+    }
   }
 
   const toggleMenu = (e: React.MouseEvent) => {
@@ -66,6 +84,15 @@ export function Aside() {
           <ButtonAside icon={faMap} link='/estacao/mapa' isActive={currentPath === '/estacao/mapa'} title="Localização das estações" />
           {authContext.user !== undefined && (
             <ButtonAside icon={faDatabase} link='/medidas/criar' isActive={currentPath === '/medidas/criar'} title="Enviar medidas estações" />
+          )}
+          {authContext.user?.role === "ADMIN" && (
+            <ButtonAside 
+              icon={faSync} 
+              link=''
+              isActive={false}
+              title={"Sincronizar dados"} 
+              onClick={handleSync}
+            />
           )}
 
           {/* <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} title="Opções" /> */}
