@@ -7,10 +7,10 @@ export interface DashboardFilters {
 }
 
 const dashboardService = {
-  getDashboard: (filters?: DashboardFilters) => api.get('/dashboard/public'),
-  listDashboard: (filters?: DashboardFilters) =>
+  getDashboard: (stationId: string) => api.get(`/dashboard/public/${stationId}`),
+  listDashboard: (stationId: string, startDate: string, endDate: string) =>
     api.get('/dashboard/list', {
-      params: filters,
+      params: { stationId, startDate, endDate },
     }),
 };
 

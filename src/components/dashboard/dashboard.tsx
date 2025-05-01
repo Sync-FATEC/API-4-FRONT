@@ -1,9 +1,12 @@
-import { BarChart } from '@mui/x-charts/BarChart';
 import './dashboard.css';
+import Highcharts from 'highcharts/highstock';
+import HighchartsReact from 'highcharts-react-official';
+import { useEffect, useState } from 'react';
 
 export interface DashboardProps {
     name: string;
     parameters: Parameter[];
+    chartType?: 'line' | 'column' | 'area';
 }
 
 export type Measurement = {
@@ -19,32 +22,85 @@ export type Parameter = {
     measurements: Measurement[];
 };
 
-export default function Dashboard({ name, parameters }: DashboardProps) {
+export default function Dashboard({ name, parameters, chartType = 'line' }: DashboardProps) {
     return (
         <div className="dashboard">
-            <div className="charts-grid">
+            <div className="charts-column">
                 {parameters.map(param => {
-                    const counts = param.measurements.reduce(
-                        (acc, m) => {
-                            acc[m.value] = (acc[m.value] || 0) + 1;
-                            return acc;
-                        },
-                        {} as Record<number, number>
+                    // Ordenar medições por data para gráfico de linha temporal
+                    const sortedMeasurements = [...param.measurements].sort(
+                        (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
                     );
 
-                    const labels = Object.keys(counts);
-                    const values = labels.map(v => counts[+v]);
+                    // Preparar dados para o gráfico (formato [timestamp, value])
+                    const data = sortedMeasurements.map(m => [
+                        new Date(m.timestamp).getTime(),
+                        m.value
+                    ]);
+
+                    // Configuração do gráfico Highcharts Stock
+                    const options = {
+                        rangeSelector: {
+                            selected: 1,
+                            inputEnabled: false
+                        },
+                        title: {
+                            text: `${param.name} (${param.type.unit})`
+                        },
+                        time: {
+                            // Usar o fuso horário local para exibição das datas
+                            useUTC: false
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            overscroll: '10px',
+                            labels: {
+                                style: {
+                                    fontSize: '10px'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: param.type.unit
+                            }
+                        },
+                        series: [{
+                            type: chartType,
+                            name: param.name,
+                            data: data,
+                            tooltip: {
+                                valueDecimals: 2
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            lastPrice: {
+                                enabled: true,
+                                color: 'transparent',
+                                label: {
+                                    enabled: true,
+                                    backgroundColor: '#ffffff',
+                                    borderColor: '#2caffe',
+                                    borderWidth: 1,
+                                    style: {
+                                        color: '#000000'
+                                    }
+                                }
+                            }
+                        }],
+                        credits: {
+                            enabled: false
+                        }
+                    };
 
                     return (
                         <div key={param.id} className="parameter-chart">
-                            <h3 className='section-title__dashboard'>
-                                {param.name} ({param.type.unit})
-                            </h3>
-                            {values.length > 0 ? (
-                                <BarChart
-                                    series={[{ data: values, color: '#383481' }]}
-                                    xAxis={[{ id: 'values', data: labels, scaleType: 'band' }]}
-                                    height={200}
+                            {data.length > 0 ? (
+                                <HighchartsReact
+                                    highcharts={Highcharts}
+                                    constructorType={'stockChart'}
+                                    options={options}
                                 />
                             ) : (
                                 <p className='station-tab__empty-message'>Sem dados disponíveis</p>

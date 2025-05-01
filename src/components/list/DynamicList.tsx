@@ -31,6 +31,8 @@ function DynamicList<T>({
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const auth = useContext(AuthContext)
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
   
 
   useEffect(() => {
@@ -52,12 +54,23 @@ function DynamicList<T>({
 
   useEffect(() => {
     setFilteredData(data);
+    setCurrentPage(1); // Resetar para a primeira página quando os dados mudam
   }, [data]);
 
   const gridStyle = {
     gridTemplateColumns: (isEditable && auth.user?.role !== undefined) || (isDelete && auth.user?.role === "ADMIN") || detailsLink
       ? `repeat(${fields.length}, 1fr) 100px`
       : `repeat(${fields.length}, 1fr)`,
+  };
+
+  // Calcular paginação
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   const renderMobileCard = (item: T) => (
@@ -93,6 +106,34 @@ function DynamicList<T>({
     </div>
   );
 
+  const renderPagination = () => {
+    if (totalPages <= 1) return null;
+
+    return (
+      <div className="pagination-container">
+        <button 
+          onClick={() => paginate(currentPage - 1)} 
+          disabled={currentPage === 1}
+          className="pagination-button"
+        >
+          Anterior
+        </button>
+        
+        <div className="pagination-info">
+          Página {currentPage} de {totalPages}
+        </div>
+        
+        <button 
+          onClick={() => paginate(currentPage + 1)} 
+          disabled={currentPage === totalPages}
+          className="pagination-button"
+        >
+          Próximo
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className="list-container">
       <div className="list-top-header">
@@ -110,16 +151,17 @@ function DynamicList<T>({
                 )
               );
               setFilteredData(filtered);
+              setCurrentPage(1); // Reset to first page on filter
             }}
           />
         </div>
         <p>
-          Total de {text}: {data.length}
+          Total de {text}: {filteredData.length}
         </p>
       </div>
       {isMobile ? (
         <div className="mobile-list">
-          {filteredData.map((item) => renderMobileCard(item))}
+          {currentItems.map((item) => renderMobileCard(item))}
         </div>
       ) : (
         <div className="list-grid">
@@ -133,7 +175,7 @@ function DynamicList<T>({
               <div className="list-header-item">Ações</div>
             ) : null}
           </div>
-          {filteredData.map((item) => (
+          {currentItems.map((item) => (
             <div key={String(item[idKey])} className="list-row" style={gridStyle}>
               {fields.map((field) => (
                 <div key={String(field.key)} className="list-cell">
@@ -166,6 +208,7 @@ function DynamicList<T>({
           ))}
         </div>
       )}
+      {renderPagination()}
     </div>
   );
 }
