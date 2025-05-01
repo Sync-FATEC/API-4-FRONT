@@ -17,6 +17,8 @@ import api from "../../../api/api";
 import DashboardTab from "../../../components/TabsStation/dashboardTab/dashboardTab";
 import MeasureAverageTab from "../../../components/TabsStation/measureAverageTab/measureAverageTab";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRss } from "@fortawesome/free-solid-svg-icons";
 export default function DetailsStation() {
   const id = useParams().id;
   const [station, setStation] = useState<ReadStationType | null>(null);
@@ -135,8 +137,12 @@ export default function DetailsStation() {
       <div className="modal-admin-content">
         <div className="modal-admin-bg2">
           <div className="details-station-header">
+            <FontAwesomeIcon icon={faRss} className="details-station-icon" />
             <h1 className="details-station-title">
-              Detalhes da estação {station?.uuid || "Carregando..."}
+                Detalhes da estação {station?.uuid || "Carregando..."}
+              <div>
+                <p className="name-station">{station?.name || "Carregando..."}</p>
+              </div>
             </h1>
             {!authContext.isAuthenticated && (
               <button

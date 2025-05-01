@@ -80,13 +80,26 @@
 }
 
 .details-station-header {
+    position: sticky;
+    top: 10px;
+    z-index: 10;
+    background-color: var(--lavender-light);
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 15px;
-    padding: 0 10px;
+    padding: 15px;
+    border-bottom: 0.5px solid var(--lavender-pale);
+    border-radius: 8px;
+}
+
+.name-station {
+    font-size: 12px;
+}
+
+.details-station-icon {
+    color: var(--deep-indigo)
 }
 
 .details-station-title {
@@ -128,15 +141,23 @@
     }
 
     .details-station-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        margin-bottom: 15px;
+        display: flex;
+        top: 65px;
+        flex-direction: row; /* Alinha os itens em linha */
+        justify-content: flex-start; /* Alinha os itens à esquerda */
+        align-items: center; /* Centraliza verticalmente */
+        gap: 10px; /* Ajusta o espaçamento entre os itens */
+    }
+
+    .details-station-icon {
+        flex-shrink: 0; /* Garante que o ícone não encolha */
     }
 
     .details-station-title {
         font-size: 1.2rem;
+        flex: 1; /* Permite que o título ocupe o espaço restante */
         text-align: start;
+        word-break: break-word; /* Quebra o texto longo para evitar sobreposição */
     }
 
     .list-container {
@@ -167,12 +188,16 @@
     }
 
     .details-station-header {
-        padding: 0 5px;
-        margin-bottom: 10px;
+        top: 60px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
     }
 
     .details-station-title {
         font-size: 1.1rem;
+        word-break: break-word; /* Garante que o texto não ultrapasse os limites */
     }
 
     .list-container {
