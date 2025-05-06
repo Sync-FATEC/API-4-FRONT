@@ -86,18 +86,21 @@ function DynamicList<T>({
           {isEditable && auth.user?.role !== undefined && (
             <FontAwesomeIcon
               icon={faEdit}
+              data-testid="edit-icon"
               onClick={() => onUpdate(String(item[idKey]))}
             />
           )}
           {isDelete && auth.user?.role === "ADMIN" && (
             <FontAwesomeIcon
               icon={faTrash}
+              data-testid="delete-icon"
               onClick={() => onDelete(String(item[idKey]))}
             />
           )}
           {detailsLink && (
             <FontAwesomeIcon
               icon={faSearch}
+              data-testid="details-icon"
               onClick={() => navigateToDetails(String(item[idKey]))}
             />
           )}
@@ -187,18 +190,21 @@ function DynamicList<T>({
                   {isEditable && auth.user?.role !== undefined && (
                     <FontAwesomeIcon
                       icon={faEdit}
+                      data-testid="edit-icon"
                       onClick={() => onUpdate(String(item[idKey]))}
                     />
                   )}
                   {isDelete && auth.user?.role === "ADMIN" && (
                     <FontAwesomeIcon
                       icon={faTrash}
+                      data-testid="delete-icon"
                       onClick={() => onDelete(String(item[idKey]))}
                     />
                   )}
                   {detailsLink && (
                     <FontAwesomeIcon
                       icon={faSearch}
+                      data-testid="details-icon"
                       onClick={() => navigateToDetails(String(item[idKey]))}
                     />
                   )}
