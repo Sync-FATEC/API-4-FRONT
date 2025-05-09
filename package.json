@@ -34,7 +34,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test:unit": "jest --testMatch=\"**/?(*.)+(unit.test).[jt]s?(x)\"",
+    "test:integration": "jest --testMatch=\"**/*.int.test.tsx\""
   },
   "eslintConfig": {
     "extends": [
