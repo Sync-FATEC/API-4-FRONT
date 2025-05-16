@@ -65,12 +65,30 @@ export default function Dashboard({ name, parameters, chartType = 'line' }: Dash
                                 text: param.type.unit
                             }
                         },
+                        chart: {
+                            type: chartType,
+                            height: 420,
+                           
+                        },
+                        responsive: {
+                            rules: [{
+                                condition: {
+                                    maxWidth: 768
+                                },
+                                chartOptions: {
+                                    chart: {
+                                        height: 300 
+                                    }
+                                }
+                            }]
+                        },
                         series: [{
                             type: chartType,
                             name: param.name,
                             data: data,
                             tooltip: {
-                                valueDecimals: 2
+                                valueDecimals: 2,
+                                valueSuffix: ` ${param.type.unit}`
                             },
                             dataLabels: {
                                 enabled: false

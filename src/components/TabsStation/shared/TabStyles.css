@@ -320,9 +320,9 @@
 
 .chart-type-button {
     padding: 8px 16px;
-    border: 1px solid #ddd;
-    background-color: #f5f5f5;
-    border-radius: 4px;
+    border: 1px solid var(--lavender-pale-hover);
+    background-color: var(--lavender-pale);
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s;
     font-size: 14px;
@@ -330,7 +330,7 @@
 }
 
 .chart-type-button:hover {
-    background-color: #e5e5e5;
+    background-color: var(--lavender-pale-hover);
 }
 
 .chart-type-button.active {
