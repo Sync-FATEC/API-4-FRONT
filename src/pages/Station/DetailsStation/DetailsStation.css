@@ -80,18 +80,26 @@
 }
 
 .details-station-header {
+    top: 1px;
     position: sticky;
-    top: 10px;
     z-index: 10;
     background-color: var(--lavender-light);
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 15px;
-    padding: 15px;
+    gap: 12px;
+    padding: 12px;  
     border-bottom: 0.5px solid var(--lavender-pale);
     border-radius: 8px;
+}
+.details-station-header-icon{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
 }
 
 .name-station {
@@ -125,6 +133,9 @@
 
 /* Media queries para responsividade */
 @media screen and (max-width: 768px) {
+    .details-station-header{
+        top: 60px
+    }
     .box-container {
         margin-top: 15px;
         padding: 0 5px;
@@ -140,24 +151,16 @@
         margin-top: 0;
     }
 
-    .details-station-header {
-        display: flex;
-        top: 65px;
-        flex-direction: row; /* Alinha os itens em linha */
-        justify-content: flex-start; /* Alinha os itens à esquerda */
-        align-items: center; /* Centraliza verticalmente */
-        gap: 10px; /* Ajusta o espaçamento entre os itens */
-    }
 
     .details-station-icon {
-        flex-shrink: 0; /* Garante que o ícone não encolha */
+        flex-shrink: 0;
     }
 
     .details-station-title {
         font-size: 1.2rem;
-        flex: 1; /* Permite que o título ocupe o espaço restante */
+        flex: 1;
         text-align: start;
-        word-break: break-word; /* Quebra o texto longo para evitar sobreposição */
+        word-break: break-word;
     }
 
     .list-container {
@@ -187,17 +190,10 @@
         padding: 10px;
     }
 
-    .details-station-header {
-        top: 60px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 5px;
-    }
-
     .details-station-title {
         font-size: 1.1rem;
-        word-break: break-word; /* Garante que o texto não ultrapasse os limites */
+        word-break: break-word;
+        /* Garante que o texto não ultrapasse os limites */
     }
 
     .list-container {

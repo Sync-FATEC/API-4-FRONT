@@ -137,20 +137,22 @@ export default function DetailsStation() {
       <div className="modal-admin-content">
         <div className="modal-admin-bg2">
           <div className="details-station-header">
-            <FontAwesomeIcon icon={faRss} className="details-station-icon" />
-            <h1 className="details-station-title">
+            <div className="details-station-header-icon">
+              <FontAwesomeIcon icon={faRss} className="details-station-icon" />
+              <h1 className="details-station-title">
                 Detalhes da estação {station?.uuid || "Carregando..."}
-              <div>
-                <p className="name-station">{station?.name || "Carregando..."}</p>
-              </div>
-            </h1>
+                <div>
+                  <p className="name-station">{station?.name || "Carregando..."}</p>
+                </div>
+              </h1>
+            </div>
             {!authContext.isAuthenticated && (
               <button
                 className="btn-register-email"
                 onClick={() => setShowEmailModal(true)}
-            >
-              Cadastrar E-mail para receber alertas
-            </button>
+              >
+                Cadastrar E-mail para receber alertas
+              </button>
             )}
           </div>
 
