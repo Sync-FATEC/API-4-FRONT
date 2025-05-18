@@ -451,7 +451,7 @@ export default function MeasureAverageTab({
       </div>
       
       <div className="station-tab__average-type">
-        <div className="style-select-1 average-type">
+        <div className="style-select-1 filter-type">
           <label>
             <input
               type="radio"
