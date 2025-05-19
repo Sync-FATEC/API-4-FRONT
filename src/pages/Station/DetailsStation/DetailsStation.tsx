@@ -157,7 +157,7 @@ export default function DetailsStation() {
       <Aside />
       <div className="modal-admin-content">
         <div className="modal-admin-bg2">
-          <div className="details-station-header">
+          <div className="details-station-header">        
             <FontAwesomeIcon icon={faRss} className="details-station-icon" />
             <h1 className="details-station-title">
               Detalhes da estação {station?.uuid || "Carregando..."}
@@ -175,6 +175,7 @@ export default function DetailsStation() {
                 Cadastrar E-mail para receber alertas
               </button>
             )}
+
             <button
               className="btn-register-email"
               onClick={() => handleGeneratePdf()}

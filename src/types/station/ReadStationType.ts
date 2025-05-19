@@ -4,6 +4,7 @@ export type ReadStationType = {
         name: string;
         latitude: string;
         longitude: string;
+        DateLastMeasure: string;
         createdAt: string;
         parameters: {
             id: string;

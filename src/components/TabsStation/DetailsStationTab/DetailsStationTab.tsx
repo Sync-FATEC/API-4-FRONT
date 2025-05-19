@@ -9,12 +9,28 @@ interface DetailsStationTabProps {
     station: ReadStationType;
 }
 
+function formatUnixTimestamp(unixTime: number | string): string {
+    const date = new Date(Number(unixTime) * 1000); 
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    if (hours === "00" && minutes === "00") {
+        return `${day}/${month}/${year}`;
+    }
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+
 export default function DetailsStationTab({ station }: DetailsStationTabProps) {
     return (
         <div className="station-tab">
             <div className="station-tab__header">
                 <h2 className="station-tab__title">Detalhes da estação</h2>
-           
+
             </div>
 
             <div className="station-tab__content">
@@ -32,6 +48,9 @@ export default function DetailsStationTab({ station }: DetailsStationTabProps) {
                             </p>
                             <p className="station-tab__info-item">
                                 <strong>Longitude:</strong> {station.longitude}
+                            </p>
+                            <p className="station-tab__info-item">
+                                <strong>Data da última conexão:</strong> {formatUnixTimestamp(station.DateLastMeasure)}
                             </p>
                             <p className="station-tab__info-item">
                                 <strong>Data de Criação:</strong>{" "}
