@@ -11,6 +11,19 @@
   position: relative;
 }
 
+.forget-password {
+  font-size: 14px;
+}
+
+.forget-password-click {
+  font-size: 14px;
+}
+
+.forget-password-click:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /* Fundo sobreposto */
 .login-background {
   position: absolute;

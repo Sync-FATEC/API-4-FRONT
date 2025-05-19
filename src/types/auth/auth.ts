@@ -4,6 +4,9 @@ export type AuthContextType = {
     logout: () => void;
     user?: UserInfo;
     validateToken: () => void;
+    validateTokenChangePassword: (token: string) => void;
+    resetPassword: (email: string) => void;
+    changePassword: (password: string, token: string) => void;
   };
   
 export type AuthProviderProps = {
