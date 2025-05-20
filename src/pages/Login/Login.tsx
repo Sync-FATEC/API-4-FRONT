@@ -30,6 +30,10 @@ export default function LoginComponent() {
     navigate("/estacao");
   }
 
+  const handleForgetPassword = () => {
+    navigate("/esqueci-senha");
+  }
+
   return (
     <main className="login-container">
       <div className="login-background"></div>
@@ -47,12 +51,10 @@ export default function LoginComponent() {
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                 />
+                <p className="forget-password">Esqueceu sua senha? <a className="forget-password-click" onClick={handleForgetPassword}>Clique aqui</a></p>
             </div>
         </div>
           </div>
-          {/* <p className="login-forgot">
-            Esqueceu sua senha? <a href="/esqueci-senha" className="login-link">Clique aqui</a>
-          </p> */}
           <div className="login-buttons">
             <Button label="Entrar" onClick={handleSubmitLogin} styleButton={3} />
           </div>

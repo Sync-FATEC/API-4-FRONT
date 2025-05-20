@@ -33,7 +33,10 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
-  validateToken: () => {}
+  validateToken: () => {},
+  resetPassword: () => {},
+  validateTokenChangePassword: () => {},
+  changePassword: () => {},
 });
 
 // Crie o provedor do contexto de autenticação
@@ -89,6 +92,58 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      const response = await api.post('/password-reset/request', {
+        email: email
+      });
+
+      if (response.status === 200) {
+        return true;
+      } else {
+        throw new Error("Erro ao redefinir senha");
+      }
+    } catch (error) {
+      errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+      return false;
+    }
+  }
+
+  const changePassword = async (password: string, token: string) => {
+    try {
+      const response = await api.post(`/password-reset/reset/${token}`, {
+        password: password
+      });
+
+      console.log("response", response);
+
+      if (response.status === 200) {
+        return true;
+      } else {
+        throw new Error("Erro ao alterar senha");
+      }
+    } catch (error) {
+      console.error("Erro ao alterar senha:", error);
+      errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+      return false;
+    }
+  };
+
+  const validateTokenChangePassword = async (token: string) => {
+    try {
+      const response = await api.get(`/password-reset/validate/${token}`);
+      if (response.status === 200) {
+        return true;
+      } else {
+        navigate('/login');
+      }
+    } catch (error) {
+      errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+      navigate('/login');
+      return false;
+    }
+  }
+
   const logout = () => {
     setApiToken('');
     localStorage.removeItem('token');
@@ -110,7 +165,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, user, validateToken }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, user, validateToken, resetPassword, changePassword, validateTokenChangePassword }}>
       {children}
     </AuthContext.Provider>
   );

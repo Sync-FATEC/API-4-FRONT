@@ -25,6 +25,8 @@ import CreateMeasure from './pages/Measure/CreateMeasure/CreateMeasure';
 import { useEffect } from 'react';
 import { useWebSocket } from './hooks/useWebSocket';
 import ToastContainer from './components/toast/ToastContainer';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
+import ValidTokenPasswordAuth from './contexts/auth/validTokenChangePassword';
 
 function App() {
   useWebSocket("ws://localhost:5555");
@@ -37,6 +39,7 @@ function App() {
             <Route path="/login" element={<LoginComponent />} />
             <Route path='/esqueci-senha' element={<ForgetPasswordComponent />} />
             <Route path="/" element={<LandingPage />} />
+            <Route path="/reset-password/:token" element={<ValidTokenPasswordAuth><ResetPassword /></ValidTokenPasswordAuth>} />
 
             {/* Usuário */}
             <Route path='/usuario' element={<RequireAuthAdmin><ListClient /></RequireAuthAdmin>} />
