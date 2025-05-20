@@ -102,6 +102,12 @@
     align-items: center;
 }
 
+.details-station-header-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
 .name-station {
     font-size: 12px;
 }
@@ -136,6 +142,19 @@
     .details-station-header{
         top: 60px
     }
+    .details-station-header-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+   width: 100%;
+    }
+
+    .details-station-title {
+        font-size: 1.5rem;
+        word-break: break-word;
+        /* Garante que o texto não ultrapasse os limites */
+}
+
     .box-container {
         margin-top: 15px;
         padding: 0 5px;
@@ -201,9 +220,8 @@
     }
 }
 
-
 .btn-register-email {
-    padding: 8px 16px;
+    padding: 12px 24px;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -214,6 +232,20 @@
 .btn-register-email:hover {
     background-color: #45a049;
 }
+
+.btn-pdf {
+    padding: 12px 24px;
+    background-color: #4c7aaf;
+    color: white;
+    border: none;
+    border-radius: var(--border);
+    cursor: pointer;
+}
+
+.btn-pdf:hover {
+    background-color: #456ba0;
+}
+
 
 .modal-overlay {
     position: fixed;
