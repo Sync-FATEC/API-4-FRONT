@@ -147,7 +147,7 @@ export default function DetailsStation() {
       downloadPdf(response.data, station?.name ?? "Relatório");
     } catch (error) {
       errorSwal(
-        (error as any)?.response?.data?.error || "Erro ao cadastrar e-mail"
+        (error as any)?.response?.data?.error || "Erro ao gerar PDF"
       );
     }
   };
@@ -157,31 +157,36 @@ export default function DetailsStation() {
       <Aside />
       <div className="modal-admin-content">
         <div className="modal-admin-bg2">
-          <div className="details-station-header">        
-            <FontAwesomeIcon icon={faRss} className="details-station-icon" />
-            <h1 className="details-station-title">
-              Detalhes da estação {station?.uuid || "Carregando..."}
-              <div>
-                <p className="name-station">
-                  {station?.name || "Carregando..."}
-                </p>
-              </div>
-            </h1>
-            {!authContext.isAuthenticated && (
-              <button
-                className="btn-register-email"
-                onClick={() => setShowEmailModal(true)}
-              >
-                Cadastrar E-mail para receber alertas
-              </button>
-            )}
+          <div className="details-station-header">
+            <div className="details-station-header-icon">
 
-            <button
-              className="btn-register-email"
-              onClick={() => handleGeneratePdf()}
-            >
-              Gerar pdf
-            </button>
+              <FontAwesomeIcon icon={faRss} className="details-station-icon" />
+              <h1 className="details-station-title">
+                Detalhes da estação {station?.uuid || "Carregando..."}
+                <div>
+                  <p className="name-station">
+                    {station?.name || "Carregando..."}
+                  </p>
+                </div>
+              </h1>
+            </div>
+            <div className="details-station-header-buttons">
+              {!authContext.isAuthenticated && (
+                <button
+                  className="btn-register-email"
+                  onClick={() => setShowEmailModal(true)}
+                >
+                  Cadastrar E-mail para receber alertas
+                </button>
+              )}
+
+              <button
+                className="btn-pdf"
+                onClick={() => handleGeneratePdf()}
+              >
+                Gerar pdf
+              </button>
+            </div>
           </div>
 
           {/* Email Modal */}
@@ -217,9 +222,8 @@ export default function DetailsStation() {
                 {tabs.map((tab) => (
                   <div
                     key={tab.id}
-                    className={`tabs-station ${
-                      activeTab === tab.id ? "active" : ""
-                    }`}
+                    className={`tabs-station ${activeTab === tab.id ? "active" : ""
+                      }`}
                     onClick={() => handleTabChange(tab.id)}
                   >
                     <p>{tab.label}</p>
