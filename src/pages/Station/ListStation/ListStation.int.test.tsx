@@ -1,19 +1,21 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { defineFeature, loadFeature } from 'jest-cucumber';
 import { MemoryRouter } from 'react-router-dom';
 import stationService from '../../../api/stationService';
 import ListStation from './ListStation';
 import { AuthContext } from '../../../contexts/auth/AuthContext';
 
-// Mock da navegação
+// Mock for react-router-dom
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
 }));
 
-// Mock da API
 jest.mock('../../../api/stationService');
+
+const feature = loadFeature('./src/pages/Station/ListStation/ListStation.feature');
 
 const mockedStations = [
   {
@@ -40,68 +42,81 @@ const renderWithAuth = (component: React.ReactNode) => {
   return render(
     <AuthContext.Provider
       value={{
-        user: { 
-          role: "ADMIN",
-          name: "Admin User",
-          email: "admin@example.com"
-        },
+        user: { role: "ADMIN", name: "Admin User", email: "admin@example.com" },
         login: jest.fn(),
         logout: jest.fn(),
         isAuthenticated: true,
         validateToken: jest.fn(),
       }}
     >
-      <MemoryRouter>
-        {component}
-      </MemoryRouter>
+      <MemoryRouter>{component}</MemoryRouter>
     </AuthContext.Provider>
   );
 };
 
-describe('ListStation - Integração', () => {
+defineFeature(feature, test => {
   beforeEach(() => {
     jest.clearAllMocks();
-
-    (stationService.listStations as jest.Mock).mockResolvedValue({
-      data: { model: mockedStations },
-    });
-
+    mockNavigate.mockClear();
+    (stationService.listStations as jest.Mock).mockResolvedValue({ data: { model: mockedStations } });
     (stationService.deleteStation as jest.Mock).mockResolvedValue({});
   });
 
-  test('📋 Deve exibir a lista de estações após carregar', async () => {
-    renderWithAuth(<ListStation />);
+  test('Listar estações com sucesso', ({ given, when, then }) => {
+    given('que existem estações cadastradas', () => {
+      // Mocks já configurados no beforeEach
+    });
 
-    // Espera o carregamento
-    await waitFor(() => {
+    when('o administrador acessa a tela de listagem de estações', async () => {
+      renderWithAuth(<ListStation />);
+      await waitFor(() => {
+        expect(screen.getByText("Estação de Taubaté (A728)")).toBeInTheDocument();
+        expect(screen.getByText("Estação de Campos do Jordão (A706)")).toBeInTheDocument();
+      });
+    });
+
+    then('o sistema deve exibir todas as estações', () => {
       expect(screen.getByText("Estação de Taubaté (A728)")).toBeInTheDocument();
       expect(screen.getByText("Estação de Campos do Jordão (A706)")).toBeInTheDocument();
     });
   });
 
-  test('🗑 Deve remover estação da lista ao clicar em deletar', async () => {
-    renderWithAuth(<ListStation />);
+  test('Remover uma estação da lista', ({ given, when, then }) => {
+    given('que o administrador está na tela de listagem com estações visíveis', async () => {
+      renderWithAuth(<ListStation />);
+      await screen.findByText("Estação de Taubaté (A728)");
+    });
 
-    await screen.findByText("Estação de Taubaté (A728)");
+    when('ele clicar no ícone de deletar da primeira estação', () => {
+      const deleteIcons = screen.getAllByTestId('delete-icon');
+      fireEvent.click(deleteIcons[0]);
+    });
 
-    const deleteIcons = screen.getAllByTestId('delete-icon');
-    fireEvent.click(deleteIcons[0]);
-
-    await waitFor(() => {
-      expect(screen.queryByText("Estação de Taubaté (A728)")).not.toBeInTheDocument();
+    then('a estação deve ser removida da lista', async () => {
+      await waitFor(() => {
+        expect(stationService.deleteStation).toHaveBeenCalledWith(mockedStations[0].id);
+        expect(screen.queryByText("Estação de Taubaté (A728)")).not.toBeInTheDocument();
+      });
     });
   });
 
-  test('✏️ Deve navegar para a tela de atualizar ao clicar em editar', async () => {
-    renderWithAuth(<ListStation />);
+  test('Editar uma estação', ({ given, when, then }) => {
+    given('que a tela de listagem de estações está carregada', async () => {
+      renderWithAuth(<ListStation />);
+      await screen.findByText("Estação de Taubaté (A728)");
+    });
 
-    const editIcons = await screen.findAllByTestId('edit-icon');
-    fireEvent.click(editIcons[0]);
+    when('o administrador clicar no botão de editar da primeira estação', async () => {
+      const editIcons = await screen.findAllByTestId('edit-icon');
+      fireEvent.click(editIcons[0]);
+    });
 
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith(
-        `/estacao/atualizar/${mockedStations[0].id}`
-      );
+    then('ele deve ser redirecionado para a tela de edição da estação', async () => {
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith(
+          `/estacao/atualizar/${mockedStations[0].id}`
+        );
+      });
     });
   });
 });
