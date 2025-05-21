@@ -20,6 +20,7 @@
     "date-fns": "^4.1.0",
     "front-end": "file:",
     "highcharts-react-official": "^3.2.2",
+    "jest-cucumber": "^4.5.0",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -35,7 +36,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test:unit": "jest --testMatch=\"**/?(*.)+(unit.test).[jt]s?(x)\"",
+    "test:integration": "jest --testMatch=\"**/*.int.test.tsx\""
   },
   "eslintConfig": {
     "extends": [
