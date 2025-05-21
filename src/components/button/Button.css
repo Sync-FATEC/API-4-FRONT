@@ -4,23 +4,23 @@
 }
 
 .custom-button-type-1 {
-    background-color: var(--indigo-transparent);
+    background-color: var(--indigo-solid);
     color: white;
 }
 
 .custom-button-type-1:hover {
-    background-color: var(--indigo-transparent-hover);
-    color: #e0e0e0;
+    background-color: var(--indigo-solid-hover);
+    color: white;
 }
 
 .custom-button-type-2 {
     background-color: var(--lavender-pale);
-    color: black;
+    color: var(--purple-gray);
 }
 
 .custom-button-type-2:hover {
     background-color: var(--lavender-pale-hover);
-    color: #333;
+    color: var(--purple-gray);
 }
 
 .custom-button-type-3 {
@@ -31,7 +31,7 @@
 
 .custom-button-type-3:hover {
     background-color: var(--deep-indigo-hover);
-    color: #e0e0e0;
+    color: white;
 }
 
 button {
@@ -40,4 +40,9 @@ button {
     border: none;
     cursor: pointer;
     font-size: 1rem;
+}
+
+button:disabled {
+    background-color: #cccccc !important;
+    cursor: not-allowed;
 }
