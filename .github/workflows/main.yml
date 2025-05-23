@@ -1,0 +1,19 @@
+name: CI Principal
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - prod
+      - preprod
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml 
+  unit-test:
+    needs: build
+    uses: ./.github/workflows/unit.yml
+  integration-test:
+    needs: unit-test
+    if: github.base_ref == 'prod' || github.base_ref == 'preprod'
+    uses: ./.github/workflows/integration.yml
