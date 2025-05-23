@@ -8,9 +8,19 @@ interface InputProps {
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     disabled?: boolean;
     type?: string;
+    required?: boolean;
 }
 
-export default function Input({ label, placeholder, styleInput, value, onChange, disabled, type = "text" }: InputProps) {
+export default function Input({ 
+    label, 
+    placeholder, 
+    styleInput, 
+    value, 
+    onChange, 
+    disabled, 
+    type = "text",
+    required = false 
+}: InputProps) {
     const inputClass = `style-input-${styleInput || 1}`;
     return (
         <div className="input-container">
@@ -23,6 +33,7 @@ export default function Input({ label, placeholder, styleInput, value, onChange,
                     value={value} 
                     onChange={onChange} 
                     disabled={disabled}
+                    required={required}
                 />
             </div>
         </div>
