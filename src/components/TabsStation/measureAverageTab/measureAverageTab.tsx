@@ -36,7 +36,9 @@ export default function MeasureAverageTab({
 }: MeasureTabProps) {
   const [measures, setMeasures] = useState<MeasureAverageDTO[]>([]);
   const [allMeasures, setAllMeasures] = useState<MeasureResponseDTO[]>([]);
-  const [filteredMeasures, setFilteredMeasures] = useState<MeasureResponseDTO[]>([]);
+  const [filteredMeasures, setFilteredMeasures] = useState<
+    MeasureResponseDTO[]
+  >([]);
   const [filterType, setFilterType] = useState<string>("single");
   const [singleDate, setSingleDate] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -46,7 +48,9 @@ export default function MeasureAverageTab({
   const authContext = useContext(AuthContext);
 
   // Função para extrair o valor numérico e unidade de uma string
-  const extractValueAndUnit = (valueString: string): { numericValue: number, unit: string } => {
+  const extractValueAndUnit = (
+    valueString: string
+  ): { numericValue: number; unit: string } => {
     try {
       // Remover qualquer espaço no início e fim
       const trimmed = valueString.trim();
@@ -56,15 +60,18 @@ export default function MeasureAverageTab({
       if (!match) {
         // Se não encontrou caracteres não numéricos, apenas retornar o valor como número
         return {
-          numericValue: parseFloat(trimmed.replace(',', '.')),
-          unit: ''
+          numericValue: parseFloat(trimmed.replace(",", ".")),
+          unit: "",
         };
       }
 
       const indexOfUnit = match.index || 0;
 
       // Extrair o valor numérico (substituindo vírgula por ponto, se houver)
-      const numericPart = trimmed.substring(0, indexOfUnit).trim().replace(',', '.');
+      const numericPart = trimmed
+        .substring(0, indexOfUnit)
+        .trim()
+        .replace(",", ".");
       // Extrair a unidade
       const unitPart = trimmed.substring(indexOfUnit).trim();
 
@@ -72,17 +79,19 @@ export default function MeasureAverageTab({
 
       // Verificar se o valor numérico é válido
       if (isNaN(numericValue)) {
-        console.warn(`Não foi possível extrair um valor numérico de "${valueString}"`);
+        console.warn(
+          `Não foi possível extrair um valor numérico de "${valueString}"`
+        );
         return { numericValue: 0, unit: unitPart };
       }
 
       return {
         numericValue,
-        unit: unitPart
+        unit: unitPart,
       };
     } catch (error) {
       console.error(`Erro ao processar o valor "${valueString}":`, error);
-      return { numericValue: 0, unit: '' };
+      return { numericValue: 0, unit: "" };
     }
   };
 
@@ -96,14 +105,14 @@ export default function MeasureAverageTab({
         // Para usuários não autenticados
         response = await api.get("/measure/public", {
           params: {
-            stationId: station.uuid
+            stationId: station.uuid,
           },
         });
       } else {
         // Para usuários autenticados, buscar todas as medidas disponíveis
         response = await api.get("/measure/list", {
           params: {
-            stationId: station.id
+            stationId: station.id,
           },
         });
       }
@@ -131,7 +140,10 @@ export default function MeasureAverageTab({
   };
 
   // Aplicar filtros de data nas medições
-  const applyDateFilters = (measures: MeasureResponseDTO[], dateFilter?: { startDate?: string; endDate?: string }) => {
+  const applyDateFilters = (
+    measures: MeasureResponseDTO[],
+    dateFilter?: { startDate?: string; endDate?: string }
+  ) => {
     // Se não há medidas para filtrar ou não há filtro definido, retornar todas as medidas
     if (!measures || measures.length === 0) {
       return [];
@@ -149,7 +161,7 @@ export default function MeasureAverageTab({
         const targetTimestamp = Math.floor(targetDate.getTime() / 1000);
         const nextDayTimestamp = Math.floor(nextDay.getTime() / 1000);
 
-        return measures.filter(measure => {
+        return measures.filter((measure) => {
           const timestamp = parseInt(measure.unixTime);
           return timestamp >= targetTimestamp && timestamp < nextDayTimestamp;
         });
@@ -162,7 +174,7 @@ export default function MeasureAverageTab({
         const startTimestamp = Math.floor(startDateTime.getTime() / 1000);
         const endTimestamp = Math.floor(endDateTime.getTime() / 1000);
 
-        return measures.filter(measure => {
+        return measures.filter((measure) => {
           const timestamp = parseInt(measure.unixTime);
           return timestamp >= startTimestamp && timestamp <= endTimestamp;
         });
@@ -177,7 +189,7 @@ export default function MeasureAverageTab({
         const startTimestamp = Math.floor(startDateTime.getTime() / 1000);
         const endTimestamp = Math.floor(endDateTime.getTime() / 1000);
 
-        return measures.filter(measure => {
+        return measures.filter((measure) => {
           const timestamp = parseInt(measure.unixTime);
           return timestamp >= startTimestamp && timestamp <= endTimestamp;
         });
@@ -191,7 +203,7 @@ export default function MeasureAverageTab({
 
     const sevenDaysAgoTimestamp = Math.floor(sevenDaysAgo.getTime() / 1000);
 
-    return measures.filter(measure => {
+    return measures.filter((measure) => {
       const timestamp = parseInt(measure.unixTime);
       return timestamp >= sevenDaysAgoTimestamp;
     });
@@ -207,7 +219,7 @@ export default function MeasureAverageTab({
     // Agrupar medições por parâmetro
     const groupedByParameter: Record<string, MeasureResponseDTO[]> = {};
 
-    measures.forEach(measure => {
+    measures.forEach((measure) => {
       if (!groupedByParameter[measure.parameterText]) {
         groupedByParameter[measure.parameterText] = [];
       }
@@ -217,91 +229,103 @@ export default function MeasureAverageTab({
     const averages: MeasureAverageDTO[] = [];
 
     // Para cada tipo de parâmetro, calcular as médias
-    Object.entries(groupedByParameter).forEach(([parameterName, paramMeasures]) => {
-      if (paramMeasures.length === 0) return;
+    Object.entries(groupedByParameter).forEach(
+      ([parameterName, paramMeasures]) => {
+        if (paramMeasures.length === 0) return;
 
-      // Armazenar a unidade de medida para este parâmetro
-      const sampleValue = paramMeasures[0].value;
-      const { unit } = extractValueAndUnit(sampleValue);
+        // Armazenar a unidade de medida para este parâmetro
+        const sampleValue = paramMeasures[0].value;
+        const { unit } = extractValueAndUnit(sampleValue);
 
-      // Agrupar por hora ou dia dependendo do tipo de média
-      const groupedByTime: Record<string, MeasureResponseDTO[]> = {};
+        // Agrupar por hora ou dia dependendo do tipo de média
+        const groupedByTime: Record<string, MeasureResponseDTO[]> = {};
 
-      paramMeasures.forEach(measure => {
-        // Converter a string unixTime para timestamp em milissegundos
-        const timestamp = parseInt(measure.unixTime);
-        if (isNaN(timestamp)) {
-          console.warn(`Timestamp inválido: ${measure.unixTime}`);
-          return; // Pular esta medida
-        }
+        paramMeasures.forEach((measure) => {
+          // Converter a string unixTime para timestamp em milissegundos
+          const timestamp = parseInt(measure.unixTime);
+          if (isNaN(timestamp)) {
+            console.warn(`Timestamp inválido: ${measure.unixTime}`);
+            return; // Pular esta medida
+          }
 
-        // Criar data local usando a API Date
-        const date = new Date(timestamp * 1000);
+          // Criar data local usando a API Date
+          const date = new Date(timestamp * 1000);
 
-        let timeKey;
-        if (averageType === "hourly") {
-          // Formato: "DD/MM/AAAA HH:00"
-          const day = String(date.getDate()).padStart(2, '0');
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const year = date.getFullYear();
-          const hour = String(date.getHours()).padStart(2, '0');
+          let timeKey;
+          if (averageType === "hourly") {
+            // Formato: "DD/MM/AAAA HH:00"
+            const day = String(date.getDate()).padStart(2, "0");
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const year = date.getFullYear();
+            const hour = String(date.getHours()).padStart(2, "0");
 
-          timeKey = `${day}/${month}/${year} ${hour}:00`;
-        } else {
-          // Formato: "DD/MM/AAAA"
-          const day = String(date.getDate()).padStart(2, '0');
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const year = date.getFullYear();
+            timeKey = `${day}/${month}/${year} ${hour}:00`;
+          } else {
+            // Formato: "DD/MM/AAAA"
+            const day = String(date.getDate()).padStart(2, "0");
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const year = date.getFullYear();
 
-          timeKey = `${day}/${month}/${year}`;
-        }
+            timeKey = `${day}/${month}/${year}`;
+          }
 
-        if (!groupedByTime[timeKey]) {
-          groupedByTime[timeKey] = [];
-        }
-        groupedByTime[timeKey].push(measure);
-      });
-
-      // Calcular a média para cada período de tempo
-      Object.entries(groupedByTime).forEach(([timeKey, timeMeasures]) => {
-        if (timeMeasures.length === 0) return;
-
-        // Extrair valores numéricos para cálculo da média
-        const numericValues = timeMeasures.map(m => {
-          const { numericValue } = extractValueAndUnit(m.value);
-          return numericValue;
-        }).filter(value => !isNaN(value) && value !== 0); // Filtrar valores inválidos
-
-        // Verificar se há valores válidos para calcular a média
-        if (numericValues.length === 0) {
-          console.warn(`Nenhum valor numérico válido para calcular média: ${parameterName} - ${timeKey}`);
-          return;
-        }
-
-        // Calcular a média
-        const sum = numericValues.reduce((acc, curr) => acc + curr, 0);
-        const avg = sum / numericValues.length;
-
-        // Formatar valor para exibição com a unidade
-        // Determinar o número de casas decimais com base no tipo de parâmetro
-        let decimalPlaces = 2;
-        if (unit === '%' || parameterName.toLowerCase().includes('umidade')) {
-          decimalPlaces = 0; // Umidade geralmente é exibida sem casas decimais
-        } else if (unit.includes('hPa') || parameterName.toLowerCase().includes('pressão')) {
-          decimalPlaces = 1; // Pressão geralmente com uma casa decimal
-        }
-
-        const formattedValue = `${avg.toFixed(decimalPlaces)}${unit ? ' ' + unit : ''}`;
-
-        averages.push({
-          id: `${parameterName}-${timeKey}`, // ID único para este grupo
-          name: parameterName,
-          typeAverage: averageType === "hourly" ? "Média horária" : "Média diária",
-          value: formattedValue,
-          createdAt: timeKey
+          if (!groupedByTime[timeKey]) {
+            groupedByTime[timeKey] = [];
+          }
+          groupedByTime[timeKey].push(measure);
         });
-      });
-    });
+
+        // Calcular a média para cada período de tempo
+        Object.entries(groupedByTime).forEach(([timeKey, timeMeasures]) => {
+          if (timeMeasures.length === 0) return;
+
+          // Extrair valores numéricos para cálculo da média
+          const numericValues = timeMeasures
+            .map((m) => {
+              const { numericValue } = extractValueAndUnit(m.value);
+              return numericValue;
+            })
+            .filter((value) => !isNaN(value) && value !== 0); // Filtrar valores inválidos
+
+          // Verificar se há valores válidos para calcular a média
+          if (numericValues.length === 0) {
+            console.warn(
+              `Nenhum valor numérico válido para calcular média: ${parameterName} - ${timeKey}`
+            );
+            return;
+          }
+
+          // Calcular a média
+          const sum = numericValues.reduce((acc, curr) => acc + curr, 0);
+          const avg = sum / numericValues.length;
+
+          // Formatar valor para exibição com a unidade
+          // Determinar o número de casas decimais com base no tipo de parâmetro
+          let decimalPlaces = 2;
+          if (unit === "%" || parameterName.toLowerCase().includes("umidade")) {
+            decimalPlaces = 0; // Umidade geralmente é exibida sem casas decimais
+          } else if (
+            unit.includes("hPa") ||
+            parameterName.toLowerCase().includes("pressão")
+          ) {
+            decimalPlaces = 1; // Pressão geralmente com uma casa decimal
+          }
+
+          const formattedValue = `${avg.toFixed(decimalPlaces)}${
+            unit ? " " + unit : ""
+          }`;
+
+          averages.push({
+            id: `${parameterName}-${timeKey}`, // ID único para este grupo
+            name: parameterName,
+            typeAverage:
+              averageType === "hourly" ? "Média horária" : "Média diária",
+            value: formattedValue,
+            createdAt: timeKey,
+          });
+        });
+      }
+    );
 
     // Ordenar por data e depois por nome do parâmetro
     const sortedAverages = averages.sort((a, b) => {
@@ -309,9 +333,9 @@ export default function MeasureAverageTab({
       // Converter formato DD/MM/AAAA para Date
       const getDateFromString = (dateString: string) => {
         // Extrair a parte da data (antes do espaço, se houver)
-        const datePart = dateString.split(' ')[0];
+        const datePart = dateString.split(" ")[0];
         // Separar dia, mês e ano
-        const [day, month, year] = datePart.split('/').map(Number);
+        const [day, month, year] = datePart.split("/").map(Number);
         // Mês em JavaScript é baseado em zero (0-11)
         return new Date(year, month - 1, day);
       };
@@ -323,11 +347,11 @@ export default function MeasureAverageTab({
       if (dateComparison !== 0) return dateComparison;
 
       // Se mesma data, comparar a hora (se presente)
-      if (a.createdAt.includes(' ') && b.createdAt.includes(' ')) {
-        const timeA = a.createdAt.split(' ')[1];
-        const timeB = b.createdAt.split(' ')[1];
-        const hourA = parseInt(timeA.split(':')[0]);
-        const hourB = parseInt(timeB.split(':')[0]);
+      if (a.createdAt.includes(" ") && b.createdAt.includes(" ")) {
+        const timeA = a.createdAt.split(" ")[1];
+        const timeB = b.createdAt.split(" ")[1];
+        const hourA = parseInt(timeA.split(":")[0]);
+        const hourB = parseInt(timeB.split(":")[0]);
 
         if (hourA !== hourB) {
           return hourB - hourA; // Mais recente primeiro
@@ -372,10 +396,9 @@ export default function MeasureAverageTab({
     }
   }, [filterType, singleDate, startDate, endDate]);
 
-    const isFiltering = 
-    (filterType === 'single' && !!singleDate) ||
-    (filterType === 'interval' && !!startDate && !!endDate);
-
+  const isFiltering =
+    (filterType === "single" && !!singleDate) ||
+    (filterType === "interval" && !!startDate && !!endDate);
 
   // Handler para atualizar a data única
   const handleSingleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -398,85 +421,17 @@ export default function MeasureAverageTab({
         <h2 className="station-tab__title">Médias de medições</h2>
       </div>
 
-      <div className="station-tab__filter">
-        <div className="style-select-1 filter-type">
-          <label>
-            <input
-              type="radio"
-              checked={filterType === 'single'}
-              onChange={() => setFilterType('single')}
-            />{' '}
-            Data única
-          </label>
-          <label>
-            <input
-              type="radio"
-              checked={filterType === 'interval'}
-              onChange={() => setFilterType('interval')}
-            />{' '}
-            Intervalo
-          </label>
-        </div>
-
-        {filterType === 'single' ? (
-          <div className="input-container style-input-2">
-            <input
-              type="date"
-              value={singleDate}
-              onChange={handleSingleDateChange}
-            />
-          </div>
-        ) : (
-          <div className="input-container style-input-2">
-            <input
-              type="date"
-              value={startDate}
-              onChange={handleStartDateChange}
-            />
-            <span className="list"> até </span>
-            <input
-              type="date"
-              value={endDate}
-              onChange={handleEndDateChange}
-              min={startDate} // Evita selecionar data final antes da inicial
-            />
-          </div>
-        )}
-
-
-   <div className="station-tab__average-type">
-        <div className="style-select-1 filter-type">
-          <label>
-            <input
-              type="radio"
-              checked={averageType === 'hourly'}
-              onChange={() => setAverageType('hourly')}
-            />{' '}
-            Média horária
-          </label>
-          <label>
-            <input
-              type="radio"
-              checked={averageType === 'daily'}
-              onChange={() => setAverageType('daily')}
-            />{' '}
-            Média diária
-          </label>
-        </div>
+      <div
+        className="auto-filter-message"
+        style={{
+          marginLeft: "10px",
+          fontSize: "14px",
+          fontStyle: "italic",
+          color: loading ? "#ff9800" : "#4caf50",
+        }}
+      >
+        {loading && <Loading />}
       </div>
-      </div>
-
-   <div className="auto-filter-message" style={{
-          marginLeft: '10px',
-          fontSize: '14px',
-          fontStyle: 'italic',
-          color: loading ? '#ff9800' : '#4caf50'
-        }}>
-          {loading && (
-            <Loading />
-          )}
-        </div>
-
 
       <div className="station-tab__content">
         {loading ? (
@@ -490,8 +445,8 @@ export default function MeasureAverageTab({
               { key: "name", label: "Parâmetro" },
               { key: "typeAverage", label: "Tipo de média" },
             ]}
-            onDelete={() => { }}
-            onUpdate={() => { }}
+            onDelete={() => {}}
+            onUpdate={() => {}}
             isEditable={false}
             isDelete={false}
             text="médias de medições"
@@ -499,8 +454,9 @@ export default function MeasureAverageTab({
         ) : (
           <p className="station-tab__empty-message">
             {isFiltering
-              ? 'Nenhuma média de medição disponível para os filtros selecionados'
-              : 'Nenhuma média registrada nos últimos 7 dias'}          </p>
+              ? "Nenhuma média de medição disponível para os filtros selecionados"
+              : "Nenhuma média registrada nos últimos 7 dias"}{" "}
+          </p>
         )}
       </div>
     </div>
