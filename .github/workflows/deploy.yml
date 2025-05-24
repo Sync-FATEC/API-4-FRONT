@@ -25,6 +25,6 @@ jobs:
           cd /home/ec2-user/API-4-FRONT
           git fetch
           git pull origin develop
-          npm i --force
+          npm i
           npm run build
           serve -s dist -l 5173
