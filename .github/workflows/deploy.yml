@@ -21,9 +21,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
+          sudo su
           cd /home/ec2-user/API-4-FRONT
-          sudo git fetch
-          sudo git pull origin develop
+          git fetch
+          git pull origin develop
           npm i --force
           npm run build
           serve -s dist -l 5173
