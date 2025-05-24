@@ -23,8 +23,8 @@ jobs:
         script: |
           sudo su
           cd /home/ec2-user/API-4-FRONT
-          git fetch
-          git pull origin develop
-          npm i
-          npm run build
-          serve -s dist -l 5173
+          sudo git fetch
+          sudo git pull origin develop
+          sudo npm i
+          sudo npm run build
+          sudo serve -s dist -l 5173
