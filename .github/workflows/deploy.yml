@@ -27,4 +27,4 @@ jobs:
           cd /home/***/API-4-FRONT
           npm install
           npm run build
-          npx serve -s dist -l 5173
+          nohup npx serve -s dist -l 5173 > serve.log 2>&1 &
