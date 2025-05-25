@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ReadStationType } from "../../../types/station/ReadStationType";
 import "../shared/TabStyles.css";
 import DynamicList from "../../list/DynamicList";
 import api from "../../../api/api";
 import { errorSwal } from "../../swal/errorSwal";
 import { successSwal } from "../../swal/sucessSwal";
-
+import Loading from "../../loading/loading";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 export interface ListMeasureResponseDTO {
   id: string;
   unixTime: number;
@@ -30,6 +31,9 @@ export default function MeasureTab({
   onUpdateStation,
 }: MeasureTabProps) {
   const [measures, setMeasures] = useState<ListMeasure[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const authContext = useContext(AuthContext);
+  
 
   const handleDelete = async (id: string) => {
     try {
@@ -43,23 +47,39 @@ export default function MeasureTab({
 
   const getAllMeasures = async () => {
     try {
-      const response = await api.get("/measure/list", {
-        params: { stationId: station.id },
-      });
-      setMeasures(
-        response.data.model.map((measure: ListMeasureResponseDTO) => ({
+      setIsLoading(true);
+      let response;
+      if (!authContext.isAuthenticated) {
+        response = await api.get("/measure/public", {
+          params: { stationId: station.uuid },
+        });
+      } else {
+        response = await api.get("/measure/list", {
+          params: { stationId: station.id },
+        });
+      }
+      const sortedMeasures = response.data.model
+        .sort((a: ListMeasureResponseDTO, b: ListMeasureResponseDTO) => b.unixTime - a.unixTime) // ordena do mais recente
+        .map((measure: ListMeasureResponseDTO) => ({
           ...measure,
           unixTime: new Date(measure.unixTime * 1000).toLocaleString("pt-BR"),
-        }))
-      );
+        }));
+  
+      setMeasures(sortedMeasures);
     } catch (error) {
-      errorSwal((error as any)?.response?.data?.error || 'Erro desconhecido');
+      errorSwal((error as any)?.response?.data?.error || "Erro desconhecido");
+    } finally {
+      setIsLoading(false);
     }
-  };
+  };  
 
   useEffect(() => {
     getAllMeasures();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="station-tab">

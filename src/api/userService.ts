@@ -8,6 +8,8 @@ const userService = {
     ListClients: () => api.get(`/user/list`),
     deleteUser: (id: string) => api.delete(`/user/delete/${id}`),
     createPassword: (data: any) => api.post(`/auth/createpassword`, data),
+    changePassword: (currentPassword: string, newPassword: string, email: string) => 
+        api.put('/user/alterar-senha', { currentPassword, newPassword, email, confirmPassword: newPassword }),
 };
 
 export default userService;

@@ -17,6 +17,9 @@ import api from "../../../api/api";
 import DashboardTab from "../../../components/TabsStation/dashboardTab/dashboardTab";
 import MeasureAverageTab from "../../../components/TabsStation/measureAverageTab/measureAverageTab";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRss } from "@fortawesome/free-solid-svg-icons";
+import { downloadPdf } from "../../../utils/downloadPdf";
 export default function DetailsStation() {
   const id = useParams().id;
   const [station, setStation] = useState<ReadStationType | null>(null);
@@ -100,15 +103,18 @@ export default function DetailsStation() {
       case "measures":
         return (
           <MeasureTab station={station} onUpdateStation={handleReadStation} />
-        )
+        );
       case "dashboard":
         return (
           <DashboardTab station={station} onUpdateStation={handleReadStation} />
-        )
+        );
       case "measureAverage":
         return (
-          <MeasureAverageTab station={station} onUpdateStation={handleReadStation} />
-        )
+          <MeasureAverageTab
+            station={station}
+            onUpdateStation={handleReadStation}
+          />
+        );
       default:
         return null;
     }
@@ -119,13 +125,30 @@ export default function DetailsStation() {
     try {
       await api.post("/emailStation/create", {
         email,
-        stationId: id
+        stationId: id,
       });
       successSwal("E-mail cadastrado com sucesso!");
       setShowEmailModal(false);
       setEmail("");
     } catch (error) {
-      errorSwal((error as any)?.response?.data?.error || "Erro ao cadastrar e-mail");
+      errorSwal(
+        (error as any)?.response?.data?.error || "Erro ao cadastrar e-mail"
+      );
+    }
+  };
+
+  const handleGeneratePdf = async () => {
+    try {
+      let response = await api.post(
+        "/station/generate-report",
+        { id: station?.id },
+        { responseType: "arraybuffer" }
+      );
+      downloadPdf(response.data, station?.name ?? "Relatório");
+    } catch (error) {
+      errorSwal(
+        (error as any)?.response?.data?.error || "Erro ao gerar PDF"
+      );
     }
   };
 
@@ -135,17 +158,35 @@ export default function DetailsStation() {
       <div className="modal-admin-content">
         <div className="modal-admin-bg2">
           <div className="details-station-header">
-            <h1 className="details-station-title">
-              Detalhes da estação {station?.uuid || "Carregando..."}
-            </h1>
-            {!authContext.isAuthenticated && (
+            <div className="details-station-header-icon">
+
+              <FontAwesomeIcon icon={faRss} className="details-station-icon" />
+              <h1 className="details-station-title">
+                Detalhes da estação {station?.uuid || "Carregando..."}
+                <div>
+                  <p className="name-station">
+                    {station?.name || "Carregando..."}
+                  </p>
+                </div>
+              </h1>
+            </div>
+            <div className="details-station-header-buttons">
+              {!authContext.isAuthenticated && (
+                <button
+                  className="btn-register-email"
+                  onClick={() => setShowEmailModal(true)}
+                >
+                  Cadastrar E-mail para receber alertas
+                </button>
+              )}
+
               <button
-                className="btn-register-email"
-                onClick={() => setShowEmailModal(true)}
-            >
-              Cadastrar E-mail para receber alertas
-            </button>
-            )}
+                className="btn-pdf"
+                onClick={() => handleGeneratePdf()}
+              >
+                Gerar pdf
+              </button>
+            </div>
           </div>
 
           {/* Email Modal */}
@@ -162,7 +203,10 @@ export default function DetailsStation() {
                     required
                   />
                   <div className="modal-buttons">
-                    <button type="button" onClick={() => setShowEmailModal(false)}>
+                    <button
+                      type="button"
+                      onClick={() => setShowEmailModal(false)}
+                    >
                       Cancelar
                     </button>
                     <button type="submit">Cadastrar</button>
