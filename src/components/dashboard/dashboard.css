@@ -1,23 +1,49 @@
 .dashboard {
-    padding: var(--padding-input);
-    border-radius: var(--border);
-    border: 1px solid var(--lavender-pale);
-    backdrop-filter: blur(8px);
+    width: 100%;
+    padding: 16px;
+}
+
+.charts-column {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 16px;
 }
 
 .parameter-chart {
-    padding: var(--padding-input);
-    border-radius: var(--border);
-    border: 1px solid var(--lavender-pale);
-    backdrop-filter: blur(8px);
-    margin-bottom: var(--padding-input);
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.parameter-chart .highcharts-container,
+.parameter-chart svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 768px) {
+    .parameter-chart {
+        height: auto;
+    }
 }
 
 .section-title__dashboard {
-    color: var(--indigo-solid);
-    font-size: var(--title-font);
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    color: var(--dark-plum);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Estilo para mensagem de sem dados */
+.station-tab__empty-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #888;
+    font-style: italic;
 }
 
 .filter-type {
@@ -29,5 +55,5 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }

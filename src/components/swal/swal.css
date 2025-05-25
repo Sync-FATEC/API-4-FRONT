@@ -1,0 +1,44 @@
+.my-popup-class {
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.my-title-class {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.my-confirm-button-class {
+  background-color: #4CAF50 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 4px !important;
+  font-weight: bold !important;
+}
+
+.my-progress-bar-class {
+  background-color: #4CAF50 !important;
+}
+
+.swal2-popup {
+  font-size: 1.1em !important;
+}
+
+.swal2-title {
+  color: #333 !important;
+}
+
+.swal2-html-container {
+  color: #666 !important;
+}
+
+.swal2-confirm {
+  background-color: #4CAF50 !important;
+}
+
+.swal2-timer-progress-bar {
+  background-color: #4CAF50 !important;
+} 

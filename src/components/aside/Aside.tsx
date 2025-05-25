@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import logo from '../../../src/static/img/tecsus.png'
 import ButtonAside from '../buttonAside/buttonAside';
 import './Aside.css';
-import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark, faMap, faDatabase, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChartPie, faGear, faRightFromBracket, faRss, faSliders, faTriangleExclamation, faUser, faBars, faXmark, faMap, faDatabase, faSync, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
@@ -94,7 +94,14 @@ export function Aside() {
               onClick={handleSync}
             />
           )}
-
+          {authContext.user !== undefined && (
+            <ButtonAside 
+              icon={faLock} 
+              link='/alterar-senha' 
+              isActive={currentPath === '/alterar-senha'} 
+              title="Alterar Senha" 
+            />
+          )}
           {/* <ButtonAside icon={faGear} link='/opcoes' isActive={currentPath === '/opcoes'} title="Opções" /> */}
         </div>
         <div className='logout'>

@@ -16,6 +16,7 @@ import RegisterClient from './pages/Client/RegisterClient/RegisterClient';
 import EditClient from './pages/Client/EditClient/EditClient';
 import ListClient from './pages/Client/ListClient/ListClient';
 import CreatePassword from './pages/Client/CreatePassword/CreatePassword';
+import ChangePassword from './pages/Client/ChangePassword/ChangePassword';
 import UpdateTypeParameter from './pages/TypeParamter/UpdateTypeParameter/UpdateTypeParameter';
 import CreateTypeParameter from './pages/TypeParamter/CreateTypeParameter/CreateTypeParameter';
 import DetailsStation from './pages/Station/DetailsStation/DetailsStation';
@@ -25,6 +26,8 @@ import CreateMeasure from './pages/Measure/CreateMeasure/CreateMeasure';
 import { useEffect } from 'react';
 import { useWebSocket } from './hooks/useWebSocket';
 import ToastContainer from './components/toast/ToastContainer';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
+import ValidTokenPasswordAuth from './contexts/auth/validTokenChangePassword';
 
 function App() {
   useWebSocket("ws://localhost:5555");
@@ -37,12 +40,14 @@ function App() {
             <Route path="/login" element={<LoginComponent />} />
             <Route path='/esqueci-senha' element={<ForgetPasswordComponent />} />
             <Route path="/" element={<LandingPage />} />
+            <Route path="/reset-password/:token" element={<ValidTokenPasswordAuth><ResetPassword /></ValidTokenPasswordAuth>} />
 
             {/* Usuário */}
             <Route path='/usuario' element={<RequireAuthAdmin><ListClient /></RequireAuthAdmin>} />
             <Route path='/usuario/criar' element={<RequireAuthAdmin><RegisterClient /></RequireAuthAdmin>} />
             <Route path='/usuario/atualizar/:id' element={<RequireAuthAdmin><EditClient /></RequireAuthAdmin>} />
             <Route path='/usuario/criar-senha/:email' element={<CreatePassword />} />
+            <Route path='/alterar-senha' element={<ChangePassword />} />
 
             {/* Estacao */}
             <Route path='/estacao' element={<ListStation />} />
