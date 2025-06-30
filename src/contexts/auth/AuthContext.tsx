@@ -6,6 +6,7 @@ import { AuthContextType, AuthProviderProps, UserInfo } from "../../types/auth/a
 import { useNavigate } from "react-router-dom";
 
 // Função auxiliar para decodificar e validar o token
+// Test deploy
 const decodeAndValidateToken = (token: string): UserInfo => {
   if (!token.includes('.') || token.split('.').length !== 3) {
     throw new Error("Token inválido");
