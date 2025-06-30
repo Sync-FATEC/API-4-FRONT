@@ -16,9 +16,9 @@ jobs:
     - name: Deploy via SSH to EC2
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_PROD }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
+        key: ${{ secrets.KEY_PROD }}
         script: |
           sudo git config --global --add safe.directory /home/***/API-4-FRONT
           sudo chown -R $USER:$USER /home/***/API-4-FRONT
