@@ -52,7 +52,7 @@ export default function LoginComponent() {
                     onChange={(e) => setPassword(e.target.value)} 
                 />
 
-                <p className="forget-password">Esqueceu sua senhaasssssssddddss? <a className="forget-password-click" onClick={handleForgetPassword}>Clique aqui</a></p>
+                <p className="forget-password">Esqueceu sua senhaa? <a className="forget-password-click" onClick={handleForgetPassword}>Clique aqui</a></p>
 
             </div>
         </div>
