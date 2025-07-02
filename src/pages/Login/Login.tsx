@@ -68,7 +68,9 @@ export default function LoginComponent() {
           </div>
 
           <div className="login-buttons">
+
             <Button onClick={handleLoginAsReader} label="Entrar apenas como leitor!!" styleButton={3} />
+
           </div>
         </div>
       </section>
