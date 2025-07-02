@@ -52,7 +52,7 @@ export default function LoginComponent() {
                     onChange={(e) => setPassword(e.target.value)} 
                 />
 
-                <p className="forget-password">Esqueceu sua senhaaa2? <a className="forget-password-click" onClick={handleForgetPassword}>Clique aqui</a></p>
+                <p className="forget-password">Esqueceu sua senha? <a className="forget-password-click" onClick={handleForgetPassword}>Clique aqui</a></p>
 
             </div>
         </div>
@@ -68,10 +68,15 @@ export default function LoginComponent() {
           </div>
 
           <div className="login-buttons">
-            <Button onClick={handleLoginAsReader} label="Entrar apenas como leitor" styleButton={3} />
+
+            <Button onClick={handleLoginAsReader} label="Entrar apenas como leitor!!" styleButton={3} />
+
           </div>
         </div>
       </section>
     </main>
   );
 }
+
+
+
